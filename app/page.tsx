@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import Image from "next/image";
 
 const sourceWidth = 1024;
 const sourceHeight = 1536;
@@ -15,7 +16,7 @@ function Crop({ x, y, w, h, className = "", label }: { x: number; y: number; w: 
 function Arrow() { return <span className="arrow" aria-hidden="true">⟶</span>; }
 
 function Logo() {
-  return <div className="brand" aria-label="Lisamone — art, framing, your space"><span className="brand-mark">L<span className="brand-sprig">✳</span></span><span className="brand-copy"><span className="brand-name">LISAMONE</span><span className="brand-tag">— ART / FRAMING / YOUR SPACE —</span></span></div>;
+  return <Image src="/logo4.png" alt="" width={70} height={70} priority />
 }
 
 const categories = [
@@ -51,8 +52,8 @@ export default function Home() {
 
     <section className="process"><div className="process-intro"><div className="eyebrow line-after">A bespoke process</div><h2>From idea<br />to art, together.</h2><p>Custom art is a conversation. We turn your ideas, spaces and stories into one-of-a-kind pieces, made by hand, with heart.</p><span className="button button-outline">Start your commission <Arrow /></span></div><div className="steps">{steps.map((step) => <div className="step" key={step.number}><span className="step-icon">{step.icon}</span><span className="step-number">{step.number}</span><h3>{step.title}</h3><p>{step.detail}</p></div>)}</div><Crop x={320} y={65} w={280} h={548} className="process-relief" label="Close view of white textured wall art" /><div className="handwritten process-script">Custom<br />Creates<br />Meaning<i /></div></section>
 
-    <section className="story"><Crop x={0} y={1184} w={360} h={244} className="story-photo" label="Artist painting a ceramic figurine in her studio" /><div className="story-copy"><div className="eyebrow line-after">The artist</div><h2>A more<br />artful everyday.</h2><p>LISAMONE is a celebration of handmade art, personal expression and beautifully lived spaces. From textured walls to hand-painted bags, each piece is created to bring more beauty, story and soul into your world.</p><span className="text-link">Our story <Arrow /></span></div><Crop x={687} y={1184} w={337} h={244} className="story-studio" label="Paintbrushes, sketches and sculpture in the studio" /></section>
+    <section className="story"><Crop x={0} y={1184} w={360} h={244} className="story-photo" label="Artist painting a ceramic figurine in her studio" /><div className="story-copy"><div className="eyebrow line-after">The artist</div><h2>A more<br />artful everyday.</h2><p>LISAMON is a celebration of handmade art, personal expression and beautifully lived spaces. From textured walls to hand-painted bags, each piece is created to bring more beauty, story and soul into your world.</p><span className="text-link">Our story <Arrow /></span></div><Crop x={687} y={1184} w={337} h={244} className="story-studio" label="Paintbrushes, sketches and sculpture in the studio" /></section>
 
-    <footer className="site-footer"><div className="footer-main"><Logo /><div className="footer-nav"><span>Artworks</span><span>Custom Art</span><span>Wearable Art</span><span>About</span><span>Contact</span></div><div className="handwritten footer-script">Art for<br />a kinder world</div><div className="socials"><span>◎</span><span>℘</span><span>▶</span><span>✉</span></div></div><div className="footer-bottom"><span>© 2024 LISAMONE. All rights reserved.</span><span>Handmade stories for brighter spaces</span></div></footer>
+    <footer className="site-footer"><div className="footer-main"><Logo /><div className="footer-nav"><span>Artworks</span><span>Custom Art</span><span>Wearable Art</span><span>About</span><span>Contact</span></div><div className="handwritten footer-script">Art for<br />a kinder world</div><div className="socials"><span>◎</span><span>℘</span><span>▶</span><span>✉</span></div></div><div className="footer-bottom"><span>© 2024 LISAMON. All rights reserved.</span><span>Handmade stories for brighter spaces</span></div></footer>
   </main>;
 }

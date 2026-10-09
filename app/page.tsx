@@ -1,59 +1,140 @@
-import type { CSSProperties } from "react";
 import Image from "next/image";
 
-const sourceWidth = 1024;
-const sourceHeight = 1536;
-
-function Crop({ x, y, w, h, className = "", label }: { x: number; y: number; w: number; h: number; className?: string; label: string }) {
-  const style: CSSProperties = {
-    backgroundImage: "url('/reference-art.png')",
-    backgroundSize: `${(sourceWidth / w) * 100}% auto`,
-    backgroundPosition: `${(x / (sourceWidth - w)) * 100}% ${(y / (sourceHeight - h)) * 100}%`,
-  };
-  return <div className={`art-crop ${className}`} style={style} role="img" aria-label={label} />;
-}
-
-function Arrow() { return <span className="arrow" aria-hidden="true">⟶</span>; }
-
-function Logo() {
-  return <Image src="/logo4.png" alt="" width={70} height={70} priority />
-}
-
-const categories = [
-  { title: "Paintings", caption: "Original works", rect: [40, 669, 181, 215], label: "Textured painting of an eagle" },
-  { title: "Wall Art & Relief", caption: "Texture for your space", rect: [230, 669, 181, 215], label: "White floral relief artwork" },
-  { title: "Sculpture & Objects", caption: "Playful. One of a kind.", rect: [420, 669, 182, 215], label: "Hand painted sculptural face" },
-  { title: "Wearable Art", caption: "Hand-painted customization", rect: [612, 669, 181, 215], label: "Painted birds and blossoms on a bag" },
-  { title: "Murals", caption: "Bigger stories", rect: [802, 669, 182, 215], label: "Artist painting a mural" },
+const freshWorks = [
+  { image: "/r4-fresh-koi.webp", title: "Koi wall relief", kind: "Sculpture" },
+  { image: "/r4-fresh-duality.webp", title: "Duality", kind: "Painting" },
+  { image: "/r4-fresh-jester.webp", title: "Character sculpture", kind: "Sculpture" },
+  { image: "/r4-fresh-bag.webp", title: "Birds bag", kind: "Wearable art" },
 ] as const;
 
-const steps = [
-  { icon: "♧", number: "01", title: "Tell us\nyour vision", detail: "Share your idea,\nspace or inspiration." },
-  { icon: "✎", number: "02", title: "We explore\ntogether", detail: "Sketches, materials\nand details." },
-  { icon: "❧", number: "03", title: "Handmade\nwith care", detail: "Your piece comes\nto life in the studio." },
-  { icon: "⌂", number: "04", title: "Art finds\nits home", detail: "A unique piece,\nmade for you." },
-];
+const categories = [
+  { image: "/r4-stripe-paintings.webp", title: "Paintings", id: "paintings" },
+  { image: "/r4-stripe-sculptures.webp", title: "Sculptures", id: "sculptures" },
+  { image: "/r4-stripe-reliefs.webp", title: "Wall reliefs", id: "wall-reliefs" },
+  { image: "/r4-stripe-wearable.webp", title: "Wearable art", id: "wearable-art" },
+] as const;
+
+const selectedWorks = [
+  { image: "/r4-selected-jester.webp", title: "The Jester", kind: "Sculpture" },
+  { image: "/r4-selected-figure.webp", title: "Hand-painted figure", kind: "Sculpture" },
+  { image: "/r4-selected-bag.webp", title: "Songbirds", kind: "Wearable art" },
+] as const;
+
+const places = [
+  { image: "/r4-place-interior.webp", title: "Art in your space" },
+  { image: "/r4-place-mural.webp", title: "Stories on walls" },
+  { image: "/r4-place-objects.webp", title: "Art in daily life" },
+] as const;
 
 export default function Home() {
-  return <main className="site-shell">
-    <header className="site-header"><Logo /><nav className="main-nav" aria-label="Main navigation"><span>Artworks</span><span>Custom Art</span><span>Wearable Art</span><span>About</span></nav><div className="header-actions"><span className="search-icon" aria-label="Search" /><span className="shop-button">Shop</span><span className="bag-icon" aria-label="Shopping bag">♙</span></div></header>
+  return (
+    <main className="site" id="top">
+      <div className="topline">Art shaped by hand</div>
 
-    <section className="hero">
-      <Crop x={300} y={65} w={315} h={549} className="hero-relief" label="Sculptural floral wall relief" />
-      <Crop x={320} y={65} w={280} h={548} className="hero-floral-side" label="Fine floral plaster relief" />
-      <div className="hero-copy"><div className="eyebrow hero-eyebrow">Art lives<br />in a kinder<br />world <span /></div><h1>Art<br />shaped<br />by hand.</h1><p>Original pieces, custom creations,<br />and art made personal.</p><div className="hero-ctas"><span className="button button-filled">Explore the collection <Arrow /></span><span className="button button-outline">Commission a piece</span></div><div className="handwritten hero-script">More<br /><span>than art</span><i /></div></div>
-      <Crop x={619} y={130} w={108} h={313} className="hero-artist" label="Artist working on a floral wall relief" />
-      <Crop x={686} y={344} w={180} h={270} className="hero-object" label="Whimsical sculptural planter" />
-      <Crop x={879} y={65} w={145} h={387} className="hero-portrait" label="Expressive portrait painting" />
-      <div className="hero-side-script handwritten">Handmade<br />Unique<br />Yours<i /></div>
-    </section>
+      <section className="hero" aria-labelledby="hero-title">
+        <Image src="/r4-hero.webp" alt="Carved koi wall relief with warm studio lighting" fill priority sizes="100vw" />
+        <h1 id="hero-title" className="visually-hidden">Lisamon — art made personal</h1>
+        <div className="mobile-brand" aria-hidden="true">LISAMON <small>DUBAI</small></div>
+        <div className="mobile-hero-content" aria-hidden="true"><p>Handmade art for your world</p><strong>Art made<br />personal<span>.</span></strong></div>
+        <a className="hero-home-link" href="#top" aria-label="Lisamon home" />
+        <a className="hero-scroll-link" href="#story" aria-label="Explore the Lisamon story" />
+      </section>
 
-    <section className="collection"><div className="section-bar"><div className="eyebrow line-after">Explore the collection</div><p>Art for real spaces. Real stories. Yours.</p><span className="text-link">View all <Arrow /></span></div><div className="category-grid">{categories.map(({ title, caption, rect, label }) => <div className="category" key={title}><Crop x={rect[0]} y={rect[1]} w={rect[2]} h={rect[3]} label={label} className="category-image" /><div className="category-meta"><div><h3>{title}</h3><p>{caption}</p></div><Arrow /></div></div>)}</div></section>
+      <section className="story" id="story" aria-labelledby="story-title">
+        <div className="story-copy">
+          <div className="story-heading">
+            <span className="script story-script">Behind</span>
+            <h2 id="story-title">The<br />Art</h2>
+          </div>
+          <div className="story-text">
+            <p>LISAMON celebrates handmade art and personal expression.</p>
+            <p>From textured walls to hand-painted bags, each piece brings beauty, story and soul into your world.</p>
+            <p>Original pieces. Custom creations. Made by hand.</p>
+            <strong>Made personal.</strong>
+          </div>
+        </div>
+        <div className="story-photo">
+          <Image src="/r4-story-artist.webp" alt="Lisamon artist creating a floral wall relief" fill sizes="(max-width: 620px) 100vw, 50vw" />
+        </div>
+      </section>
 
-    <section className="process"><div className="process-intro"><div className="eyebrow line-after">A bespoke process</div><h2>From idea<br />to art, together.</h2><p>Custom art is a conversation. We turn your ideas, spaces and stories into one-of-a-kind pieces, made by hand, with heart.</p><span className="button button-outline">Start your commission <Arrow /></span></div><div className="steps">{steps.map((step) => <div className="step" key={step.number}><span className="step-icon">{step.icon}</span><span className="step-number">{step.number}</span><h3>{step.title}</h3><p>{step.detail}</p></div>)}</div><Crop x={320} y={65} w={280} h={548} className="process-relief" label="Close view of white textured wall art" /><div className="handwritten process-script">Custom<br />Creates<br />Meaning<i /></div></section>
+      <section className="fresh" id="studio" aria-labelledby="fresh-title">
+        <h2 id="fresh-title">Fresh from the studio</h2>
+        <p className="script fresh-subtitle">Discover our latest creations.</p>
+        <div className="fresh-grid">
+          {freshWorks.map((work) => (
+            <a className="fresh-card" href="#inquiry" key={work.title} aria-label={`Ask about ${work.title}, ${work.kind}`}>
+              <Image src={work.image} alt={work.title} fill sizes="(max-width: 620px) 50vw, 25vw" />
+            </a>
+          ))}
+        </div>
+        <div className="studio-marker" aria-hidden="true"><span /></div>
+      </section>
 
-    <section className="story"><Crop x={0} y={1184} w={360} h={244} className="story-photo" label="Artist painting a ceramic figurine in her studio" /><div className="story-copy"><div className="eyebrow line-after">The artist</div><h2>A more<br />artful everyday.</h2><p>LISAMON is a celebration of handmade art, personal expression and beautifully lived spaces. From textured walls to hand-painted bags, each piece is created to bring more beauty, story and soul into your world.</p><span className="text-link">Our story <Arrow /></span></div><Crop x={687} y={1184} w={337} h={244} className="story-studio" label="Paintbrushes, sketches and sculpture in the studio" /></section>
+      <nav className="category-stripes" aria-label="Art categories">
+        {categories.map((category) => (
+          <a className="category-stripe" href="#selected" id={category.id} key={category.title} aria-label={`Explore ${category.title}`}>
+            <Image src={category.image} alt="" fill sizes="100vw" />
+          </a>
+        ))}
+      </nav>
 
-    <footer className="site-footer"><div className="footer-main"><Logo /><div className="footer-nav"><span>Artworks</span><span>Custom Art</span><span>Wearable Art</span><span>About</span><span>Contact</span></div><div className="handwritten footer-script">Art for<br />a kinder world</div><div className="socials"><span>◎</span><span>℘</span><span>▶</span><span>✉</span></div></div><div className="footer-bottom"><span>© 2024 LISAMON. All rights reserved.</span><span>Handmade stories for brighter spaces</span></div></footer>
-  </main>;
+      <section className="selected" id="selected" aria-labelledby="selected-title">
+        <div className="selected-heading">
+          <h2 id="selected-title">Selected<br />Works</h2>
+          <p className="script">Made by hand</p>
+        </div>
+        <div className="selected-grid">
+          {selectedWorks.map((work) => (
+            <a className="selected-card" href="#inquiry" key={work.title}>
+              <div className="selected-image"><Image src={work.image} alt={work.title} fill sizes="(max-width: 620px) 100vw, 33vw" /></div>
+              <div className="selected-caption"><strong>{work.title}</strong><span>{work.kind}</span></div>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="places" aria-labelledby="places-title">
+        <div className="places-heading">
+          <h2 id="places-title">Where art<br />belongs</h2>
+          <p className="script">Art for real spaces. Real stories. Yours.</p>
+        </div>
+        <div className="places-grid">
+          {places.map((place) => (
+            <a className="place-card" href="#inquiry" key={place.title} aria-label={place.title}>
+              <Image src={place.image} alt="" fill sizes="(max-width: 620px) 100vw, 33vw" />
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <footer className="inquiry" id="inquiry">
+        <div className="footer-wordmark" aria-hidden="true">LISAMON</div>
+        <div className="inquiry-layout">
+          <div className="inquiry-copy">
+            <p className="script">Inquiry</p>
+            <h2>Let’s create<br />together</h2>
+            <p className="inquiry-intro">Tell us your idea, space or inspiration.</p>
+            <span className="location">Dubai</span>
+          </div>
+          <form className="inquiry-form" action="mailto:sample@example.com?subject=Lisamon%20Inquiry" method="post" encType="text/plain">
+            <label>Full name<input type="text" name="name" autoComplete="name" required /></label>
+            <label>Email address<input type="email" name="email" autoComplete="email" required /></label>
+            <fieldset>
+              <legend>I’m interested in</legend>
+              <div className="interests">
+                <label><input type="checkbox" name="interest" value="Paintings" />Paintings</label>
+                <label><input type="checkbox" name="interest" value="Sculpture" />Sculpture</label>
+                <label><input type="checkbox" name="interest" value="Wall art" />Wall art</label>
+                <label><input type="checkbox" name="interest" value="Wearable art" />Wearable art</label>
+              </div>
+            </fieldset>
+            <label>Tell us about your project<textarea name="project" rows={2} required /></label>
+            <button type="submit">Send inquiry</button>
+          </form>
+        </div>
+        <div className="footer-bottom">Lisamon <span>/</span> Art for a kinder world</div>
+      </footer>
+    </main>
+  );
 }

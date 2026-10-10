@@ -1,29 +1,44 @@
 import Image from "next/image";
 
+const images = {
+  hero: "/Regenerated/Ivory Koi Relief in Sunlight.png",
+  koi: "/Regenerated/Ivory koi yin-yang wall relief.png",
+  artist: "/Regenerated/Artist Sculpting a Cherry Blossom Relief.png",
+  portrait: "/Regenerated/Dual portrait in warm and cool tones.png",
+  jester: "/Regenerated/Whimsical Ceramic Jester with Striped Hat.png",
+  bag: "/Regenerated/Teal quilted bag with birds and flowers.png",
+  eyes: "/Regenerated/Three Teal Eyes in Burgundy.png",
+  rose: "/Regenerated/Ivory rose relief on plum shadows.png",
+  figurine: "/Regenerated/Artist painting a tiny blue figurine.png",
+  interior: "/Regenerated/Warm arched botanical relief.png",
+  mural: "/Regenerated/Artist Painting a Playful Animal Mural.png",
+  objects: "/Regenerated/Hand-painted geometry on black leather.png",
+} as const;
+
 const freshWorks = [
-  { image: "/r4-fresh-koi.webp", title: "Koi wall relief", kind: "Sculpture" },
-  { image: "/r4-fresh-duality.webp", title: "Duality", kind: "Painting" },
-  { image: "/r4-fresh-jester.webp", title: "Character sculpture", kind: "Sculpture" },
-  { image: "/r4-fresh-bag.webp", title: "Birds bag", kind: "Wearable art" },
+  { image: images.koi, title: "Koi wall relief", kind: "Sculpture" },
+  { image: images.portrait, title: "Duality", kind: "Painting" },
+  { image: images.jester, title: "Character sculpture", kind: "Sculpture" },
+  { image: images.bag, title: "Birds bag", kind: "Wearable art" },
 ] as const;
 
 const categories = [
-  { image: "/r4-stripe-paintings.webp", title: "Paintings", id: "paintings" },
-  { image: "/r4-stripe-sculptures.webp", title: "Sculptures", id: "sculptures" },
-  { image: "/r4-stripe-reliefs.webp", title: "Wall reliefs", id: "wall-reliefs" },
-  { image: "/r4-stripe-wearable.webp", title: "Wearable art", id: "wearable-art" },
+  { image: images.eyes, number: "01", kicker: "Bold expressions", title: "Paintings", id: "paintings" },
+  { image: images.jester, number: "02", kicker: "Sculpted forms", title: "Sculptures", id: "sculptures" },
+  { image: images.rose, number: "03", kicker: "Textures for walls", title: "Wall reliefs", id: "wall-reliefs" },
+  { image: images.bag, number: "04", kicker: "Art you can carry", title: "Wearable art", id: "wearable-art" },
 ] as const;
 
 const selectedWorks = [
-  { image: "/r4-selected-jester.webp", title: "The Jester", kind: "Sculpture" },
-  { image: "/r4-selected-figure.webp", title: "Hand-painted figure", kind: "Sculpture" },
-  { image: "/r4-selected-bag.webp", title: "Songbirds", kind: "Wearable art" },
+  { image: images.jester, title: "The Jester", kind: "Sculpture" },
+  { image: images.figurine, title: "Hand-painted figure", kind: "Sculpture" },
+  { image: images.bag, title: "Songbirds", kind: "Wearable art" },
 ] as const;
 
 const places = [
-  { image: "/r4-place-interior.webp", title: "Art in your space" },
-  { image: "/r4-place-mural.webp", title: "Stories on walls" },
-  { image: "/r4-place-objects.webp", title: "Art in daily life" },
+  { image: images.interior, kicker: "Interior", title: <>Art in<br />your space</> },
+  { image: images.mural, kicker: "Murals", title: <>Stories<br />on walls</> },
+  { image: images.objects, kicker: "Everyday objects", title: <>Art<br />in daily life</> },
 ] as const;
 
 export default function Home() {
@@ -32,12 +47,12 @@ export default function Home() {
       <div className="topline">Art shaped by hand</div>
 
       <section className="hero" aria-labelledby="hero-title">
-        <Image src="/r4-hero.webp" alt="Carved koi wall relief with warm studio lighting" fill priority sizes="100vw" />
-        <h1 id="hero-title" className="visually-hidden">Lisamon — art made personal</h1>
-        <div className="mobile-brand" aria-hidden="true">LISAMON <small>DUBAI</small></div>
-        <div className="mobile-hero-content" aria-hidden="true"><p>Handmade art for your world</p><strong>Art made<br />personal<span>.</span></strong></div>
-        <a className="hero-home-link" href="#top" aria-label="Lisamon home" />
-        <a className="hero-scroll-link" href="#story" aria-label="Explore the Lisamon story" />
+        <Image src={images.hero} alt="Ivory koi wall relief lit by warm sunlight" fill priority sizes="100vw" />
+        <a className="hero-brand" href="#top" aria-label="Lisamon home">LISAMON <small>DUBAI</small></a>
+        <div className="hero-copy">
+          <p>Handmade art for your world</p>
+          <h1 id="hero-title">Art made<br />personal<span>.</span></h1>
+        </div>
       </section>
 
       <section className="story" id="story" aria-labelledby="story-title">
@@ -54,7 +69,7 @@ export default function Home() {
           </div>
         </div>
         <div className="story-photo">
-          <Image src="/r4-story-artist.webp" alt="Lisamon artist creating a floral wall relief" fill sizes="(max-width: 620px) 100vw, 50vw" />
+          <Image src={images.artist} alt="Artist creating a cherry blossom wall relief" fill sizes="(max-width: 620px) 100vw, 50vw" />
         </div>
       </section>
 
@@ -63,8 +78,9 @@ export default function Home() {
         <p className="script fresh-subtitle">Discover our latest creations.</p>
         <div className="fresh-grid">
           {freshWorks.map((work) => (
-            <a className="fresh-card" href="#inquiry" key={work.title} aria-label={`Ask about ${work.title}, ${work.kind}`}>
-              <Image src={work.image} alt={work.title} fill sizes="(max-width: 620px) 50vw, 25vw" />
+            <a className="fresh-card" href="#inquiry" key={work.title}>
+              <Image src={work.image} alt="" fill sizes="(max-width: 620px) 50vw, 25vw" />
+              <span className="fresh-caption"><strong>{work.title}</strong><span>{work.kind}</span></span>
             </a>
           ))}
         </div>
@@ -73,8 +89,12 @@ export default function Home() {
 
       <nav className="category-stripes" aria-label="Art categories">
         {categories.map((category) => (
-          <a className="category-stripe" href="#selected" id={category.id} key={category.title} aria-label={`Explore ${category.title}`}>
+          <a className="category-stripe" href="#selected" id={category.id} key={category.title}>
             <Image src={category.image} alt="" fill sizes="100vw" />
+            <span className="category-copy">
+              <span className="category-number">{category.number}</span>
+              <span className="category-words"><em>{category.kicker}</em><strong>{category.title}</strong></span>
+            </span>
           </a>
         ))}
       </nav>
@@ -87,7 +107,7 @@ export default function Home() {
         <div className="selected-grid">
           {selectedWorks.map((work) => (
             <a className="selected-card" href="#inquiry" key={work.title}>
-              <div className="selected-image"><Image src={work.image} alt={work.title} fill sizes="(max-width: 620px) 100vw, 33vw" /></div>
+              <div className="selected-image"><Image src={work.image} alt="" fill sizes="(max-width: 620px) 50vw, 33vw" /></div>
               <div className="selected-caption"><strong>{work.title}</strong><span>{work.kind}</span></div>
             </a>
           ))}
@@ -101,8 +121,9 @@ export default function Home() {
         </div>
         <div className="places-grid">
           {places.map((place) => (
-            <a className="place-card" href="#inquiry" key={place.title} aria-label={place.title}>
+            <a className="place-card" href="#inquiry" key={place.kicker}>
               <Image src={place.image} alt="" fill sizes="(max-width: 620px) 100vw, 33vw" />
+              <span className="place-caption"><span>{place.kicker}</span><strong>{place.title}</strong></span>
             </a>
           ))}
         </div>

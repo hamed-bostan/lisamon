@@ -1,8 +1,23 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
 
-export const metadata: Metadata = { title: "LISAMON — Art Shaped by Hand", description: "Original artwork, custom creations, and art made personal." };
+const antonio = localFont({
+  src: "./fonts/Antonio.ttf",
+  weight: "100 700",
+  display: "swap",
+  variable: "--font-antonio",
+});
+
+export const metadata: Metadata = {
+  title: "LISAMON — Art Shaped by Hand",
+  description: "Original artwork, custom creations, and art made personal.",
+};
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
-  return <html lang="en"><body>{children}</body></html>;
+  return (
+    <html lang="en" className={antonio.variable}>
+      <body>{children}</body>
+    </html>
+  );
 }

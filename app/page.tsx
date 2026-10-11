@@ -34,7 +34,7 @@ function Botanical() {
 function WorkCard({ work }: { work: typeof works[number] }) {
   return (
     <article>
-      <Artwork src={work.image} alt={work.alt} href={work.href} imageClassName={work.imageClass} sizes="(max-width: 767px) 46vw, 24vw" className="aspect-[170/226] bg-[#e4dfd8]" />
+      <Artwork src={work.image} alt={work.alt} href={work.href} linkLabel={`Explore ${work.title.toLowerCase()}`} imageClassName={work.imageClass} sizes="(max-width: 767px) 46vw, 24vw" className="aspect-[170/226] bg-[#e4dfd8]" />
       <div className="px-[1cqw] py-[2.5cqw] md:px-[1.1cqw] md:pt-[1.3cqw] md:pb-0">
         <h3 className="font-sans text-label font-semibold tracking-[.16em] text-[#71424c] uppercase">
           <a href={work.href}>{work.title}</a>
@@ -58,7 +58,7 @@ export default function Home() {
         <a href="#top" className="font-display text-[8cqw] font-normal tracking-[.03em] text-plum md:text-[5.3cqw]" aria-label="Lisamon home">LISAMON</a>
         <div className="mt-[9cqw] md:mt-[2.5cqw]">
           <Heading as="h1" id="hero-title" className="text-[16cqw] leading-[1.02] md:text-[10.5cqw]">
-            Art made<HeadingAccent className="block text-[14cqw] leading-[.97] md:text-[9.5cqw]">personal.</HeadingAccent>
+            Art made{" "}<HeadingAccent className="block text-[14cqw] leading-[.97] md:text-[9.5cqw]">personal.</HeadingAccent>
           </Heading>
           <Copy className="mt-[4cqw] max-w-[65%] md:mt-[1.9cqw] md:max-w-[40%]">Paintings, sculptures and stories<br />that live a little closer to you.</Copy>
           <a className="mt-[.7cqw] flex min-h-11 w-fit min-w-11 items-center" href="#studio" aria-label="Explore the studio"><Divider /></a>
@@ -84,20 +84,20 @@ export default function Home() {
       <section className="grid grid-cols-2 gap-[4cqw] bg-[radial-gradient(ellipse_at_center,#560b2b,var(--color-plum))] px-[5cqw] py-[7cqw] text-[#f0ddd7] md:min-h-[41.2cqw] md:grid-cols-[31%_33%_30%] md:gap-[2.2%] md:py-[2.4cqw] md:pr-[3.6cqw] md:pl-[6.3cqw]" id="paintings" aria-labelledby="paintings-title">
         <div className="col-span-2 md:col-span-1">
           <Heading id="paintings-title" tone="cream" className="text-[13cqw] md:text-[9cqw]">Paintings</Heading>
-          <h3 className="mt-[1cqw] text-[max(1.5rem,3.6cqw)] leading-none tracking-[-.05em] text-[#df939b] uppercase italic">People, places<br />and feelings.</h3>
+          <p className="mt-[1cqw] text-[max(1.5rem,3.6cqw)] leading-none tracking-[-.05em] text-[#df939b] uppercase italic">People, places<br />and feelings.</p>
           <Divider tone="bronze" className="my-[3cqw]" />
           <Copy>Figurative works that explore identity, memory and the quiet moments in between. Layered textures and bold colours bring every story to life.</Copy>
         </div>
-        <Artwork href="#inquiry" src={asset("09.jpg")} alt="Portrait of a woman with a white bird and a painted seascape" sizes="(max-width: 767px) 43vw, 31vw" className="min-h-[59cqw] md:min-h-[36.4cqw]" />
+        <Artwork href="#inquiry" linkLabel="View inquiry availability" src={asset("09.jpg")} alt="Portrait of a woman with a white bird and a painted seascape" sizes="(max-width: 767px) 43vw, 31vw" className="min-h-[59cqw] md:min-h-[36.4cqw]" />
         <div className="grid grid-cols-2 grid-rows-[45fr_53fr] gap-[3%] md:gap-x-[4%] md:gap-y-[2%]">
-          <Artwork href="#inquiry" src={asset("14.png")} alt="Three women in a colourful landscape" sizes="(max-width: 767px) 43vw, 29vw" className="col-span-2" imageClassName="object-[center_24%]" />
-          <Artwork href="#inquiry" src={asset("13.png")} alt="Woman surrounded by vibrant red fish" sizes="(max-width: 767px) 21vw, 14vw" />
-          <Artwork href="#inquiry" src={asset("15.png")} alt="Woman beneath the water with fish and reflections" sizes="(max-width: 767px) 21vw, 14vw" />
+          <Artwork href="#inquiry" linkLabel="View inquiry availability" src={asset("14.png")} alt="Three women in a colourful landscape" sizes="(max-width: 767px) 43vw, 29vw" className="col-span-2" imageClassName="object-[center_24%]" />
+          <Artwork href="#inquiry" linkLabel="View inquiry availability" src={asset("13.png")} alt="Woman surrounded by vibrant red fish" sizes="(max-width: 767px) 21vw, 14vw" />
+          <Artwork href="#inquiry" linkLabel="View inquiry availability" src={asset("15.png")} alt="Woman beneath the water with fish and reflections" sizes="(max-width: 767px) 21vw, 14vw" />
         </div>
       </section>
       <section className="grid grid-cols-2 bg-[linear-gradient(100deg,#f8f4ef,#e8e4de)] px-[4cqw] pt-[7cqw] md:min-h-[34.7cqw] md:grid-cols-[31%_34.5%_34.5%] md:pt-[2.2cqw] md:pr-[3.2cqw] md:pl-[6.3cqw]" id="sculptures" aria-labelledby="sculptures-title">
         <div className="z-10 col-span-2 pb-6 md:col-span-1 md:pr-[2cqw]">
-          <Heading id="sculptures-title" className="text-[11cqw] md:text-[7.8cqw]">Sculpted<HeadingAccent className="block text-[9cqw] md:text-[5.8cqw]">by hand</HeadingAccent></Heading>
+          <Heading id="sculptures-title" className="text-[11cqw] md:text-[7.8cqw]">Sculpted{" "}<HeadingAccent className="block text-[9cqw] md:text-[5.8cqw]">by hand</HeadingAccent></Heading>
           <Divider className="my-[2cqw]" />
           <Copy>From expressive busts to whimsical characters, each sculpture is carefully hand-shaped to capture emotion, personality and a sense of play.</Copy>
         </div>
@@ -111,11 +111,11 @@ export default function Home() {
           <Copy><span className="[font-variant:small-caps]">Lisamon’s</span> work finds home in private collections, curated interiors and contemporary spaces across Dubai and beyond.</Copy>
         </div>
       </section>
-      <footer className="relative grid gap-[6cqw] bg-[radial-gradient(ellipse_at_35%_40%,#550c2b,var(--color-plum))] px-[6cqw] py-[8cqw] text-[#ead9d2] md:min-h-[24.5cqw] md:grid-cols-[33%_43%] md:gap-[3%] md:px-[6.2cqw] md:pt-[3cqw] md:pb-[3.6cqw]" id="inquiry">
-        <Heading tone="cream" className="z-10 text-[12cqw] md:text-[6.4cqw]">Let’s create<HeadingAccent className="block text-[12cqw] md:text-[6.1cqw]">together</HeadingAccent></Heading>
+      <section aria-labelledby="inquiry-title" className="relative grid gap-[6cqw] bg-[radial-gradient(ellipse_at_35%_40%,#550c2b,var(--color-plum))] px-[6cqw] py-[8cqw] text-[#ead9d2] md:min-h-[24.5cqw] md:grid-cols-[33%_43%] md:gap-[3%] md:px-[6.2cqw] md:pt-[3cqw] md:pb-[3.6cqw]" id="inquiry">
+        <Heading id="inquiry-title" tone="cream" className="z-10 text-[12cqw] md:text-[6.4cqw]">Let’s create{" "}<HeadingAccent className="block text-[12cqw] md:text-[6.1cqw]">together</HeadingAccent></Heading>
         <InquiryForm />
         <Botanical />
-      </footer>
+      </section>
     </main>
   );
 }

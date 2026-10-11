@@ -15,8 +15,8 @@ export function Heading({ as: Tag = "h2", tone = "plum", className = "", ...prop
   );
 }
 
-export function HeadingAccent({ className = "", ...props }: ComponentPropsWithoutRef<"em">) {
-  return <em className={`font-serif font-normal text-rose tracking-[-.07em] ${className}`} {...props} />;
+export function HeadingAccent({ className = "", ...props }: ComponentPropsWithoutRef<"span">) {
+  return <span className={`font-serif font-normal italic text-rose tracking-[-.07em] ${className}`} {...props} />;
 }
 
 export function Copy({ className = "", ...props }: ComponentPropsWithoutRef<"p">) {
@@ -38,11 +38,12 @@ export function Divider({ tone = "rose", className = "" }: {
 
 type ArtworkProps = Pick<ImageProps, "src" | "alt" | "sizes"> & {
   href?: string;
+  linkLabel?: string;
   className?: string;
   imageClassName?: string;
 };
 
-export function Artwork({ src, alt, sizes, href, className = "", imageClassName = "" }: ArtworkProps) {
+export function Artwork({ src, alt, sizes, href, linkLabel, className = "", imageClassName = "" }: ArtworkProps) {
   const image = (
     <Image
       src={src}
@@ -54,7 +55,7 @@ export function Artwork({ src, alt, sizes, href, className = "", imageClassName 
   );
 
   return href ? (
-    <a href={href} className={`group relative block overflow-hidden ${className}`}>{image}</a>
+    <a href={href} aria-label={linkLabel} className={`group relative block overflow-hidden ${className}`}>{image}</a>
   ) : (
     <div className={`relative overflow-hidden ${className}`}>{image}</div>
   );

@@ -2,17 +2,24 @@ import Image from "next/image";
 import InquiryForm from "./inquiry-form";
 import { Artwork, Copy, Divider, Heading, HeadingAccent } from "./components/art";
 
-const asset = (name: string) => `/Final pics/${name}`;
-const koi = "/Regenerated/Ivory koi yin-yang wall relief.png";
+import studio from "../public/Final pics/01.png";
+import gallery from "../public/Final pics/03.png";
+import bust from "../public/Final pics/06.png";
+import figurines from "../public/Final pics/08.png";
+import portrait from "../public/Final pics/09.jpg";
+import redFish from "../public/Final pics/13.png";
+import landscape from "../public/Final pics/14.png";
+import underwater from "../public/Final pics/15.png";
+import koi from "../public/Regenerated/Ivory koi yin-yang wall relief.png";
 const works = [
-  { image: asset("09.jpg"), imageClass: "object-center", title: "Paintings", description: "Stories in colour and texture.", href: "#paintings", alt: "Textured portrait with a seascape and white bird" },
-  { image: asset("06.png"), imageClass: "object-[76%_center]", title: "Sculptures", description: "Characters with a story to tell.", href: "#sculptures", alt: "Hand-sculpted terracotta portrait bust" },
-  { image: asset("08.png"), imageClass: "object-[68%_center]", title: "Figurines", description: "Playful, expressive and full of life.", href: "#sculptures", alt: "Four colourful handmade character figurines" },
+  { image: portrait, imageClass: "object-center", title: "Paintings", description: "Stories in colour and texture.", href: "#paintings", alt: "Textured portrait with a seascape and white bird" },
+  { image: bust, imageClass: "object-[76%_center]", title: "Sculptures", description: "Characters with a story to tell.", href: "#sculptures", alt: "Hand-sculpted terracotta portrait bust" },
+  { image: figurines, imageClass: "object-[68%_center]", title: "Figurines", description: "Playful, expressive and full of life.", href: "#sculptures", alt: "Four colourful handmade character figurines" },
   { image: koi, imageClass: "object-center", title: "Commissioned works", description: "Art made for your space.", href: "#inquiry", alt: "Ivory koi fish wall relief" },
 ];
 const sculptures = [
-  { image: asset("06.png"), alt: "Expressive terracotta bust resting its face in its hands" },
-  { image: asset("08.png"), alt: "Playful hand-painted figurines on a white plinth" },
+  { image: bust, alt: "Expressive terracotta bust resting its face in its hands" },
+  { image: figurines, alt: "Playful hand-painted figurines on a white plinth" },
 ];
 
 function Botanical() {
@@ -34,7 +41,7 @@ function Botanical() {
 function WorkCard({ work }: { work: typeof works[number] }) {
   return (
     <article>
-      <Artwork src={work.image} alt={work.alt} href={work.href} linkLabel={`Explore ${work.title.toLowerCase()}`} imageClassName={work.imageClass} sizes="(max-width: 767px) 46vw, 24vw" className="aspect-[170/226] bg-[#e4dfd8]" />
+      <Artwork src={work.image} alt={work.alt} href={work.href} linkLabel={`Explore ${work.title.toLowerCase()}`} imageClassName={work.imageClass} sizes="(max-width: 767px) 46vw, (max-width: 1600px) 24vw, 384px" className="aspect-[170/226] bg-[#e4dfd8]" />
       <div className="px-[1cqw] py-[2.5cqw] md:px-[1.1cqw] md:pt-[1.3cqw] md:pb-0">
         <h3 className="font-sans text-label font-semibold tracking-[.16em] text-[#71424c] uppercase">
           <a href={work.href}>{work.title}</a>
@@ -53,7 +60,7 @@ export default function Home() {
       </div>
       <section className="relative isolate min-h-[78cqw] bg-[linear-gradient(118deg,#efe3ce,#faf3e7_31%,#d5c1a6)] px-[6.3cqw] pt-[5cqw] pb-[4cqw] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:bg-[linear-gradient(125deg,transparent_10%,#fff9e985_13%,#fff9e985_23%,transparent_26%,transparent_37%,#b6a18355_40%,transparent_48%)] md:min-h-[43cqw] md:pt-[2.4cqw]" aria-labelledby="hero-title">
         <div className="absolute inset-y-0 right-0 left-[32%] -z-20 overflow-hidden opacity-72 after:absolute after:inset-0 after:bg-[linear-gradient(90deg,#e5d5bc,transparent_65%)] md:left-[42%] md:opacity-100 md:after:bg-[linear-gradient(90deg,#e5d5bc,transparent_22%)]">
-          <Image className="object-cover object-[center_48%]" src={koi} alt="Two sculpted ivory koi among flowing waves" fill preload sizes="(max-width: 767px) 68vw, 58vw" />
+          <Image className="object-cover object-[center_48%]" src={koi} alt="Two sculpted ivory koi among flowing waves" fill preload sizes="(max-width: 767px) 68vw, (max-width: 1600px) 58vw, 928px" />
         </div>
         <a href="#top" className="font-display text-[8cqw] font-normal tracking-[.03em] text-plum md:text-[5.3cqw]" aria-label="Lisamon home">LISAMON</a>
         <div className="mt-[9cqw] md:mt-[2.5cqw]">
@@ -65,7 +72,7 @@ export default function Home() {
         </div>
       </section>
       <section className="grid md:min-h-[44.7cqw] md:grid-cols-[65.5%_34.5%]" aria-labelledby="story-title">
-        <Artwork src={asset("01.png")} alt="Lisamon painting at her studio table, surrounded by paints and brushes" sizes="(max-width: 767px) 100vw, 66vw" imageClassName="object-[48%_center]" className="h-[65cqw] md:h-auto" />
+        <Artwork src={studio} alt="Lisamon painting at her studio table, surrounded by paints and brushes" sizes="(max-width: 767px) 100vw, (max-width: 1600px) 66vw, 1056px" imageClassName="object-[48%_center]" className="h-[65cqw] md:h-auto" />
         <div className="space-y-5 bg-[linear-gradient(110deg,#ffcc79,#ffbd61)] p-[7cqw] md:space-y-[1.4cqw] md:pt-[3.1cqw] md:pr-[5.2cqw] md:pb-[2.5cqw] md:pl-[5.5cqw]">
           <Heading id="story-title" className="text-[12cqw] leading-[1.02] md:text-[7.7cqw]">Behind<br />the art</Heading>
           <Divider tone="ochre" />
@@ -88,11 +95,11 @@ export default function Home() {
           <Divider tone="bronze" className="my-[3cqw]" />
           <Copy>Figurative works that explore identity, memory and the quiet moments in between. Layered textures and bold colours bring every story to life.</Copy>
         </div>
-        <Artwork href="#inquiry" linkLabel="View inquiry availability" src={asset("09.jpg")} alt="Portrait of a woman with a white bird and a painted seascape" sizes="(max-width: 767px) 43vw, 31vw" className="min-h-[59cqw] md:min-h-[36.4cqw]" />
+        <Artwork href="#inquiry" linkLabel="View inquiry availability" src={portrait} alt="Portrait of a woman with a white bird and a painted seascape" sizes="(max-width: 767px) 43vw, (max-width: 1600px) 31vw, 496px" className="min-h-[59cqw] md:min-h-[36.4cqw]" />
         <div className="grid grid-cols-2 grid-rows-[45fr_53fr] gap-[3%] md:gap-x-[4%] md:gap-y-[2%]">
-          <Artwork href="#inquiry" linkLabel="View inquiry availability" src={asset("14.png")} alt="Three women in a colourful landscape" sizes="(max-width: 767px) 43vw, 29vw" className="col-span-2" imageClassName="object-[center_24%]" />
-          <Artwork href="#inquiry" linkLabel="View inquiry availability" src={asset("13.png")} alt="Woman surrounded by vibrant red fish" sizes="(max-width: 767px) 21vw, 14vw" />
-          <Artwork href="#inquiry" linkLabel="View inquiry availability" src={asset("15.png")} alt="Woman beneath the water with fish and reflections" sizes="(max-width: 767px) 21vw, 14vw" />
+          <Artwork href="#inquiry" linkLabel="View inquiry availability" src={landscape} alt="Three women in a colourful landscape" sizes="(max-width: 767px) 43vw, (max-width: 1600px) 29vw, 464px" className="col-span-2" imageClassName="object-[center_24%]" />
+          <Artwork href="#inquiry" linkLabel="View inquiry availability" src={redFish} alt="Woman surrounded by vibrant red fish" sizes="(max-width: 767px) 21vw, (max-width: 1600px) 14vw, 224px" />
+          <Artwork href="#inquiry" linkLabel="View inquiry availability" src={underwater} alt="Woman beneath the water with fish and reflections" sizes="(max-width: 767px) 21vw, (max-width: 1600px) 14vw, 224px" />
         </div>
       </section>
       <section className="grid grid-cols-2 bg-[linear-gradient(100deg,#f8f4ef,#e8e4de)] px-[4cqw] pt-[7cqw] md:min-h-[34.7cqw] md:grid-cols-[31%_34.5%_34.5%] md:pt-[2.2cqw] md:pr-[3.2cqw] md:pl-[6.3cqw]" id="sculptures" aria-labelledby="sculptures-title">
@@ -101,10 +108,10 @@ export default function Home() {
           <Divider className="my-[2cqw]" />
           <Copy>From expressive busts to whimsical characters, each sculpture is carefully hand-shaped to capture emotion, personality and a sense of play.</Copy>
         </div>
-        {sculptures.map(sculpture => <Artwork key={sculpture.image} src={sculpture.image} alt={sculpture.alt} sizes="(max-width: 767px) 46vw, 34vw" imageClassName="object-[76%_center]" className="min-h-[55cqw] md:min-h-0" />)}
+        {sculptures.map(sculpture => <Artwork key={sculpture.image.src} src={sculpture.image} alt={sculpture.alt} sizes="(max-width: 767px) 46vw, (max-width: 1600px) 34vw, 544px" imageClassName="object-[76%_center]" className="min-h-[55cqw] md:min-h-0" />)}
       </section>
       <section className="relative isolate min-h-[65cqw] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:bg-[linear-gradient(90deg,#f3eadaee,#f3eadacc_35%,transparent_80%)] md:min-h-[28.7cqw] md:after:bg-[linear-gradient(90deg,#f3eadadf_0%,#f3eadadf_27%,#f3eada00_46%)]" aria-labelledby="space-title">
-        <Image className="-z-20 object-cover object-[center_58%]" src={asset("03.png")} alt="Lisamon paintings displayed in a warm contemporary gallery" fill sizes="100vw" />
+        <Image className="-z-20 object-cover object-[center_58%]" src={gallery} alt="Lisamon paintings displayed in a warm contemporary gallery" fill sizes="(max-width: 1600px) 100vw, 1600px" />
         <div className="w-[70%] py-[9cqw] pl-[6cqw] md:w-[32%] md:py-[3.6cqw] md:pl-[6.1cqw]">
           <Heading id="space-title" className="text-[9cqw] whitespace-nowrap md:text-[6.8cqw]">Art in <HeadingAccent>space</HeadingAccent></Heading>
           <Divider className="my-[3cqw] md:mt-[1.6cqw] md:mb-[2cqw]" />

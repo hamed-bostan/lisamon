@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, type FormEvent, type ReactNode } from "react";
-import { Copy } from "./components/art";
+import styles from "./editorial.module.css";
 
-const fieldClassName = "min-h-11 w-full rounded-none border-field-border bg-transparent px-1 py-2.5 text-base text-field-text placeholder:text-field-placeholder placeholder:italic md:p-[.6cqw]";
+import { useState, type FormEvent, type ReactNode } from "react";
+
+const fieldClassName = styles.field;
 
 function FieldLabel({ children, label }: { children: ReactNode; label: string }) {
-  return <label className="block min-w-0"><span className="sr-only">{label}</span>{children}</label>;
+  return <label className="block min-w-0"><span className="font-sans text-xs tracking-wide text-plum">{label}</span>{children}</label>;
 }
 
 export default function InquiryForm() {
@@ -14,29 +15,43 @@ export default function InquiryForm() {
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setMessage("Message delivery is not connected yet. Please keep your message and try again once contact details are available.");
+    const data = new FormData(event.currentTarget);
+    const subject = `LISAMON enquiry: ${data.get("projectType")}`;
+    const body = `Full name: ${data.get("name")}\nEmail: ${data.get("email")}\nProject type: ${data.get("projectType")}\n\n${data.get("details")}`;
+    window.location.href = `mailto:lisamon.artt@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setMessage("Your enquiry is ready to send in your email app. If it did not open, email lisamon.artt@gmail.com or contact us on WhatsApp. Your details remain here for you to copy.");
   }
 
   return (
-    <form className="z-10 min-w-0 max-w-full" onSubmit={submit}>
-      <Copy className="mb-4 md:mb-[1.1cqw]">
-        Have a project, commission or idea in mind?<br />I’d love to hear from you.
-      </Copy>
-      <div className="grid gap-3 sm:grid-cols-2">
-        <FieldLabel label="Your name">
-          <input className={`${fieldClassName} border-0 border-b`} name="name" placeholder="Your Name" autoComplete="name" required />
+    <form className={styles.form} onSubmit={submit}>
+      <h3 className={styles.formTitle}>Start your project</h3>
+      <p className="mt-3 mb-7 text-base text-ink">Tell us about your space and your vision.</p>
+      <div className="space-y-5">
+        <div className="grid gap-5 sm:grid-cols-2">
+          <FieldLabel label="Full Name">
+            <input className={fieldClassName} name="name" autoComplete="name" maxLength={120} required />
+          </FieldLabel>
+          <FieldLabel label="Email Address">
+            <input className={fieldClassName} type="email" name="email" autoComplete="email" maxLength={254} required />
+          </FieldLabel>
+        </div>
+        <FieldLabel label="Project Type">
+          <select className={fieldClassName} name="projectType" defaultValue="" required>
+            <option value="" disabled>Select a project type</option>
+            <option>Sculptural wall art / 3D bas-relief</option>
+            <option>Custom sculpture</option>
+            <option>Artistic installation</option>
+            <option>Hand-painted mural</option>
+            <option>Other / I would like guidance</option>
+          </select>
         </FieldLabel>
-        <FieldLabel label="Your email">
-          <input className={`${fieldClassName} border-0 border-b`} type="email" name="email" placeholder="Your Email" autoComplete="email" required />
+        <FieldLabel label="Project Details">
+          <textarea className={`${fieldClassName} min-h-36 resize-y`} name="details" placeholder="Share the location, dimensions, ideas and timeline for your space…" rows={5} maxLength={3000} required />
         </FieldLabel>
       </div>
-      <FieldLabel label="Your message">
-        <textarea className={`${fieldClassName} mt-3 min-h-24 resize-y border`} name="message" placeholder="Your Message" rows={3} required />
-      </FieldLabel>
-      <button className="mt-2.5 min-h-11 cursor-pointer rounded-full bg-gold px-8 py-3 font-sans text-label font-semibold tracking-[.24em] text-plum uppercase hover:bg-[#ffd494] md:px-[4.4cqw] md:py-[1.35cqw]" type="submit">
-        Send message
-      </button>
-      {message && <p className="mt-3 text-sm leading-normal" role="status">{message}</p>}
+      <p id="delivery-note" className="mt-4 text-sm leading-relaxed text-ink">This opens your email app with your enquiry prepared for you to send.</p>
+      <button aria-describedby="delivery-note" className={styles.submit} type="submit">Send Enquiry <span aria-hidden="true" className="ml-5">↗</span></button>
+      {message && <p className="mt-4 text-sm leading-relaxed" role="status">{message}</p>}
     </form>
   );
 }

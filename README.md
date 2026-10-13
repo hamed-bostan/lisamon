@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lisamon
 
-## Getting Started
+Artist portfolio built with Next.js App Router, React, and Tailwind CSS.
 
-First, run the development server:
+## Development
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000. The homepage is in `app/page.tsx`, shared artwork components are in `app/components/art.tsx`, and images are in `public/`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Rendering strategy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The homepage uses **static site generation (SSG)** through Next.js automatic prerendering. Its artwork listings, copy, metadata, and imported images are available at build time and shared by every visitor. The page and layout remain Server Components; the portfolio content is included in the generated HTML.
 
-## Learn More
+| Strategy | Current decision | When to reconsider |
+| --- | --- | --- |
+| SSG | Already enabled automatically; appropriate for the portfolio. | Rebuild and deploy when local content or images change. |
+| Request-time SSR | Unnecessary: there is no personalized or request-dependent content. | Add it for authenticated or request-specific content, keeping public portfolio content static where possible. |
+| ISR | Unnecessary: there is no external content source to refresh. | Add it if artwork or availability comes from a CMS or database and must update between deployments. Choose a freshness interval or authenticated publication-triggered invalidation based on actual requirements. |
 
-To learn more about Next.js, take a look at the following resources:
+No forced rendering flags or timed revalidation are required. ISR cannot pick up edits to source files or bundled image imports without a rebuild. Server Components alone do not imply request-time SSR; the production build determines whether a route can be prerendered.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Keep browser interactivity in small Client Components if it is introduced. Reassess rendering when adding runtime APIs, uncached data, authentication, or URL-dependent server content.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Production verification
 
-## Deploy on Vercel
+```bash
+npm run lint
+npm run build
+npm start
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The build should report `○ /` (prerendered as static content). In `.next/prerender-manifest.json`, the `/` entry should have `compute: "static"` and `initialRevalidateSeconds: false`. Use the production build to verify rendering; development mode does not represent production caching.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deploy using a Next.js-compatible host or `npm start`. The app uses the default `next/image` optimizer, so a static homepage does not mean the deployment can serve only files. A static-only export would also require a compatible image loader or another image optimization strategy.
+
+Consult the installed version's guides in `node_modules/next/dist/docs/` before changing rendering or caching APIs, as required by `AGENTS.md`.

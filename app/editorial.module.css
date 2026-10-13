@@ -1,0 +1,58 @@
+.about { padding: clamp(48px, 6cqw, 96px); background: #f5f0e9; }
+.eyebrow { font: 600 11px/1.6 Arial, sans-serif; text-transform: uppercase; letter-spacing: .2em; }
+.aboutHeader { padding-bottom: 40px; border-bottom: 1px solid #45072026; margin-bottom: 44px; }
+.aboutHeader .eyebrow { display: flex; justify-content: space-between; color: #450720; }
+.aboutHeader .eyebrow span { color: #806a64; }
+.title { font: 400 clamp(38px, 4.4cqw, 70px)/1.08 Georgia, serif; letter-spacing: -.045em; color: #450720; margin-top: 26px; }
+.title em { font-weight: 400; color: #a64b5d; }
+.aboutGrid { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(36px, 5cqw, 80px); align-items: start; }
+.portrait { margin: 0; }
+.portraitImage { aspect-ratio: 4 / 4.5; }
+.portrait figcaption { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; padding-top: 15px; font: 11px/1.6 Arial, sans-serif; }
+.portrait figcaption span:first-child { color: #450720; }
+.portrait figcaption span:last-child { color: #806a64; }
+.story { font: 16px/1.8 Arial, sans-serif; }
+.story .eyebrow { color: #8b4f5b; margin-bottom: 18px; }
+.story p + p { margin-top: 20px; }
+.story .lead { font: 21px/1.55 Georgia, serif; color: #450720; }
+.process { margin-top: 28px; padding-top: 24px; border-top: 1px solid #45072026; }
+.process h3 { font: 24px/1.3 Georgia, serif; color: #450720; margin-bottom: 16px; }
+.founder { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(36px, 5cqw, 80px); border-top: 1px solid #45072026; padding-top: 32px; margin-top: 44px; }
+.founder h3 { font: 26px/1.35 Georgia, serif; letter-spacing: -.025em; color: #450720; margin-top: 16px; }
+.founder h3 em { color: #a64b5d; }
+.founder > p { font: 15px/1.85 Arial, sans-serif; }
+.contact { background: #450720; padding: clamp(48px, 6cqw, 96px); color: #f5f0e9; }
+.contactGrid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6cqw, 96px); align-items: start; }
+.contact .title { color: #f5f0e9; margin: 24px 0 30px; font-size: clamp(40px, 4.4cqw, 70px); }
+.contact .title em { color: #e6a3ad; }
+.contactCopy > h3 { font: 22px/1.4 Georgia, serif; margin-bottom: 18px; }
+.contactCopy > p:not(.eyebrow) { font: 14px/1.8 Arial, sans-serif; color: #dfccd0; margin-top: 14px; max-width: 48ch; }
+.contactDetails { margin-top: 34px; }
+.contactDetails dl { margin-top: 16px; }
+.contactDetails dl > div { display: grid; grid-template-columns: 84px 1fr; gap: 12px; border-bottom: 1px solid #ffffff24; padding: 13px 0; font: 13px/1.5 Arial, sans-serif; }
+.contactDetails dt { color: #d5adb7; }
+.contactDetails dd { min-width: 0; overflow-wrap: anywhere; }
+.contactDetails a { display: flex; justify-content: space-between; gap: 12px; }
+.contactDetails a:hover { color: #ffc46c; }
+.availability { font: italic 14px/1.6 Georgia, serif; color: #dfccd0; margin-top: 20px; }
+.form { min-width: 0; padding: clamp(24px, 3cqw, 48px); background: #f5f0e9; color: #59413e; border-top: 3px solid #ce6170; }
+.formTitle { font: 34px/1.2 Georgia, serif; letter-spacing: -.035em; color: #450720; }
+.form > p { font-family: Arial, sans-serif; font-size: 13px; line-height: 1.7; }
+.field { display: block; width: 100%; min-width: 0; margin-top: 8px; min-height: 48px; border: 1px solid #c8bcb5; border-radius: 0; padding: 12px; background: #fcfaf6; color: #450720; font: 14px/1.5 Arial, sans-serif; }
+.field::placeholder { color: #7c706b; }
+.field:focus-visible { outline: 2px solid #a64b5d; outline-offset: 3px; }
+.submit { display: flex; width: 100%; align-items: center; justify-content: space-between; margin-top: 24px; padding: 19px 24px; background: #450720; color: #f5f0e9; cursor: pointer; font: 600 11px/1.5 Arial, sans-serif; text-transform: uppercase; letter-spacing: .18em; transition: background .2s; }
+.submit:hover { background: #70243d; }
+@media (max-width: 767px) {
+  .about, .contact { padding: 44px 24px; }
+  .aboutGrid, .founder, .contactGrid { grid-template-columns: 1fr; gap: 30px; }
+  .aboutHeader { margin-bottom: 28px; padding-bottom: 28px; }
+  .aboutHeader .eyebrow { flex-wrap: wrap; gap: 12px; }
+  .title { font-size: clamp(34px, 8.2vw, 54px); }
+  .portraitImage { aspect-ratio: 4 / 4; }
+  .story .lead { font-size: 20px; }
+  .story { font-size: 15px; }
+  .founder { margin-top: 32px; gap: 20px; }
+  .contact .title { font-size: 46px; }
+  .form { padding: 26px 20px; }
+}

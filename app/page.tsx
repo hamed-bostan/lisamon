@@ -1,5 +1,7 @@
 import Image from "next/image";
+import styles from "./editorial.module.css";
 import InquiryForm from "./inquiry-form";
+import SpaceServices from "./components/space-services";
 import { Artwork, Copy, Divider, Heading, HeadingAccent } from "./components/art";
 
 import studio from "../public/Final pics/01.png";
@@ -10,10 +12,6 @@ import redFish from "../public/Final pics/13.png";
 import landscape from "../public/Final pics/14.png";
 import underwater from "../public/Final pics/15.png";
 import koi from "../public/Regenerated/Ivory koi yin-yang wall relief.png";
-import wallRelief from "../public/wall-relief-thumbnail.png";
-import sculpturalElements from "../public/sculptural-elements-thumbnail.png";
-import artisticWallFinishes from "../public/artistic-wall-finishes-thumbnail.jpg";
-import customWallMurals from "../public/custom-wall-murals-thumbnail.png";
 import heroWallpaper from "../public/lisamon-hero.png";
 const works = [
   { image: portrait, imageClass: "object-center", title: "Paintings", description: "Stories in colour and texture.", href: "#paintings", alt: "Textured portrait with a seascape and white bird" },
@@ -21,22 +19,6 @@ const works = [
   { image: figurines, imageClass: "object-[68%_center]", title: "Figurines", description: "Playful, expressive and full of life.", href: "#sculptures", alt: "Four colourful handmade character figurines" },
   { image: koi, imageClass: "object-center", title: "Commissioned works", description: "Art made for your space.", href: "#inquiry", alt: "Ivory koi fish wall relief" },
 ];
-
-function Botanical() {
-  return (
-    <svg className="pointer-events-none absolute top-0 right-[-2%] h-1/2 w-[45%] text-[#bb6f72] opacity-35 md:top-auto md:bottom-[-7%] md:h-full md:w-[24%] md:opacity-65" viewBox="0 0 200 260" fill="none" aria-hidden="true">
-      <g stroke="currentColor" strokeWidth="1">
-        <path d="M158 260Q115 163 135 52M151 234Q95 191 38 191M140 198Q159 151 193 112M133 158Q93 112 51 87M135 120Q170 74 160 16" />
-        {[0, 1, 2, 3, 4].map(i => (
-          <g key={i} transform={`translate(${i * 9} ${i * 30})`}>
-            <path d="M130 100Q88 85 81 52Q118 54 130 100ZM129 103Q151 68 173 64Q173 91 129 103Z" />
-            <path d="M130 100L89 61M129 103L166 73" />
-          </g>
-        ))}
-      </g>
-    </svg>
-  );
-}
 
 function WorkCard({ work }: { work: typeof works[number] }) {
   return (
@@ -60,16 +42,13 @@ export default function Home() {
         <Image src={heroWallpaper} alt="Lisamon walking with a paintbrush in front of the LISAMON lettering" preload unoptimized className="block h-auto w-full" />
       </section>
       <div className="mx-auto max-w-[1600px] [container-type:inline-size] min-[1600px]:shadow-[0_0_70px_#45272018]">
-      <section className="grid md:min-h-[44.7cqw] md:grid-cols-[65.5%_34.5%]" aria-labelledby="story-title">
-        <Artwork src={studio} alt="Lisamon painting at her studio table, surrounded by paints and brushes" sizes="(max-width: 767px) 100vw, (max-width: 1600px) 66vw, 1056px" imageClassName="object-[48%_center]" className="h-[65cqw] md:h-auto" />
-        <div className="space-y-5 bg-[linear-gradient(110deg,#ffcc79,#ffbd61)] p-[7cqw] md:space-y-[1.4cqw] md:pt-[3.1cqw] md:pr-[5.2cqw] md:pb-[2.5cqw] md:pl-[5.5cqw]">
-          <Heading id="story-title" className="text-[12cqw] leading-[1.02] md:text-[7.7cqw]">Behind<br />the art</Heading>
-          <Divider tone="ochre" />
-          <Copy><span className="[font-variant:small-caps]">Lisamon</span> is a Dubai-based artist creating expressive paintings and hand-sculpted figures that explore memory, emotion and the people who shape our lives.</Copy>
-          <Copy>Each piece begins with curiosity, a story and a belief that art can make the everyday more human.</Copy>
-          <Divider tone="ochre" />
-        </div>
-      </section>
+      <section id="about" className={styles.about} aria-labelledby="story-title">
+<header className={styles.aboutHeader}><p className={styles.eyebrow}>About Lisamon <span>Dubai, UAE</span></p><h2 id="story-title" className={styles.title}>Where art becomes<br /><em>part of architecture.</em></h2></header>
+<div className={styles.aboutGrid}>
+<figure className={styles.portrait}><Artwork src={studio} alt="Maedeh Akbari Farimani painting by hand, surrounded by paints and brushes" sizes="(max-width: 767px) 90vw, 38vw" imageClassName="object-[48%_center]" className={styles.portraitImage} /><figcaption><span>Maedeh Akbari Farimani</span><span>Founder &amp; visual artist</span></figcaption></figure>
+<div className={styles.story}><p className={styles.eyebrow}>The studio</p><p className={styles.lead}>LISAMON is a Dubai-based bespoke art studio founded by visual artist Maedeh Akbari Farimani, specializing in sculptural wall art, 3D bas-reliefs, custom sculptures, artistic installations and hand-painted murals.</p><p>Rooted in fine art and contemporary sculpture, LISAMON brings together artistic expression, craftsmanship and spatial design to create distinctive works that become an integral part of their surroundings.</p><div className={styles.process}><h3>From vision to installation</h3><p>From concept development and material exploration to handcrafted production and final installation, each project is thoughtfully tailored to its architectural setting and the client&apos;s vision.</p><p>Based in Dubai and working across the UAE, LISAMON creates bespoke artistic features for private residences, villas, hotels, restaurants and commercial interiors.</p></div></div></div>
+<div className={styles.founder}><div><p className={styles.eyebrow}>The artist behind Lisamon</p><h3>A foundation in fine art.<br /><em>A practice without boundaries.</em></h3></div><p>With a Bachelor&apos;s degree in Painting and Sculpture from Neyshabur University of Art, Maedeh brings an established artistic background to the studio. Her experience includes a solo exhibition, participation in art events at Gate Avenue in DIFC, collaboration with M2L Concepts and selection among the Top 20 artists in the Jokal Art Competition from approximately 2,000 submissions. She is also a UAE Golden Visa holder.</p></div>
+</section>
       <section className="bg-cream px-[4cqw] py-[7cqw] md:px-[2.55cqw] md:pt-[3.5cqw] md:pb-[2.8cqw]" id="studio" aria-labelledby="fresh-title">
         <div className="mb-[5cqw] grid items-center gap-5 md:mx-[3.2cqw] md:mb-[2.8cqw] md:grid-cols-[60%_36%] md:gap-[4%]">
           <Heading id="fresh-title" className="text-[7.5cqw] md:text-[5.1cqw]">Fresh from <HeadingAccent>the studio</HeadingAccent></Heading>
@@ -91,27 +70,18 @@ export default function Home() {
           <Artwork href="#inquiry" linkLabel="View inquiry availability" src={underwater} alt="Woman beneath the water with fish and reflections" sizes="(max-width: 767px) 21vw, (max-width: 1600px) 14vw, 224px" />
         </div>
       </section>
-      <section className="relative isolate flex h-[300px] w-full items-center justify-center overflow-hidden bg-[#d5c8b3] px-[6cqw] py-8 text-center" id="sculptures" aria-labelledby="sculptures-title">
-        <Image src={wallRelief} alt="Sculpted face in an ivory wall relief with delicate textured cracks" fill unoptimized className="-z-20 object-cover object-center" />
-        <Heading id="sculptures-title" className="text-[clamp(2rem,5cqw,5rem)] normal-case tracking-normal">Wall Relief Art</Heading>
-      </section>
-      <section className="relative isolate flex h-[300px] w-full items-center justify-center overflow-hidden bg-[#b99f85] px-[6cqw] py-8 text-center" aria-labelledby="space-title">
-        <Image className="-z-20 object-cover object-center" src={sculpturalElements} alt="Reflective sculptural wall elements in a warm contemporary interior" fill unoptimized />
-        <Heading id="space-title" className="text-[clamp(2rem,5cqw,5rem)] normal-case tracking-normal">Sculptural Elements for Interiors</Heading>
-      </section>
-      <section className="relative isolate flex h-[300px] w-full items-center justify-center overflow-hidden bg-[#ded5c5] px-[6cqw] py-8 text-center" aria-labelledby="wall-finishes-title">
-        <Image className="-z-20 object-cover object-center" src={artisticWallFinishes} alt="Flowing sculptural white wall finish in a sunlit interior" fill unoptimized />
-        <Heading id="wall-finishes-title" className="text-[clamp(2rem,5cqw,5rem)] normal-case tracking-normal">Artistic Wall Finishes</Heading>
-      </section>
-      <section className="relative isolate flex h-[300px] w-full items-center justify-center overflow-hidden bg-[#d3c6b9] px-[6cqw] py-8 text-center" aria-labelledby="murals-title">
-        <Image className="-z-20 object-cover object-center" src={customWallMurals} alt="Artist painting flowing black lines on a large interior wall" fill unoptimized />
-        <Heading id="murals-title" className="text-[clamp(2rem,5cqw,5rem)] normal-case tracking-normal">Custom Wall Murals</Heading>
-      </section>
-      <section aria-labelledby="inquiry-title" className="relative grid gap-[6cqw] bg-[radial-gradient(ellipse_at_35%_40%,#550c2b,var(--color-plum))] px-[6cqw] py-[8cqw] text-[#ead9d2] md:min-h-[24.5cqw] md:grid-cols-[33%_43%] md:gap-[3%] md:px-[6.2cqw] md:pt-[3cqw] md:pb-[3.6cqw]" id="inquiry">
-        <Heading id="inquiry-title" tone="cream" className="z-10 text-[12cqw] md:text-[6.4cqw]">Let’s create{" "}<HeadingAccent className="block text-[12cqw] md:text-[6.1cqw]">together</HeadingAccent></Heading>
-        <InquiryForm />
-        <Botanical />
-      </section>
+      <SpaceServices />
+      <section aria-labelledby="inquiry-title" className={styles.contact} id="inquiry">
+<div className={styles.contactGrid}><div className={styles.contactCopy}>
+<p className={styles.eyebrow}>Contact Lisamon</p><h2 id="inquiry-title" className={styles.title}>Let’s create<br /><em>something<br />exceptional.</em></h2>
+<h3>Have a space in mind? Let’s bring it to life.</h3>
+<p>From bespoke sculptures and sculptural wall art to hand-painted murals and artistic installations, every project begins with a vision.</p><p>We welcome enquiries from private clients, interior designers, architects and businesses seeking distinctive, custom-made artwork.</p>
+<div className={styles.contactDetails}><h3 className={styles.eyebrow}>Get in touch</h3><dl>
+<div><dt>Email</dt><dd><a href="mailto:lisamon.artt@gmail.com">lisamon.artt@gmail.com <span aria-hidden="true">↗</span></a></dd></div>
+<div><dt>WhatsApp</dt><dd><a href="https://wa.me/971501471996">+971 50 147 1996 <span aria-hidden="true">↗</span></a></dd></div>
+<div><dt>Instagram</dt><dd><a href="https://www.instagram.com/lisamondubai/">@lisamondubai <span aria-hidden="true">↗</span></a></dd></div>
+<div><dt>Location</dt><dd>Dubai, United Arab Emirates</dd></div></dl><p className={styles.availability}>Available for bespoke projects across the UAE.</p></div>
+</div><InquiryForm /></div></section>
       </div>
     </main>
   );

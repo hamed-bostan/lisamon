@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Catalogue from "./components/catalogue";
+import Intro from "./components/intro";
 import WhatsAppButton from "./components/whatsapp-button";
 import { contact } from "./data";
 import styles from "./home.module.css";
@@ -20,6 +21,7 @@ function ArrowIcon() {
 export default function Home() {
   return (
     <div className={styles.page} id="top">
+      <Intro />
       <header className={styles.hero}>
         <h1 className="sr-only">LISAMON</h1>
         <Image src={hero} alt="" fill preload sizes="100vw" className={styles.cover} />

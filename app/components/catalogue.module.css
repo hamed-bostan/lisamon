@@ -28,15 +28,24 @@ a.bar:hover {
   outline-color: #fff;
 }
 
+.barMedia {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
 .barImage {
   object-fit: cover;
   object-position: center 45%;
+  transition: transform 0.6s ease;
 }
 
 .barShade {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.32);
+  transition: opacity 0.6s ease;
 }
 
 .barIndex {
@@ -48,13 +57,89 @@ a.bar:hover {
   color: rgba(255, 255, 255, 0.75);
 }
 
-.barName {
+.barTitle {
   position: relative;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.barName {
+  white-space: nowrap;
   text-align: center;
   font-weight: 900;
   font-size: 2.05cqw;
   letter-spacing: -0.03cqw;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
+}
+
+.barBrowse {
+  position: absolute;
+  top: 100%;
+  margin-top: 0.7cqw;
+  display: flex;
+  align-items: center;
+  gap: 1cqw;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.barBrowseLabel {
+  font-size: max(10px, 0.7cqw);
+  letter-spacing: 0.3em;
+  font-weight: 700;
+}
+
+.barBrowseIcon {
+  width: max(30px, 2.4cqw);
+  height: max(30px, 2.4cqw);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(20, 20, 20, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.barBrowseIcon svg {
+  width: 45%;
+  height: 45%;
+}
+
+@media (hover: hover) {
+  .bar:hover .barImage {
+    transform: scale(1.05);
+  }
+
+  .bar:hover .barShade {
+    opacity: 0;
+  }
+
+  .bar:hover .barTitle {
+    transform: translateY(-1.1cqw);
+  }
+
+  .bar:hover .barBrowse {
+    opacity: 1;
+  }
+}
+
+.bar:focus-visible .barImage {
+  transform: scale(1.05);
+}
+
+.bar:focus-visible .barShade {
+  opacity: 0;
+}
+
+.bar:focus-visible .barTitle {
+  transform: translateY(-1.1cqw);
+}
+
+.bar:focus-visible .barBrowse {
+  opacity: 1;
 }
 
 .barCta {
@@ -140,9 +225,14 @@ a.bar:hover {
 
 .tile {
   position: relative;
+  display: block;
+  width: 100%;
   aspect-ratio: 4 / 5;
   overflow: hidden;
+  padding: 0;
+  border: 0;
   background: #f2f2f2;
+  cursor: zoom-in;
 }
 
 .tile img {
@@ -150,8 +240,56 @@ a.bar:hover {
   transition: transform 0.6s ease;
 }
 
-.tile:hover img {
+.tile:hover img,
+.tile:focus-visible img {
   transform: scale(1.04);
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(56px, 7vh, 90px) clamp(16px, 4vw, 80px);
+  background: rgba(18, 14, 15, 0.82);
+  backdrop-filter: blur(10px);
+}
+
+.lightboxImage {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+}
+
+.lightboxClose {
+  position: absolute;
+  top: clamp(14px, 2.4vw, 28px);
+  right: clamp(14px, 2.4vw, 28px);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(40, 36, 38, 0.9);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightboxClose svg {
+  width: 22px;
+  height: 22px;
+}
+
+.lightboxClose:focus-visible {
+  outline-color: #fff;
 }
 
 .empty {
@@ -174,8 +312,13 @@ a.bar:hover {
     font-size: max(16px, 4cqw);
   }
 
-  .barName {
+  .barTitle {
     padding: 0 24cqw 0 12cqw;
+  }
+
+  /* Long names wrap on phones instead of overflowing the strip. */
+  .barName {
+    white-space: normal;
     font-size: max(11px, 3.4cqw);
     line-height: 1.15;
   }
@@ -197,7 +340,11 @@ a.bar:hover {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tile img {
+  .tile img,
+  .barImage,
+  .barShade,
+  .barTitle,
+  .barBrowse {
     transition: none;
   }
 }

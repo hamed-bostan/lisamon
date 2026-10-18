@@ -5,12 +5,17 @@ import { useEffect, useRef } from "react";
 /** Esc to close, body scroll lock, and focus handling for a mounted modal. */
 export function useModal(onClose: () => void) {
   const closeButton = useRef<HTMLButtonElement>(null);
+  const latestOnClose = useRef(onClose);
+
+  useEffect(() => {
+    latestOnClose.current = onClose;
+  }, [onClose]);
 
   useEffect(() => {
     const previousFocus = document.activeElement as HTMLElement | null;
     const previousOverflow = document.body.style.overflow;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
+      if (event.key === "Escape") latestOnClose.current();
     };
 
     document.body.style.overflow = "hidden";
@@ -22,7 +27,7 @@ export function useModal(onClose: () => void) {
       window.removeEventListener("keydown", onKeyDown);
       previousFocus?.focus();
     };
-  }, [onClose]);
+  }, []);
 
   return closeButton;
 }

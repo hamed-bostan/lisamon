@@ -102,11 +102,9 @@
 .welcomeQuote {
   margin: 0;
   max-width: 52cqw;
-  font-family: var(--font-serif);
-  font-style: italic;
   font-weight: 400;
-  font-size: 2.5cqw;
-  line-height: 1.35;
+  font-size: 2.2cqw;
+  line-height: 1.45;
   color: var(--color-ink);
   text-wrap: balance;
 }
@@ -312,7 +310,7 @@
 
   .welcomeQuote {
     max-width: none;
-    font-size: clamp(20px, 6cqw, 28px);
+    font-size: clamp(18px, 5.2cqw, 24px);
   }
 
   .welcomeBody {

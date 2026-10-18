@@ -1,35 +1,40 @@
 @import "tailwindcss";
 
 @theme {
-  --color-plum: #450720;
-  --color-rose: #ce6170;
-  --color-cream: #f5f0e9;
-  --color-gold: #ffc46c;
-  --color-ink: #59413e;
-  --color-field-border: #99606f;
-  --color-field-text: #fff1e9;
-  --color-field-placeholder: #c097a0;
-  --font-serif: Georgia, "Times New Roman", serif;
-  --font-sans: Arial, sans-serif;
-  --text-body: clamp(1rem, 1.75cqw, 1.75rem);
-  --text-label: clamp(0.75rem, 1.18cqw, 1.18rem);
+  --color-burgundy: #68122c;
+  --color-burgundy-deep: #5c0d24;
+  --color-burgundy-hover: #6b0f2a;
+  --color-taupe: #8a6e61;
+  --color-ink: #1a1a1a;
+  --color-muted: #8f8f8f;
+  --color-line: #e4e4e6;
 }
 
 @theme inline {
-  --font-display: var(--font-antonio), "Arial Narrow", Impact, sans-serif;
+  --font-sans: var(--font-montserrat), sans-serif;
+  --font-serif: var(--font-playfair), Georgia, serif;
 }
 
 /* Only document-wide defaults belong in the base layer. */
 @layer base {
   html {
-    @apply scroll-smooth scroll-pt-5 motion-reduce:scroll-auto;
+    @apply scroll-smooth motion-reduce:scroll-auto;
   }
 
   body {
-    @apply bg-cream font-serif text-ink;
+    @apply m-0 bg-white font-sans text-ink;
   }
 
-  :is(a, button, input, textarea):focus-visible {
-    @apply outline-2 outline-offset-[5px] outline-rose;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--color-burgundy-hover);
+  }
+
+  :is(a, button):focus-visible {
+    @apply outline-2 outline-offset-4 outline-burgundy-hover;
   }
 }

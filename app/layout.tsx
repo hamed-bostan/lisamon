@@ -1,22 +1,28 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Montserrat, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
-const antonio = localFont({
-  src: "./fonts/Antonio.ttf",
-  weight: "100 700",
+const montserrat = Montserrat({
+  subsets: ["latin"],
   display: "swap",
-  variable: "--font-antonio",
+  variable: "--font-montserrat",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-playfair",
 });
 
 export const metadata: Metadata = {
-  title: "LISAMON — Art Shaped by Hand",
-  description: "Original artwork, custom creations, and art made personal.",
+  title: "LISAMON — Art Beyond the Canvas",
+  description: "LISAMON is a Dubai-based creative studio bringing art beyond the canvas through sculptural walls, installations, murals and bespoke pieces.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={antonio.variable}>
+    <html lang="en" className={`${montserrat.variable} ${playfair.variable}`}>
       <body>{children}</body>
     </html>
   );

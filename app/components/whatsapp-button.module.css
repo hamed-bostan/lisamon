@@ -1,0 +1,86 @@
+.dock {
+  position: fixed;
+  z-index: 60;
+  right: clamp(16px, 2cqw, 36px);
+  bottom: clamp(16px, 2cqw, 36px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 60px;
+  box-sizing: border-box;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.14);
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 0;
+  opacity: 0;
+  padding: 0;
+  pointer-events: none;
+  transition: max-width 0.55s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.35s ease, padding 0.55s ease;
+}
+
+.pill[data-open="true"] {
+  max-width: 320px;
+  opacity: 1;
+  padding: 0 8px 0 26px;
+  pointer-events: auto;
+}
+
+.label {
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  font-weight: 600;
+  color: #555;
+}
+
+.badge {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glyph {
+  width: 58%;
+  height: 58%;
+}
+
+.toggle {
+  flex: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(26, 20, 22, 0.82);
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.35s ease, color 0.35s ease;
+}
+
+.toggle[data-open="true"] {
+  background: #fff;
+  color: var(--color-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pill,
+  .toggle {
+    transition: none;
+  }
+}

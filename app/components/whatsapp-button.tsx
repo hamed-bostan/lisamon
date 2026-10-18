@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { contact } from "../data";
 import styles from "./whatsapp-button.module.css";
 
@@ -14,9 +14,26 @@ function WhatsAppGlyph({ className }: { className?: string }) {
 
 export default function WhatsAppButton() {
   const [open, setOpen] = useState(false);
+  const dockRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onPointerDown = (event: PointerEvent) => {
+      if (!dockRef.current?.contains(event.target as Node)) setOpen(false);
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
 
   return (
-    <div className={styles.dock}>
+    <div ref={dockRef} className={styles.dock}>
       <a
         href={contact.whatsapp}
         target="_blank"

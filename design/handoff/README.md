@@ -1,5 +1,7 @@
 # Handoff: LISAMON Studio Website
 
+> See **CHANGES.md** for the latest updates (intro animation, strip hover, welcome font).
+
 ## Overview
 Marketing/portfolio site for LISAMON, a Dubai-based creative studio (sculptural walls, installations, murals, bespoke art). Two pages:
 1. **Home** (`Studio Austinn.dc.html`) — hero, welcome, 5 catalogue category bars (open gallery modals), About Us, footer, floating WhatsApp button.

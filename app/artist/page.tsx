@@ -2,10 +2,14 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { exhibitions } from "../data";
+import { coverSizes } from "../components/cover-sizes";
 import ProjectGrid from "./project-grid";
 import styles from "./artist.module.css";
 
 import portrait from "../../public/images/artist/portrait.jpg";
+
+// The portrait column is usually taller than it is wide (the text beside it sets its height).
+const portraitBoxRatio = 3 / 4;
 
 export const metadata: Metadata = {
   title: "About the Artist — Maedeh Akbari Farimani | LISAMON",
@@ -34,7 +38,7 @@ export default function ArtistPage() {
             </div>
           </div>
           <div className={styles.portrait}>
-            <Image src={portrait} alt="Maedeh Akbari Farimani painting in the studio" fill preload sizes="(max-width: 840px) 100vw, 50vw" className={styles.cover} style={{ objectPosition: "62% 50%" }} />
+            <Image src={portrait} alt="Maedeh Akbari Farimani painting in the studio" fill preload sizes={coverSizes("(max-width: 840px) 100vw, 50vw", portrait, portraitBoxRatio)} className={styles.cover} style={{ objectPosition: "62% 50%" }} />
           </div>
         </section>
 

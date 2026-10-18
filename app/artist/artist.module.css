@@ -148,11 +148,16 @@ button.card {
   cursor: pointer;
 }
 
+button.card.zoomable {
+  cursor: zoom-in;
+}
+
 .card img {
   transition: transform 0.6s ease;
 }
 
-button.card:hover img {
+.card:hover img,
+.card:focus-visible img {
   transform: scale(1.03);
 }
 
@@ -325,9 +330,14 @@ button.card:hover img {
 
 .tile {
   position: relative;
+  display: block;
+  width: 100%;
   aspect-ratio: 1 / 1;
   overflow: hidden;
+  padding: 0;
+  border: 0;
   background: #f1f1f2;
+  cursor: zoom-in;
 }
 
 .tile img {
@@ -335,7 +345,8 @@ button.card:hover img {
   transition: transform 0.6s ease;
 }
 
-.tile:hover img {
+.tile:hover img,
+.tile:focus-visible img {
   transform: scale(1.05);
 }
 

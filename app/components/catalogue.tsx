@@ -1,9 +1,11 @@
 "use client";
 
-import Image, { getImageProps } from "next/image";
+import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useState, type ReactNode } from "react";
 import { categories, type Category } from "../data";
+import { coverSizes } from "./cover-sizes";
+import Lightbox from "./lightbox";
 import styles from "./catalogue.module.css";
 import { useModal } from "./use-modal";
 
@@ -30,39 +32,12 @@ function Bar({ category, children }: { category: Category; children: ReactNode }
   );
 }
 
-function Lightbox({ src, alt, onClose }: { src: string; alt: string; onClose: () => void }) {
-  const closeButton = useRef<HTMLButtonElement>(null);
-  const { props } = getImageProps({ src, alt, fill: true, sizes: "92vw" });
-
-  useEffect(() => {
-    const previousFocus = document.activeElement as HTMLElement | null;
-    closeButton.current?.focus();
-    return () => previousFocus?.focus();
-  }, []);
-
-  return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-label={alt}
-      className={styles.lightbox}
-      onClick={onClose}
-    >
-      {/* A plain <img> keeps the picture's own aspect ratio inside the viewport; getImageProps still serves optimized sizes. */}
-      {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
-      <img {...props} style={undefined} className={styles.lightboxImage} onClick={event => event.stopPropagation()} />
-      <button ref={closeButton} type="button" aria-label="Close image" className={styles.lightboxClose} onClick={onClose}>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
-      </button>
-    </div>
-  );
-}
-
 function CategoryModal({ category, onClose }: { category: Category; onClose: () => void }) {
   const [zoomed, setZoomed] = useState<number | null>(null);
   const closeZoom = useCallback(() => setZoomed(null), []);
   // Esc closes the enlarged image first, then the gallery.
   const closeButton = useModal(zoomed === null ? onClose : closeZoom);
+  const tileSizes = "(max-width: 600px) 92vw, (max-width: 1200px) 30vw, 300px";
   const imageAlt = (i: number) => `${category.name} — work ${i + 1}`;
 
   return (
@@ -83,8 +58,8 @@ function CategoryModal({ category, onClose }: { category: Category; onClose: () 
           {category.images.length > 0 ? (
             <div className={styles.modalGrid}>
               {category.images.map((src, i) => (
-                <button key={src} type="button" className={styles.tile} onClick={() => setZoomed(i)} aria-label={`Enlarge ${imageAlt(i)}`}>
-                  <Image src={src} alt={imageAlt(i)} fill sizes="(max-width: 600px) 92vw, (max-width: 1200px) 30vw, 300px" />
+                <button key={src.src} type="button" className={styles.tile} onClick={() => setZoomed(i)} aria-label={`Enlarge ${imageAlt(i)}`}>
+                  <Image src={src} alt={imageAlt(i)} fill sizes={coverSizes(tileSizes, src, 4 / 5)} />
                 </button>
               ))}
             </div>

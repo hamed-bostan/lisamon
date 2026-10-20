@@ -17,15 +17,17 @@
 }
 
 /* Fixed navbar: frosted white glass strip with the logo and Instagram link above it. */
+/* Logo is always twice the Instagram glyph: 44/88px on desktop, 30/60px on phones (see the 700px query). */
 .hero {
-  --nav-h: max(60px, 6cqw);
-  --logo-w: max(38px, 4.6cqw);
+  --ig-size: 44px;
+  --logo-w: calc(var(--ig-size) * 2);
+  --nav-h: calc(var(--logo-w) * 0.9157 + 2 * max(10px, 0.8cqw));
 }
 
 .navbar {
   position: fixed;
   z-index: 49;
-  inset: 0 0 auto;
+  inset: var(--announce-h) 0 auto;
   height: var(--nav-h);
   background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(14px) saturate(1.4);
@@ -45,7 +47,7 @@
   position: fixed;
   z-index: 50;
   left: 3cqw;
-  top: calc((var(--nav-h) - var(--logo-w) * 0.9157) / 2);
+  top: calc(var(--announce-h) + (var(--nav-h) - var(--logo-w) * 0.9157) / 2);
   width: var(--logo-w);
   height: calc(var(--logo-w) * 0.9157);
   overflow: hidden;
@@ -66,9 +68,9 @@
   position: fixed;
   z-index: 50;
   right: 3cqw;
-  top: calc((var(--nav-h) - 44px) / 2);
-  width: 44px;
-  height: 44px;
+  top: calc(var(--announce-h) + (var(--nav-h) - max(44px, var(--ig-size))) / 2);
+  width: max(44px, var(--ig-size));
+  height: max(44px, var(--ig-size));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -81,8 +83,9 @@
 }
 
 .instagram svg {
-  width: 44px;
-  height: 44px;
+  flex: none;
+  width: var(--ig-size);
+  height: var(--ig-size);
 }
 
 /* Welcome */
@@ -97,10 +100,10 @@
 
 .eyebrow {
   margin: 0;
-  font-size: 30px;
+  font-size: clamp(18px, 4.8cqw, 30px);
   letter-spacing: 0.5em;
   font-weight: 500;
-  color: var(--color-taupe);
+  color: #68122c85;
 }
 
 .welcomeRule {
@@ -113,20 +116,10 @@
 .welcomeQuote {
   margin: 0;
   max-width: 52cqw;
-  font-weight: 300;
-  font-size: clamp(15px, 1.4cqw, 22px);
-  line-height: 1.75;
-  color: var(--color-ink);
-  text-wrap: balance;
-}
-
-.welcomeBody {
-  margin: 1.2cqw 0 0;
-  max-width: 48cqw;
   font-size: clamp(15px, 1.4cqw, 22px);
   line-height: 1.75;
   color: #444;
-  text-wrap: pretty;
+  text-wrap: balance;
 }
 
 /* About */
@@ -145,23 +138,18 @@
 }
 
 .aboutTitle {
-  position: absolute;
-  left: 4cqw;
-  top: 3cqw;
-  margin: 0;
-  font-style: italic;
+  margin: 0 0 1.2cqw -1.5cqw;
   font-weight: 400;
   font-size: 5.6cqw;
   line-height: 1.35;
-  color: #e4e4e8;
+  color: #68122c85;
 }
 
 .aboutText {
   position: relative;
-  margin-top: 2.6cqw;
   border-left: 1px solid #bdbdbd;
   padding-left: 1.4cqw;
-  font-size: 1cqw;
+  font-size: max(15px, 1cqw);
   line-height: 1.7;
   color: #555;
   display: flex;
@@ -172,29 +160,6 @@
 
 .aboutText p {
   margin: 0;
-}
-
-.aboutText b {
-  color: #222;
-}
-
-.aboutClosing {
-  margin-top: 2.4cqw;
-  border-top: 1px solid #d0d0d0;
-  padding: 1.6cqw 0 0 1.4cqw;
-  font-size: 1cqw;
-  color: #555;
-}
-
-.aboutClosing p {
-  margin: 0;
-}
-
-.aboutClosing .accent {
-  font-style: italic;
-  font-size: 2cqw;
-  color: var(--color-burgundy-deep);
-  margin-top: 0.4cqw;
 }
 
 .aboutImage {
@@ -248,9 +213,12 @@
   overflow: hidden;
 }
 
+/* Portrait is a half-length shot; zoom toward the face so it reads at avatar size. */
 .founder img {
   object-fit: cover;
-  object-position: 50% 20%;
+  object-position: 47% 0%;
+  transform: scale(1.5);
+  transform-origin: 46% 8%;
 }
 
 .footerText {
@@ -310,6 +278,7 @@
 @media (max-width: 700px) {
   .hero {
     aspect-ratio: 941 / 1672;
+    --ig-size: 30px;
   }
 
   .welcome {
@@ -325,39 +294,23 @@
     max-width: none;
   }
 
-  .welcomeBody {
-    max-width: none;
-    margin-top: 3cqw;
-  }
-
   .about {
     grid-template-columns: minmax(0, 1fr);
   }
 
   .aboutCopy {
-    padding: 22cqw 6cqw 12cqw;
+    padding: 10cqw 6cqw 12cqw;
   }
 
   .aboutTitle {
-    left: 5cqw;
-    top: 6cqw;
+    margin: 0 0 4cqw -1cqw;
     font-size: 14cqw;
   }
 
-  .aboutText,
-  .aboutClosing {
+  .aboutText {
     font-size: 15px;
     gap: 14px;
     padding-left: 16px;
-  }
-
-  .aboutClosing {
-    margin-top: 24px;
-    padding-top: 16px;
-  }
-
-  .aboutClosing .accent {
-    font-size: 26px;
   }
 
   .aboutImage {

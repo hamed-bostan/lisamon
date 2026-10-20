@@ -18,6 +18,13 @@
 @layer base {
   html {
     @apply scroll-smooth motion-reduce:scroll-auto;
+    /* Height of the sticky announcement strip; fixed header items are offset by it. */
+    --announce-h: 30px;
+
+    /* Matches the 700px phone breakpoint used across the page modules. */
+    @media (max-width: 700px) {
+      --announce-h: 40px;
+    }
   }
 
   body {

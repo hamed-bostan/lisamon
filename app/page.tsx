@@ -10,7 +10,7 @@ import hero from "../public/images/home/hero.jpg";
 import heroMobile from "../public/images/home/hero-mobile.jpg";
 import logoMark from "../public/images/home/logo-mark.png";
 import team from "../public/images/home/about-team.jpg";
-import founder from "../public/images/home/founder.png";
+import founder from "../public/images/home/founder.jpg";
 
 function ArrowIcon() {
   return (
@@ -58,7 +58,6 @@ export default function Home() {
           <h2 id="welcome-title" className={styles.eyebrow}>WELCOME</h2>
           <span className={styles.welcomeRule} aria-hidden="true" />
           <p className={styles.welcomeQuote}>LISAMON, where art and design come together to create spaces with character and soul.</p>
-          <p className={styles.welcomeBody}>We believe every space has a story to tell. Through a thoughtful blend of artistic expression, sculptural elements, and interior design, we transform ordinary spaces into meaningful experiences that reflect individuality, creativity, and timeless beauty.</p>
         </section>
 
         <Catalogue />
@@ -67,15 +66,11 @@ export default function Home() {
           <div className={styles.aboutCopy}>
             <h2 id="about-title" className={styles.aboutTitle}>About Us</h2>
             <div className={styles.aboutText}>
-              <p><b>LISAMON</b> is a Dubai-based creative studio born from a shared passion for art, design, and the desire to create something beyond the ordinary.</p>
+              <p>LISAMON is a Dubai-based creative studio born from a shared passion for art, design, and the desire to create something beyond the ordinary.</p>
               <p>Our team brings together art, interior styling, sculptural elements, and creative craftsmanship to transform spaces into unique, inspiring environments.</p>
               <p>We believe a home should be more than a beautifully designed interior. It should reflect the personality, emotions, and lifestyle of the people who live within it.</p>
               <p>We don’t believe in repeating trends or creating spaces that look alike. Every project begins with a new perspective, a unique story, and the freedom to imagine something different.</p>
-              <p>Our mission is simple: <b>to bring art beyond the canvas and into everyday life.</b></p>
-            </div>
-            <div className={styles.aboutClosing}>
-              <p>At LISAMON, we don’t just decorate spaces.</p>
-              <p className={styles.accent}>We give them character.</p>
+              <p>Our mission is simple: to bring art beyond the canvas and into everyday life.</p>
             </div>
           </div>
           <div className={styles.aboutImage}>
@@ -94,7 +89,7 @@ export default function Home() {
           </nav>
           <div className={styles.footerMain}>
             <div className={styles.founder}>
-              <Image src={founder} alt="LISAMON founder" fill sizes="(max-width: 1200px) 120px, 10vw" />
+              <Image src={founder} alt="LISAMON founder" fill sizes="(max-width: 1200px) 180px, 15vw" />
             </div>
             <p className={styles.footerText}>LISAMON is a Dubai-based creative studio bringing art beyond the canvas, through sculptural walls, installations and bespoke pieces.</p>
             <p className={styles.copyright}>© LISAMON. All rights reserved.</p>

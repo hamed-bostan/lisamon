@@ -16,7 +16,6 @@ function Bar({ category, children }: { category: Category; children: ReactNode }
         <Image src={category.cover} alt="" fill sizes="100vw" className={styles.barImage} />
         <span className={styles.barShade} />
       </span>
-      <span className={styles.barIndex} aria-hidden="true">{category.index}</span>
       <span className={styles.barTitle}>
         <span className={styles.barName}>{category.name}</span>
         <span className={styles.barBrowse} aria-hidden="true">
@@ -26,7 +25,6 @@ function Bar({ category, children }: { category: Category; children: ReactNode }
           </span>
         </span>
       </span>
-      <span className={styles.barCta} aria-hidden="true">CATALOGUE →</span>
       {children}
     </>
   );

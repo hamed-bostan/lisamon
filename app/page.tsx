@@ -1,11 +1,13 @@
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import Catalogue from "./components/catalogue";
 import Intro from "./components/intro";
+import NavbarBackdrop from "./components/navbar-backdrop";
 import WhatsAppButton from "./components/whatsapp-button";
 import { contact } from "./data";
 import styles from "./home.module.css";
 
-import hero from "../public/images/home/hero.png";
+import hero from "../public/images/home/hero.jpg";
+import heroMobile from "../public/images/home/hero-mobile.jpg";
 import logoMark from "../public/images/home/logo-mark.png";
 import team from "../public/images/home/about-team.jpg";
 import founder from "../public/images/home/founder.png";
@@ -18,22 +20,35 @@ function ArrowIcon() {
   );
 }
 
+// Art direction: portrait crop on phones (matches the 700px breakpoint in home.module.css), landscape elsewhere.
+function HeroImage() {
+  const common = { alt: "", fill: true, sizes: "100vw" } as const;
+  const { props: { srcSet: mobileSrcSet } } = getImageProps({ ...common, src: heroMobile });
+  const { props: { alt, ...desktop } } = getImageProps({ ...common, src: hero });
+  return (
+    <picture>
+      <source media="(max-width: 700px)" srcSet={mobileSrcSet} />
+      <img {...desktop} alt={alt} loading="eager" fetchPriority="high" className={styles.cover} />
+    </picture>
+  );
+}
+
 export default function Home() {
   return (
     <div className={styles.page} id="top">
       <Intro />
       <header className={styles.hero}>
         <h1 className="sr-only">LISAMON</h1>
-        <Image src={hero} alt="" fill preload sizes="100vw" className={styles.cover} />
+        <HeroImage />
+        <NavbarBackdrop className={styles.navbar} />
         <div className={styles.logoMark} aria-hidden="true">
           <Image src={logoMark} alt="" unoptimized />
         </div>
-        <div className={styles.wordmark} aria-hidden="true">LISAMON</div>
         <a href={contact.instagram} target="_blank" rel="noopener" aria-label="LISAMON on Instagram" className={styles.instagram}>
-          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
             <rect x="3" y="3" width="18" height="18" rx="5.5" />
             <circle cx="12" cy="12" r="4.2" />
-            <circle cx="17.4" cy="6.6" r="1.1" fill="#fff" stroke="none" />
+            <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none" />
           </svg>
         </a>
       </header>
@@ -42,7 +57,7 @@ export default function Home() {
         <section className={styles.welcome} aria-labelledby="welcome-title">
           <h2 id="welcome-title" className={styles.eyebrow}>WELCOME</h2>
           <span className={styles.welcomeRule} aria-hidden="true" />
-          <p className={styles.welcomeQuote}>Welcome to LISAMON, where art and design come together to create spaces with character and soul.</p>
+          <p className={styles.welcomeQuote}>LISAMON, where art and design come together to create spaces with character and soul.</p>
           <p className={styles.welcomeBody}>We believe every space has a story to tell. Through a thoughtful blend of artistic expression, sculptural elements, and interior design, we transform ordinary spaces into meaningful experiences that reflect individuality, creativity, and timeless beauty.</p>
         </section>
 

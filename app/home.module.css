@@ -7,7 +7,7 @@
 /* Hero */
 .hero {
   position: relative;
-  height: 50cqw;
+  aspect-ratio: 1616 / 909;
   overflow: hidden;
   background: #ececec;
 }
@@ -16,62 +16,73 @@
   object-fit: cover;
 }
 
+/* Fixed navbar: frosted white glass strip with the logo and Instagram link above it. */
+.hero {
+  --nav-h: max(60px, 6cqw);
+  --logo-w: max(38px, 4.6cqw);
+}
+
+.navbar {
+  position: fixed;
+  z-index: 49;
+  inset: 0 0 auto;
+  height: var(--nav-h);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(14px) saturate(1.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.04);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.navbar[data-visible] {
+  opacity: 1;
+}
+
+/* Crop box and image offsets scale from --logo-w to keep the original mark framing. */
 .logoMark {
   position: fixed;
   z-index: 50;
   left: 3cqw;
-  top: 1.4cqw;
-  width: 8.3cqw;
-  height: 7.6cqw;
+  top: calc((var(--nav-h) - var(--logo-w) * 0.9157) / 2);
+  width: var(--logo-w);
+  height: calc(var(--logo-w) * 0.9157);
   overflow: hidden;
   pointer-events: none;
-  mix-blend-mode: difference;
 }
 
 .logoMark img {
   position: absolute;
   max-width: none;
-  width: 12.43cqw;
+  width: calc(var(--logo-w) * 1.4976);
   height: auto;
-  left: -1.54cqw;
-  top: -1.84cqw;
-  filter: grayscale(1) brightness(0.9) contrast(10) invert(1);
-}
-
-.wordmark {
-  position: fixed;
-  z-index: 50;
-  left: 3cqw;
-  top: 9cqw;
-  margin-top: 0.33cqw;
-  padding-left: 3.32cqw;
-  pointer-events: none;
-  font-weight: 500;
-  font-size: 1.12cqw;
-  letter-spacing: 0.71cqw;
-  color: var(--color-taupe);
-  white-space: nowrap;
+  left: calc(var(--logo-w) * -0.1855);
+  top: calc(var(--logo-w) * -0.2217);
+  filter: grayscale(1) brightness(0.9) contrast(10);
 }
 
 .instagram {
   position: fixed;
   z-index: 50;
-  right: 3.4cqw;
-  top: 3.6cqw;
-  width: max(44px, 3.4cqw);
-  height: max(44px, 3.4cqw);
-  border-radius: 28%;
-  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+  right: 3cqw;
+  top: calc((var(--nav-h) - 44px) / 2);
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  filter: saturate(0.5) brightness(1.05);
-  opacity: 0.85;
+  color: var(--color-ink);
+  transition: opacity 0.2s ease;
+}
+
+.instagram:hover {
+  opacity: 0.6;
 }
 
 .instagram svg {
-  width: 62%;
-  height: 62%;
+  width: 44px;
+  height: 44px;
 }
 
 /* Welcome */
@@ -86,7 +97,7 @@
 
 .eyebrow {
   margin: 0;
-  font-size: clamp(10px, 0.8cqw, 13px);
+  font-size: 30px;
   letter-spacing: 0.5em;
   font-weight: 500;
   color: var(--color-taupe);
@@ -102,15 +113,15 @@
 .welcomeQuote {
   margin: 0;
   max-width: 52cqw;
-  font-weight: 400;
-  font-size: 2.2cqw;
-  line-height: 1.45;
+  font-weight: 300;
+  font-size: clamp(15px, 1.4cqw, 22px);
+  line-height: 1.75;
   color: var(--color-ink);
   text-wrap: balance;
 }
 
 .welcomeBody {
-  margin: 2.6cqw 0 0;
+  margin: 1.2cqw 0 0;
   max-width: 48cqw;
   font-size: clamp(15px, 1.4cqw, 22px);
   line-height: 1.75;
@@ -138,7 +149,6 @@
   left: 4cqw;
   top: 3cqw;
   margin: 0;
-  font-family: var(--font-serif);
   font-style: italic;
   font-weight: 400;
   font-size: 5.6cqw;
@@ -181,7 +191,6 @@
 }
 
 .aboutClosing .accent {
-  font-family: var(--font-serif);
   font-style: italic;
   font-size: 2cqw;
   color: var(--color-burgundy-deep);
@@ -299,6 +308,10 @@
 
 /* Small screens: keep the proportional layout but stack columns and hold text readable. */
 @media (max-width: 700px) {
+  .hero {
+    aspect-ratio: 941 / 1672;
+  }
+
   .welcome {
     padding: 14cqw 6cqw;
   }
@@ -310,16 +323,11 @@
 
   .welcomeQuote {
     max-width: none;
-    font-size: clamp(18px, 5.2cqw, 24px);
   }
 
   .welcomeBody {
     max-width: none;
-    margin-top: 6cqw;
-  }
-
-  .wordmark {
-    font-size: max(9px, 1.12cqw);
+    margin-top: 3cqw;
   }
 
   .about {

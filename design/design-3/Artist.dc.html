@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet">
+<style>
+*,::before,::after{box-sizing:border-box;margin:0;padding:0;border:0 solid}
+html{line-height:1.5;-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:#fff;color:#1a1a1a;font-family:'Inter',sans-serif}
+a{color:inherit;text-decoration:none}
+a:hover{color:#6b6b6b}
+button{font:inherit;color:inherit;background:transparent;cursor:pointer}
+ol,ul{list-style:none}
+img{display:block;max-width:100%}
+:is(a,button):focus-visible{outline:2px solid #1a1a1a;outline-offset:4px}
+</style>
+</helmet>
+<div style="font-family:'Inter',sans-serif; color:#1a1a1a">
+  <div aria-hidden="true" style="position:sticky; top:0; z-index:55; height:30px; background:linear-gradient(90deg,#707070,#858585)"></div>
+
+  <div data-screen-label="Artist" style="container-type:inline-size; width:100%; min-height:100vh; display:flex; flex-direction:column; background:#f6f6f7">
+    <header style="display:flex; justify-content:space-between; align-items:center; padding:clamp(18px,2cqw,32px) clamp(20px,5.5cqw,90px); border-bottom:1px solid #e4e4e6; background:#fff">
+      <a href="Home.dc.html" style="display:flex; align-items:center; gap:12px; font-size:clamp(11px,0.8cqw,13px); letter-spacing:0.35em; font-weight:600">← BACK</a>
+      <span style="font-size:clamp(11px,0.8cqw,13px); letter-spacing:0.5em; font-weight:500; color:#6b6b6b">LISAMON</span>
+    </header>
+
+    <main style="flex:1; display:flex; flex-direction:column">
+      <section aria-label="Selected projects and exhibitions" style="padding:0 clamp(20px,5.5cqw,90px) clamp(40px,4.6cqw,76px); background:#fff">
+        <ol aria-label="About the artist" style="margin:0; padding:0; list-style:none">
+          <li>
+            <button type="button" aria-label="About the Artist — read full biography" onClick="{{ openAbout }}" onMouseEnter="{{ bio.enter }}" onMouseLeave="{{ bio.leave }}" style="display:grid; grid-template-columns:clamp(96px,13cqw,210px) minmax(0,1fr); gap:clamp(14px,2.4cqw,44px); width:100%; padding:clamp(40px,4.6cqw,76px) 0; text-align:left; cursor:pointer; background:transparent; border:0; font:inherit; color:inherit">
+              <span style="padding-top:0.4em; font-size:clamp(11px,0.9cqw,15px); letter-spacing:0.3em; font-weight:600; color:#6b6b6b"></span>
+              <span style="display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between; column-gap:clamp(14px,2.4cqw,44px); row-gap:14px; min-width:0">
+                <span style="display:block; flex:1 1 320px; min-width:0">
+                  <span style="display:block; font-weight:900; font-size:clamp(17px,1.7cqw,28px); line-height:1.15; text-transform:uppercase; transition:color .25s ease; color:{{ bio.titleColor }}">About the Artist</span>
+                  <span style="display:block; margin-top:clamp(6px,0.6cqw,10px); font-size:clamp(11px,0.85cqw,14px); letter-spacing:0.15em; font-weight:500; color:#8f8f8f">Maedeh Akbari Farimani</span>
+                  <span style="display:block; margin-top:clamp(10px,1cqw,16px); max-width:720px; font-size:clamp(14px,1.05cqw,18px); line-height:1.7; color:#444; text-wrap:pretty">Dubai-based independent visual artist with a background in painting and sculpture.</span>
+                </span>
+                <sc-if value="{{ cueLabel }}" hint-placeholder-val="{{ true }}">
+                  <span style="flex:none; padding-top:0.45em; display:flex; align-items:center; gap:12px; white-space:nowrap; font-size:clamp(10px,0.8cqw,13px); letter-spacing:0.3em; font-weight:600; transition:color .25s ease; color:{{ bio.cueColor }}">
+                    <span>READ MORE</span>
+                    <span aria-hidden="true" style="letter-spacing:0; transition:transform .3s ease; transform:{{ bio.arrowShift }}">→</span>
+                  </span>
+                </sc-if>
+                <sc-if value="{{ cueArrow }}" hint-placeholder-val="{{ false }}">
+                  <span aria-hidden="true" style="flex:none; width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; transition:background .25s ease, color .25s ease, border-color .25s ease; border:1px solid {{ bio.circleBorder }}; background:{{ bio.circleBg }}; color:{{ bio.circleColor }}">→</span>
+                </sc-if>
+              </span>
+            </button>
+          </li>
+        </ol>
+
+        <ol style="margin:0; padding:0; list-style:none">
+          <sc-for list="{{ rows }}" as="row" hint-placeholder-count="7">
+            <li style="border-top:1px solid #e4e4e6">
+              <button type="button" aria-label="{{ row.aria }}" onClick="{{ row.open }}" onMouseEnter="{{ row.enter }}" onMouseLeave="{{ row.leave }}" style="display:grid; grid-template-columns:clamp(96px,13cqw,210px) minmax(0,1fr); gap:clamp(14px,2.4cqw,44px); width:100%; padding:clamp(40px,4.6cqw,76px) 0; text-align:left; cursor:pointer; background:transparent; border:0; font:inherit; color:inherit">
+                <span style="padding-top:0.4em; font-size:clamp(11px,0.9cqw,15px); letter-spacing:0.3em; font-weight:600; color:#6b6b6b">{{ row.year }}</span>
+                <span style="display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between; column-gap:clamp(14px,2.4cqw,44px); row-gap:14px; min-width:0">
+                  <span style="display:block; flex:1 1 320px; min-width:0">
+                    <span style="display:block; font-weight:900; font-size:clamp(17px,1.7cqw,28px); line-height:1.15; text-transform:uppercase; transition:color .25s ease; color:{{ row.titleColor }}">{{ row.title }}</span>
+                    <sc-if value="{{ row.hasVenue }}" hint-placeholder-val="{{ false }}">
+                      <span style="display:block; margin-top:clamp(6px,0.6cqw,10px); font-size:clamp(11px,0.85cqw,14px); letter-spacing:0.15em; font-weight:500; color:#8f8f8f">{{ row.venue }}</span>
+                    </sc-if>
+                    <sc-if value="{{ row.hasText }}" hint-placeholder-val="{{ false }}">
+                      <span style="display:block; margin-top:clamp(10px,1cqw,16px); max-width:720px; font-size:clamp(14px,1.05cqw,18px); line-height:1.7; color:#444; text-wrap:pretty">{{ row.text }}</span>
+                    </sc-if>
+                  </span>
+                  <sc-if value="{{ cueLabel }}" hint-placeholder-val="{{ true }}">
+                    <span style="flex:none; padding-top:0.45em; display:flex; align-items:center; gap:12px; white-space:nowrap; font-size:clamp(10px,0.8cqw,13px); letter-spacing:0.3em; font-weight:600; transition:color .25s ease; color:{{ row.cueColor }}">
+                      <span>{{ row.cue }}</span>
+                      <span aria-hidden="true" style="letter-spacing:0; transition:transform .3s ease; transform:{{ row.arrowShift }}">→</span>
+                    </span>
+                  </sc-if>
+                  <sc-if value="{{ cueArrow }}" hint-placeholder-val="{{ false }}">
+                    <span aria-hidden="true" style="flex:none; width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; transition:background .25s ease, color .25s ease, border-color .25s ease; border:1px solid {{ row.circleBorder }}; background:{{ row.circleBg }}; color:{{ row.circleColor }}">→</span>
+                  </sc-if>
+                </span>
+              </button>
+            </li>
+          </sc-for>
+        </ol>
+
+        <ol style="margin:0; padding:0; list-style:none">
+          <sc-for list="{{ exhibitions }}" as="item" hint-placeholder-count="4">
+            <li style="display:grid; grid-template-columns:clamp(96px,13cqw,210px) minmax(0,1fr); gap:clamp(14px,2.4cqw,44px); padding:clamp(40px,4.6cqw,76px) 0; border-top:1px solid #e4e4e6">
+              <span style="padding-top:0.4em; font-size:clamp(11px,0.9cqw,15px); letter-spacing:0.3em; font-weight:600; color:#6b6b6b">{{ item.year }}</span>
+              <div>
+                <h3 style="margin:0; font-weight:900; font-size:clamp(17px,1.7cqw,28px); line-height:1.15; text-transform:uppercase">{{ item.title }}</h3>
+                <p style="margin:clamp(6px,0.6cqw,10px) 0 0; font-size:clamp(11px,0.85cqw,14px); letter-spacing:0.15em; font-weight:500; color:#8f8f8f">{{ item.venue }}</p>
+                <p style="margin:clamp(10px,1cqw,16px) 0 0; max-width:720px; font-size:clamp(14px,1.05cqw,18px); line-height:1.7; color:#444; text-wrap:pretty">{{ item.description }}</p>
+              </div>
+            </li>
+          </sc-for>
+        </ol>
+      </section>
+    </main>
+  </div>
+
+  <sc-if value="{{ aboutOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeAbout }}" style="position:fixed; inset:0; z-index:100; display:flex; align-items:flex-start; justify-content:center; padding:clamp(16px,4vw,60px); overflow-y:auto; background:rgba(17,17,17,0.6); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px)">
+      <div role="dialog" aria-modal="true" aria-labelledby="artist-title" onClick="{{ stop }}" style="position:relative; width:100%; max-width:1280px; display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr)); background:#fff">
+        <div style="padding:clamp(28px,4.5vw,80px) clamp(22px,4vw,72px); display:flex; flex-direction:column; justify-content:center">
+          <p style="margin:0; font-size:clamp(10px,0.8vw,13px); letter-spacing:0.5em; font-weight:500; color:#6b6b6b">CATALOGUE 05 — ARTIST</p>
+          <h2 id="artist-title" style="margin:clamp(14px,1.4vw,24px) 0 0; font-weight:400; font-size:clamp(34px,3.6vw,60px); line-height:1.05; color:#1a1a1a">About the Artist</h2>
+          <p style="margin:clamp(18px,1.8vw,30px) 0 0; font-weight:900; font-size:clamp(20px,1.9vw,32px); line-height:1.1; letter-spacing:-0.01em">MAEDEH AKBARI <span style="color:#8f8f8f">FARIMANI</span></p>
+          <div style="margin-top:clamp(24px,2.6vw,44px); border-left:1px solid #bdbdbd; padding-left:clamp(14px,1.4vw,24px); display:flex; flex-direction:column; gap:clamp(12px,1.2vw,20px); max-width:640px; font-size:clamp(15px,1.1vw,18px); line-height:1.75; color:#444; text-wrap:pretty">
+            <p><b style="color:#222; font-weight:bolder">Maedeh Akbari Farimani</b> is a Dubai-based independent visual artist with a background in painting and sculpture.</p>
+            <p>Holding a Bachelor of Arts in Painting, her artistic practice explores the human form, emotions, identity, and the relationship between material and expression.</p>
+            <p>Working across painting, sculpture, and mixed media, she experiments with texture, dimension, and unconventional forms to create thought-provoking works that move beyond traditional artistic boundaries.</p>
+            <p>Her work reflects a personal exploration of the human experience, balancing abstraction, symbolism, and contemporary expression.</p>
+          </div>
+        </div>
+        <div style="position:relative; min-height:clamp(340px,42vw,760px); overflow:hidden; background:#f1f1f2">
+          <img src="images/artist/portrait.jpg" alt="Maedeh Akbari Farimani painting in the studio" style="position:absolute; inset:0; width:100%; height:100%; max-width:none; object-fit:cover; object-position:62% 50%">
+        </div>
+        <button ref="{{ aboutCloseRef }}" type="button" aria-label="Close" onClick="{{ closeAbout }}" style="position:absolute; top:clamp(14px,2vw,28px); right:clamp(14px,2vw,28px); width:44px; height:44px; border-radius:50%; border:1px solid #ddd; background:#fff; font-size:18px; color:#1a1a1a; cursor:pointer">✕</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ galleryOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeGallery }}" style="position:fixed; inset:0; z-index:100; display:flex; align-items:flex-start; justify-content:center; padding:clamp(16px,4vw,60px); overflow-y:auto; background:rgba(17,17,17,0.6); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px)">
+      <div role="dialog" aria-modal="true" aria-labelledby="gallery-title" onClick="{{ stop }}" style="position:relative; width:100%; max-width:1280px; padding:clamp(22px,3.5vw,56px); background:#fff">
+        <button ref="{{ galleryCloseRef }}" type="button" aria-label="Close" onClick="{{ closeGallery }}" style="position:absolute; top:clamp(14px,2vw,28px); right:clamp(14px,2vw,28px); width:44px; height:44px; border-radius:50%; border:1px solid #ddd; background:#fff; font-size:18px; color:#1a1a1a; cursor:pointer">✕</button>
+        <p style="margin:0; font-size:clamp(10px,0.8vw,13px); letter-spacing:0.5em; font-weight:500; color:#6b6b6b; padding-right:56px">{{ gallery.label }}</p>
+        <h2 id="gallery-title" style="margin:12px 0 clamp(20px,2.4vw,36px); font-weight:900; font-size:clamp(24px,3vw,48px); line-height:1.05">{{ gallery.title }}</h2>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr)); gap:clamp(10px,1.2vw,20px)">
+          <sc-for list="{{ gallery.tiles }}" as="tile" hint-placeholder-count="4">
+            <button type="button" aria-label="{{ tile.aria }}" onClick="{{ tile.zoom }}" style="position:relative; display:block; width:100%; aspect-ratio:1 / 1; overflow:hidden; padding:0; border:0; background:#f1f1f2; cursor:zoom-in">
+              <img src="{{ tile.src }}" alt="{{ tile.alt }}" loading="lazy" style="position:absolute; inset:0; width:100%; height:100%; max-width:none; object-fit:cover; transition:transform 0.6s ease" style-hover="transform:scale(1.05)">
+            </button>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ lbOpen }}" hint-placeholder-val="{{ false }}">
+    <div role="dialog" aria-modal="true" aria-label="{{ lb.alt }}" onClick="{{ closeLb }}" style="position:fixed; inset:0; z-index:200; background:rgba(17,17,17,0.82); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px)">
+      <div ref="{{ trackRef }}" onScroll="{{ onTrackScroll }}" style="display:flex; width:100%; height:100%; overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; scrollbar-width:none">
+        <sc-for list="{{ lb.slides }}" as="slide" hint-placeholder-count="1">
+          <div style="flex:0 0 100%; display:flex; align-items:center; justify-content:center; padding:clamp(56px,7vh,90px) clamp(16px,4vw,80px); scroll-snap-align:center; scroll-snap-stop:always">
+            <img src="{{ slide.src }}" alt="{{ slide.alt }}" loading="lazy" onClick="{{ stop }}" style="display:block; max-width:100%; max-height:100%; object-fit:contain; box-shadow:0 30px 80px rgba(0,0,0,0.4)">
+          </div>
+        </sc-for>
+      </div>
+      <sc-if value="{{ lb.multiple }}" hint-placeholder-val="{{ false }}">
+        <button type="button" aria-label="Previous image" onClick="{{ prev }}" style="position:absolute; top:50%; left:clamp(14px,2.4vw,28px); transform:translateY(-50%); width:56px; height:56px; border-radius:50%; border:0; background:rgba(38,38,38,0.9); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:opacity 0.2s ease; opacity:{{ lb.prevOpacity }}; pointer-events:{{ lb.prevEvents }}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style="width:22px; height:22px"><path d="M15 6l-6 6 6 6"></path></svg>
+        </button>
+        <button type="button" aria-label="Next image" onClick="{{ next }}" style="position:absolute; top:50%; right:clamp(14px,2.4vw,28px); transform:translateY(-50%); width:56px; height:56px; border-radius:50%; border:0; background:rgba(38,38,38,0.9); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:opacity 0.2s ease; opacity:{{ lb.nextOpacity }}; pointer-events:{{ lb.nextEvents }}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style="width:22px; height:22px"><path d="M9 6l6 6-6 6"></path></svg>
+        </button>
+        <div onClick="{{ stop }}" style="position:absolute; left:50%; bottom:clamp(18px,3vh,34px); transform:translateX(-50%); display:flex; gap:10px">
+          <sc-for list="{{ lb.dots }}" as="dot" hint-placeholder-count="3">
+            <button type="button" aria-label="{{ dot.label }}" aria-current="{{ dot.current }}" onClick="{{ dot.go }}" style="width:9px; height:9px; padding:0; border:0; border-radius:50%; cursor:pointer; transition:background 0.2s ease, transform 0.2s ease; background:{{ dot.bg }}; transform:{{ dot.scale }}"></button>
+          </sc-for>
+        </div>
+      </sc-if>
+      <button ref="{{ lbCloseRef }}" type="button" aria-label="Close image" onClick="{{ closeLb }}" style="position:absolute; top:clamp(14px,2.4vw,28px); right:clamp(14px,2.4vw,28px); width:56px; height:56px; border-radius:50%; border:0; background:rgba(38,38,38,0.9); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true" style="width:22px; height:22px"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;modalStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;gallery&quot;,&quot;slider&quot;],&quot;default&quot;:&quot;gallery&quot;,&quot;tsType&quot;:&quot;'gallery' | 'slider'&quot;,&quot;section&quot;:&quot;Modal&quot;},&quot;cueStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;label&quot;,&quot;arrow&quot;],&quot;default&quot;:&quot;label&quot;,&quot;tsType&quot;:&quot;'label' | 'arrow'&quot;,&quot;section&quot;:&quot;Rows&quot;}}">
+const IMG = 'images/artist/';
+const GALLERIES = {
+  fish: { label: 'SOLO EXHIBITION — 2021', title: 'YELLOW RED FISH', images: ['01.png','02.png','03.png','04.png','05.png','06.jpg','07.png','08.png','09.png','10.png','11.png'].map(f => IMG + 'yellow-red-fish/' + f) },
+  fold: { label: 'GRADUATION THESIS — 2019', title: 'A FOLDED WOMAN', images: [IMG + 'folded-woman/01.png', IMG + 'folded-woman/02.png'] },
+  dust: { label: 'PUBLIC SCULPTURE — 2016', title: 'DUSTMAN', images: [IMG + 'dustman/01.png'] },
+};
+const PROJECTS = [
+  { year: '2023–PRESENT', title: 'HAND-PAINTED ART — VONTO', image: IMG + 'projects/vonto.png', alt: 'Hand-painted leather art for VONTO' },
+  { year: '2022', title: 'ART EXHIBITION — DIFC, DUBAI', image: IMG + 'projects/difc.png', alt: 'Art exhibition at DIFC, Dubai' },
+  { year: '2021', title: 'INTERNATIONAL EXHIBITION — ISTANBUL', image: IMG + 'projects/istanbul.png', alt: 'International exhibition, Istanbul' },
+  { year: '2021', title: 'SOLO EXHIBITION — YELLOW RED FISH', image: IMG + 'projects/yellow-red-fish.jpg', alt: 'Yellow Red Fish solo exhibition painting', gallery: 'fish' },
+  { year: '2019', title: 'A FOLDED WOMAN — GRADUATION THESIS', image: IMG + 'projects/folded-woman.png', alt: 'A Folded Woman, graduation thesis painting', gallery: 'fold',
+    note: { degree: 'Bachelor of Arts in Painting | University of Neyshabur, Iran', description: 'Developed A Folded Woman as a final thesis project, exploring the complexities of feminine identity, psychological tension, and the relationship between vulnerability and resilience through figurative painting.' } },
+  { year: '2019', title: '4TH NATIONAL JOKAL STUDENT PAINTING FESTIVAL', image: IMG + 'projects/jokal.png', alt: '4th National Jokal Student Painting Festival poster' },
+  { year: '2016', title: 'DUSTMAN — PUBLIC SCULPTURE', image: IMG + 'projects/dustman.png', alt: 'Dustman public sculpture', gallery: 'dust' },
+];
+const EXHIBITIONS = [
+  { year: '', title: 'International Group Exhibition', venue: 'Next Art Gallery — Istanbul, Turkey', description: 'Participated in an international group exhibition featuring contemporary visual artworks by artists from Iran and Turkey.' },
+  { year: '2017', title: 'Contemporary Art Group Exhibition', venue: 'Farzad Gallery — Mashhad, Iran', description: 'Participated in a group exhibition presenting contemporary artistic practices and visual expression.' },
+  { year: '2017', title: 'Public Art & Urban Projects', venue: 'Mashhad, Iran', description: 'Contributed to public art initiatives involving painting and sculptural practices, exploring the relationship between artistic expression and urban environments.' },
+  { year: '2012', title: 'First Place — Unglazed Pottery', venue: '30th Student Cultural & Artistic Festival — Khorasan Razavi, Iran', description: 'Awarded first place at the provincial level in the Unglazed Pottery category, recognizing artistic craftsmanship and ceramic techniques.' },
+];
+// The card image no longer shows on the page, so it leads each modal.
+const imagesOf = p => [p.image, ...(p.gallery ? GALLERIES[p.gallery].images : [])];
+
+class Component extends DCLogic {
+  state = { gallery: null, lb: null, about: false, current: 0, hover: -1 };
+  aboutCloseRef = React.createRef();
+  trackRef = React.createRef();
+  galleryCloseRef = React.createRef();
+  lbCloseRef = React.createRef();
+
+  componentDidMount() {
+    this.onKey = e => {
+      if (e.key === 'Escape') {
+        if (this.state.lb) this.setState({ lb: null });
+        else if (this.state.gallery !== null) this.setState({ gallery: null });
+        else if (this.state.about) this.setState({ about: false });
+      }
+      if (this.state.lb && this.state.lb.images.length > 1) {
+        if (e.key === 'ArrowLeft') this.goTo(this.state.current - 1);
+        if (e.key === 'ArrowRight') this.goTo(this.state.current + 1);
+      }
+    };
+    window.addEventListener('keydown', this.onKey);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.onKey);
+    if (this.state.gallery !== null || this.state.lb || this.state.about) document.body.style.overflow = '';
+  }
+  componentDidUpdate() {
+    const prev = this._prev || { gallery: null, lb: null, about: false };
+    this._prev = { gallery: this.state.gallery, lb: this.state.lb, about: this.state.about };
+    const open = this.state.gallery !== null || !!this.state.lb || this.state.about;
+    const wasOpen = prev.gallery !== null || !!prev.lb || prev.about;
+    if (this.state.about && !prev.about) this.aboutCloseRef.current && this.aboutCloseRef.current.focus({ preventScroll: true });
+    if (open !== wasOpen) document.body.style.overflow = open ? 'hidden' : '';
+    if (this.state.lb && this.state.lb !== prev.lb) {
+      if (this.trackRef.current) this.trackRef.current.scrollLeft = 0;
+      this.lbCloseRef.current && this.lbCloseRef.current.focus({ preventScroll: true });
+    }
+    if (this.state.gallery !== null && this.state.gallery !== prev.gallery) this.galleryCloseRef.current && this.galleryCloseRef.current.focus({ preventScroll: true });
+  }
+
+  goTo(i) {
+    const el = this.trackRef.current;
+    if (!el || !this.state.lb) return;
+    const n = this.state.lb.images.length;
+    el.scrollTo({ left: Math.max(0, Math.min(n - 1, i)) * el.clientWidth, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  }
+
+  openLb(images, alt) { this.setState({ lb: { images, alt }, current: 0 }); }
+
+  openProject(i) {
+    const p = PROJECTS[i];
+    const slider = (this.props.modalStyle ?? 'gallery') === 'slider';
+    if (p.gallery && !slider) this.setState({ gallery: i });
+    else this.openLb(imagesOf(p), p.alt);
+  }
+
+  renderVals() {
+    const { hover, current, lb } = this.state;
+    const cueStyle = this.props.cueStyle ?? 'label';
+    const rows = PROJECTS.map((p, i) => {
+      const n = imagesOf(p).length;
+      const on = hover === i;
+      return {
+        year: p.year,
+        title: p.title,
+        hasVenue: !!p.note, venue: p.note ? p.note.degree : '',
+        hasText: !!p.note, text: p.note ? p.note.description : '',
+        cue: n > 1 ? 'VIEW IMAGES' : 'VIEW IMAGE',
+        aria: `${p.title} — ${n > 1 ? `open gallery (${n} images)` : 'view image'}`,
+        titleColor: on ? '#6b6b6b' : '#1a1a1a',
+        cueColor: on ? '#6b6b6b' : '#1a1a1a',
+        arrowShift: on ? 'translateX(6px)' : 'none',
+        circleBorder: on ? '#1a1a1a' : '#ddd',
+        circleBg: on ? '#1a1a1a' : '#fff',
+        circleColor: on ? '#fff' : '#1a1a1a',
+        open: () => this.openProject(i),
+        enter: () => this.setState({ hover: i }),
+        leave: () => this.setState(s => (s.hover === i ? { hover: -1 } : null)),
+      };
+    });
+
+    let gallery = null;
+    if (this.state.gallery !== null) {
+      const p = PROJECTS[this.state.gallery];
+      const g = GALLERIES[p.gallery];
+      gallery = {
+        label: g.label, title: g.title,
+        tiles: imagesOf(p).map((src, k) => {
+          const alt = `${g.title} — work ${k + 1}`;
+          return { src, alt, aria: `Enlarge ${alt}`, zoom: () => this.openLb([src], alt) };
+        }),
+      };
+    }
+
+    let lbVals = null;
+    if (lb) {
+      const n = lb.images.length;
+      const multiple = n > 1;
+      lbVals = {
+        alt: lb.alt, multiple,
+        slides: lb.images.map((src, k) => ({ src, alt: multiple ? `${lb.alt} — view ${k + 1} of ${n}` : lb.alt })),
+        dots: lb.images.map((_, k) => ({ label: `Show image ${k + 1}`, current: k === current ? 'true' : 'false', bg: k === current ? '#fff' : 'rgba(255,255,255,0.4)', scale: k === current ? 'scale(1.2)' : 'none', go: () => this.goTo(k) })),
+        prevOpacity: current === 0 ? 0 : 1, prevEvents: current === 0 ? 'none' : 'auto',
+        nextOpacity: current === n - 1 ? 0 : 1, nextEvents: current === n - 1 ? 'none' : 'auto',
+      };
+    }
+
+    const bioOn = hover === 'bio';
+    const bio = {
+      titleColor: bioOn ? '#6b6b6b' : '#1a1a1a',
+      cueColor: bioOn ? '#6b6b6b' : '#1a1a1a',
+      arrowShift: bioOn ? 'translateX(6px)' : 'none',
+      circleBorder: bioOn ? '#1a1a1a' : '#ddd',
+      circleBg: bioOn ? '#1a1a1a' : '#fff',
+      circleColor: bioOn ? '#fff' : '#1a1a1a',
+      enter: () => this.setState({ hover: 'bio' }),
+      leave: () => this.setState(s => (s.hover === 'bio' ? { hover: -1 } : null)),
+    };
+
+    return {
+      bio,
+      aboutOpen: this.state.about,
+      aboutCloseRef: this.aboutCloseRef,
+      openAbout: () => this.setState({ about: true }),
+      closeAbout: () => this.setState({ about: false }),
+      rows,
+      exhibitions: EXHIBITIONS,
+      cueLabel: cueStyle === 'label',
+      cueArrow: cueStyle === 'arrow',
+      galleryOpen: !!gallery,
+      gallery: gallery || { label: '', title: '', tiles: [] },
+      lbOpen: !!lbVals,
+      lb: lbVals || { alt: '', slides: [], dots: [], multiple: false },
+      trackRef: this.trackRef,
+      galleryCloseRef: this.galleryCloseRef,
+      lbCloseRef: this.lbCloseRef,
+      stop: e => e.stopPropagation(),
+      closeGallery: () => this.setState({ gallery: null }),
+      closeLb: () => this.setState({ lb: null }),
+      prev: e => { e.stopPropagation(); this.goTo(current - 1); },
+      next: e => { e.stopPropagation(); this.goTo(current + 1); },
+      onTrackScroll: () => {
+        const el = this.trackRef.current;
+        if (!el || !lb || lb.images.length < 2) return;
+        const c = Math.round(el.scrollLeft / el.clientWidth);
+        if (c !== this.state.current) this.setState({ current: c });
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

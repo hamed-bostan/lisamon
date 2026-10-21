@@ -7,7 +7,7 @@
 /* Hero */
 .hero {
   position: relative;
-  aspect-ratio: 1616 / 909;
+  aspect-ratio: 1672 / 941;
   overflow: hidden;
   background: #ececec;
 }
@@ -277,7 +277,7 @@
 /* Small screens: keep the proportional layout but stack columns and hold text readable. */
 @media (max-width: 700px) {
   .hero {
-    aspect-ratio: 941 / 1672;
+    aspect-ratio: 1253 / 2226;
     --ig-size: 30px;
   }
 

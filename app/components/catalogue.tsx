@@ -30,6 +30,16 @@ function Bar({ category, children }: { category: Category; children: ReactNode }
   );
 }
 
+/** Marks a tile that opens several shots, like Instagram's multi-photo badge. */
+function CarouselIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className={styles.tileBadge} aria-hidden="true">
+      <path d="M8 4.5A2.5 2.5 0 0 1 10.5 2h9A2.5 2.5 0 0 1 22 4.5v9a2.5 2.5 0 0 1-2.5 2.5H18V8.5A2.5 2.5 0 0 0 15.5 6H8z" />
+      <rect x="2" y="8" width="14" height="14" rx="2.5" />
+    </svg>
+  );
+}
+
 function CategoryModal({ category, onClose }: { category: Category; onClose: () => void }) {
   const [zoomed, setZoomed] = useState<number | null>(null);
   const closeZoom = useCallback(() => setZoomed(null), []);
@@ -55,9 +65,10 @@ function CategoryModal({ category, onClose }: { category: Category; onClose: () 
           </div>
           {category.images.length > 0 ? (
             <div className={styles.modalGrid}>
-              {category.images.map((src, i) => (
-                <button key={src.src} type="button" className={styles.tile} onClick={() => setZoomed(i)} aria-label={`Enlarge ${imageAlt(i)}`}>
+              {category.images.map(([src, ...more], i) => (
+                <button key={src.src} type="button" className={styles.tile} onClick={() => setZoomed(i)} aria-label={`Enlarge ${imageAlt(i)}${more.length ? ` (${more.length + 1} images)` : ""}`}>
                   <Image src={src} alt={imageAlt(i)} fill sizes={coverSizes(tileSizes, src, 4 / 5)} />
+                  {more.length > 0 && <CarouselIcon />}
                 </button>
               ))}
             </div>
@@ -66,7 +77,7 @@ function CategoryModal({ category, onClose }: { category: Category; onClose: () 
           )}
         </div>
       </div>
-      {zoomed !== null && <Lightbox src={category.images[zoomed]} alt={imageAlt(zoomed)} onClose={closeZoom} />}
+      {zoomed !== null && <Lightbox images={category.images[zoomed]} alt={imageAlt(zoomed)} onClose={closeZoom} />}
     </>
   );
 }

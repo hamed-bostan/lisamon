@@ -7,19 +7,26 @@ export const contact = {
   instagram: "https://www.instagram.com/lisamondubai/",
 };
 
+/** Splits a flat image list into works, each one or more consecutive shots of the same piece. */
+function works(images: StaticImageData[], shots: number[]): StaticImageData[][] {
+  let start = 0;
+  return shots.map(count => images.slice(start, (start += count)));
+}
+
 export type Category = {
   index: string;
   name: string;
   cover: string;
-  images: StaticImageData[];
+  /** Each entry is one work; works with several shots open as a slider. */
+  images: StaticImageData[][];
   href?: string;
 };
 
 export const categories: Category[] = [
-  { index: "01", name: "BAS-RELIEF & SCULPTURAL WALL", cover: "/images/catalogue/covers/01-bas-relief.jpg", images: basRelief },
-  { index: "02", name: "CUSTOM SCULPTURES & ART INSTALLATIONS", cover: "/images/catalogue/covers/02-sculptures.jpg", images: sculptures },
-  { index: "03", name: "DECORATIVE & TEXTURED WALLS", cover: "/images/catalogue/covers/03-textured-walls.jpg", images: texturedWalls },
-  { index: "04", name: "CUSTOM MURALS & WALL PAINTINGS", cover: "/images/catalogue/covers/04-murals.jpg", images: murals },
+  { index: "01", name: "BAS-RELIEF & SCULPTURAL WALL", cover: "/images/catalogue/covers/01-bas-relief.jpg", images: works(basRelief, [2, 1, 2, 2, 1, 1, 1, 2, 2, 2, 2]) },
+  { index: "02", name: "CUSTOM SCULPTURES & ART INSTALLATIONS", cover: "/images/catalogue/covers/02-sculptures.jpg", images: works(sculptures, [2, 3, 2, 1, 1, 2, 2, 3, 2, 1, 2]) },
+  { index: "03", name: "DECORATIVE & TEXTURED WALLS", cover: "/images/catalogue/covers/03-textured-walls.jpg", images: works(texturedWalls, [1, 1]) },
+  { index: "04", name: "CUSTOM MURALS & WALL PAINTINGS", cover: "/images/catalogue/covers/04-murals.jpg", images: works(murals, [3]) },
   { index: "05", name: "ARTIST", cover: "/images/catalogue/covers/05-artist.jpg", images: [], href: "/artist" },
 ];
 

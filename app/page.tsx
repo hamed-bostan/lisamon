@@ -6,7 +6,7 @@ import WhatsAppButton from "./components/whatsapp-button";
 import { contact } from "./data";
 import styles from "./home.module.css";
 
-import hero from "../public/images/home/hero.jpg";
+import hero from "../public/images/home/hero.png";
 import heroMobile from "../public/images/home/hero-mobile.jpg";
 import logoMark from "../public/images/home/logo-mark.png";
 import team from "../public/images/home/about-team.jpg";

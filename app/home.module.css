@@ -103,7 +103,7 @@
   font-size: clamp(18px, 4.8cqw, 30px);
   letter-spacing: 0.5em;
   font-weight: 500;
-  color: #68122c85;
+  color: #1a1a1a85;
 }
 
 .welcomeRule {
@@ -142,7 +142,7 @@
   font-weight: 400;
   font-size: 5.6cqw;
   line-height: 1.35;
-  color: #68122c85;
+  color: #1a1a1a85;
 }
 
 .aboutText {
@@ -227,14 +227,14 @@
   font-size: clamp(15px, 1.35cqw, 22px);
   line-height: 1.45;
   font-weight: 300;
-  color: #e8d9de;
+  color: #fff;
   text-wrap: pretty;
 }
 
 .copyright {
   margin: 1.4cqw 0 0;
   font-size: clamp(13px, 1.1cqw, 18px);
-  color: #c9adb6;
+  color: #f0f0f0;
   font-weight: 300;
 }
 
@@ -244,7 +244,7 @@
   align-items: center;
   gap: 1.4cqw;
   background: #fff;
-  color: var(--color-burgundy-deep);
+  color: #4a4a4a;
   border-radius: 999px;
   padding: 0.9cqw 2cqw;
   font-size: clamp(14px, 1.25cqw, 20px);

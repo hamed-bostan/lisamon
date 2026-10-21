@@ -7,7 +7,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #faf9f7;
+  background: #f7f7f7;
   animation: slideAway 1s cubic-bezier(0.76, 0, 0.24, 1) 2.6s forwards;
 }
 
@@ -46,7 +46,7 @@
   width: 160px;
   height: 1px;
   overflow: hidden;
-  background: #e2dfdc;
+  background: #e2e2e2;
 }
 
 .progress {

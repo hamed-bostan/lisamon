@@ -3,5 +3,5 @@
   top: 0;
   z-index: 55;
   height: var(--announce-h);
-  background: linear-gradient(90deg, var(--color-burgundy-deep), var(--color-burgundy));
+  background: linear-gradient(90deg, var(--color-burgundy-deep), #858585);
 }

@@ -1,10 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --color-burgundy: #68122c;
-  --color-burgundy-deep: #5c0d24;
-  --color-burgundy-hover: #6b0f2a;
-  --color-taupe: #8a6e61;
+  /* Gray/black theme: the names are historical, the values are neutral grays. */
+  --color-burgundy: #6e6e6e;
+  --color-burgundy-deep: #707070;
+  --color-burgundy-hover: #6b6b6b;
+  --color-taupe: #6b6b6b;
   --color-ink: #1a1a1a;
   --color-muted: #8f8f8f;
   --color-line: #e4e4e6;
@@ -41,6 +42,6 @@
   }
 
   :is(a, button):focus-visible {
-    @apply outline-2 outline-offset-4 outline-burgundy-hover;
+    @apply outline-2 outline-offset-4 outline-ink;
   }
 }

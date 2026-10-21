@@ -246,7 +246,7 @@
   justify-content: center;
   padding: clamp(16px, 4vw, 60px);
   overflow-y: auto;
-  background: rgba(20, 16, 18, 0.6);
+  background: rgba(17, 17, 17, 0.6);
   backdrop-filter: blur(6px);
 }
 

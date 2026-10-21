@@ -2,7 +2,7 @@
   position: fixed;
   inset: 0;
   z-index: 200;
-  background: rgba(18, 14, 15, 0.82);
+  background: rgba(17, 17, 17, 0.82);
   backdrop-filter: blur(10px);
 }
 
@@ -47,7 +47,7 @@
   height: 56px;
   border-radius: 50%;
   border: 0;
-  background: rgba(40, 36, 38, 0.9);
+  background: rgba(38, 38, 38, 0.9);
   color: #fff;
   cursor: pointer;
   display: flex;

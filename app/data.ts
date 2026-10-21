@@ -45,7 +45,6 @@ export type Project = {
   title: string;
   image: StaticImageData;
   alt: string;
-  position?: string;
   gallery?: GalleryKey;
   note?: { degree: string; description: string };
 };
@@ -54,21 +53,20 @@ export const projects: Project[] = [
   { year: "2023–PRESENT", title: "HAND-PAINTED ART — VONTO", image: projectImages.vonto, alt: "Hand-painted leather art for VONTO" },
   { year: "2022", title: "ART EXHIBITION — DIFC, DUBAI", image: projectImages.difc, alt: "Art exhibition at DIFC, Dubai" },
   { year: "2021", title: "INTERNATIONAL EXHIBITION — ISTANBUL", image: projectImages.istanbul, alt: "International exhibition, Istanbul" },
-  { year: "2021", title: "SOLO EXHIBITION — YELLOW RED FISH", image: projectImages.yellowRedFish, alt: "Yellow Red Fish solo exhibition painting", position: "50% 32%", gallery: "fish" },
+  { year: "2021", title: "SOLO EXHIBITION — YELLOW RED FISH", image: projectImages.yellowRedFish, alt: "Yellow Red Fish solo exhibition painting", gallery: "fish" },
   {
     year: "2019",
     title: "A FOLDED WOMAN — GRADUATION THESIS",
     image: projectImages.foldedWoman,
     alt: "A Folded Woman, graduation thesis painting",
-    position: "50% 40%",
     gallery: "fold",
     note: {
       degree: "Bachelor of Arts in Painting | University of Neyshabur, Iran",
       description: "Developed A Folded Woman as a final thesis project, exploring the complexities of feminine identity, psychological tension, and the relationship between vulnerability and resilience through figurative painting.",
     },
   },
-  { year: "2019", title: "4TH NATIONAL JOKAL STUDENT PAINTING FESTIVAL", image: projectImages.jokal, alt: "4th National Jokal Student Painting Festival poster", position: "50% 28%" },
-  { year: "2016", title: "DUSTMAN — PUBLIC SCULPTURE", image: projectImages.dustman, alt: "Dustman public sculpture", position: "50% 42%", gallery: "dust" },
+  { year: "2019", title: "4TH NATIONAL JOKAL STUDENT PAINTING FESTIVAL", image: projectImages.jokal, alt: "4th National Jokal Student Painting Festival poster" },
+  { year: "2016", title: "DUSTMAN — PUBLIC SCULPTURE", image: projectImages.dustman, alt: "Dustman public sculpture", gallery: "dust" },
 ];
 
 export const exhibitions = [

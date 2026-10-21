@@ -51,33 +51,153 @@
   flex-direction: column;
 }
 
-/* Bio */
-.bio {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+/* Rows: the "About the Artist" row, projects and exhibitions all share one layout. */
+.works {
+  padding: 0 clamp(20px, 5.5cqw, 90px) clamp(40px, 4.6cqw, 76px);
+  background: #fff;
 }
 
-.bioCopy {
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  border-top: 1px solid var(--color-line);
+}
+
+.rowGrid {
+  display: grid;
+  grid-template-columns: clamp(96px, 13cqw, 210px) minmax(0, 1fr);
+  gap: clamp(14px, 2.4cqw, 44px);
+  padding: clamp(40px, 4.6cqw, 76px) 0;
+}
+
+.rowButton {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.rowYear {
+  padding-top: 0.4em;
+  font-size: clamp(11px, 0.9cqw, 15px);
+  letter-spacing: 0.3em;
+  font-weight: 600;
+  color: var(--color-taupe);
+}
+
+.rowBody {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  column-gap: clamp(14px, 2.4cqw, 44px);
+  row-gap: 14px;
+  min-width: 0;
+}
+
+.rowMain {
+  display: block;
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+.rowMain > * {
+  display: block;
+  margin: 0;
+}
+
+.rowTitle {
+  font-weight: 900;
+  font-size: clamp(17px, 1.7cqw, 28px);
+  line-height: 1.15;
+  text-transform: uppercase;
+  transition: color 0.25s ease;
+}
+
+.rowMain .rowVenue {
+  margin-top: clamp(6px, 0.6cqw, 10px);
+  font-size: clamp(11px, 0.85cqw, 14px);
+  letter-spacing: 0.15em;
+  font-weight: 500;
+  color: var(--color-muted);
+}
+
+.rowMain .rowText {
+  margin-top: clamp(10px, 1cqw, 16px);
+  max-width: 720px;
+  font-size: clamp(14px, 1.05cqw, 18px);
+  line-height: 1.7;
+  color: #444;
+  text-wrap: pretty;
+}
+
+.cue {
+  flex: none;
+  padding-top: 0.45em;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+  font-size: clamp(10px, 0.8cqw, 13px);
+  letter-spacing: 0.3em;
+  font-weight: 600;
+  transition: color 0.25s ease;
+}
+
+.cueArrow {
+  letter-spacing: 0;
+  transition: transform 0.3s ease;
+}
+
+.rowButton:hover .rowTitle,
+.rowButton:hover .cue {
+  color: var(--color-burgundy-hover);
+}
+
+.rowButton:hover .cueArrow {
+  transform: translateX(6px);
+}
+
+/* About modal: full bio beside the portrait. */
+.aboutModal {
   position: relative;
-  padding: clamp(40px, 6cqw, 110px) clamp(24px, 5.5cqw, 90px);
+  width: 100%;
+  max-width: 1280px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  background: #fff;
+}
+
+.aboutCopy {
+  padding: clamp(28px, 4.5vw, 80px) clamp(22px, 4vw, 72px);
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.title {
-  margin: clamp(14px, 1.4cqw, 24px) 0 0;
+.aboutModal .eyebrow {
+  font-size: clamp(10px, 0.8vw, 13px);
+}
+
+.aboutTitle {
+  margin: clamp(14px, 1.4vw, 24px) 0 0;
   font-weight: 400;
-  font-size: clamp(34px, 4cqw, 68px);
+  font-size: clamp(34px, 3.6vw, 60px);
   line-height: 1.05;
   color: var(--color-ink);
 }
 
 .name {
-  margin: clamp(18px, 1.8cqw, 30px) 0 0;
+  margin: clamp(18px, 1.8vw, 30px) 0 0;
   font-weight: 900;
-  font-size: clamp(20px, 2cqw, 34px);
+  font-size: clamp(20px, 1.9vw, 32px);
   line-height: 1.1;
   letter-spacing: -0.01em;
 }
@@ -87,14 +207,14 @@
 }
 
 .bioText {
-  margin-top: clamp(24px, 2.6cqw, 44px);
+  margin-top: clamp(24px, 2.6vw, 44px);
   border-left: 1px solid #bdbdbd;
-  padding-left: clamp(14px, 1.4cqw, 24px);
+  padding-left: clamp(14px, 1.4vw, 24px);
   display: flex;
   flex-direction: column;
-  gap: clamp(12px, 1.2cqw, 20px);
+  gap: clamp(12px, 1.2vw, 20px);
   max-width: 640px;
-  font-size: clamp(15px, 1.15cqw, 19px);
+  font-size: clamp(15px, 1.1vw, 18px);
   line-height: 1.75;
   color: #444;
   text-wrap: pretty;
@@ -110,164 +230,9 @@
 
 .portrait {
   position: relative;
-  min-height: clamp(380px, 45cqw, 900px);
+  min-height: clamp(340px, 42vw, 760px);
   overflow: hidden;
-}
-
-/* Projects */
-.works {
-  padding: clamp(20px, 3cqw, 56px) clamp(20px, 5.5cqw, 90px) clamp(40px, 5cqw, 90px);
-  background: #fff;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(10px, 1.6cqw, 28px);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.card {
-  position: relative;
-  display: block;
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  overflow: hidden;
-  padding: 0;
-  border: 0;
-  background: #222;
-  font: inherit;
-  text-align: left;
-}
-
-button.card {
-  cursor: pointer;
-}
-
-button.card.zoomable {
-  cursor: zoom-in;
-}
-
-.card img {
-  transition: transform 0.6s ease;
-}
-
-.card:hover img,
-.card:focus-visible img {
-  transform: scale(1.03);
-}
-
-.cardShade {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 55%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
-  pointer-events: none;
-}
-
-.cardCaption {
-  position: absolute;
-  left: clamp(14px, 1.6cqw, 28px);
-  right: clamp(14px, 1.6cqw, 28px);
-  bottom: clamp(14px, 1.6cqw, 28px);
-  display: flex;
-  flex-direction: column;
-  color: #fff;
-}
-
-.cardYear {
-  font-size: clamp(10px, 0.85cqw, 14px);
-  letter-spacing: 0.4em;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.cardTitle {
-  margin-top: clamp(6px, 0.6cqw, 10px);
-  font-weight: 900;
-  font-size: clamp(15px, 1.4cqw, 24px);
-  line-height: 1.1;
-}
-
-.cardNote {
-  padding-top: clamp(10px, 1cqw, 16px);
-}
-
-.cardNote p {
-  margin: 0;
-}
-
-.cardDegree {
-  font-size: clamp(10px, 0.75cqw, 13px);
-  letter-spacing: 0.1em;
-  font-weight: 500;
-  color: var(--color-muted);
-}
-
-.cardNote .cardDescription {
-  margin-top: clamp(8px, 0.9cqw, 16px);
-  max-width: 640px;
-  font-size: clamp(12px, 0.85cqw, 14px);
-  line-height: 1.55;
-  color: #444;
-  text-wrap: pretty;
-}
-
-/* Exhibition list */
-.exhibitions {
-  margin: clamp(40px, 5cqw, 90px) 0 0;
-  padding: 0;
-  list-style: none;
-  border-bottom: 1px solid var(--color-line);
-}
-
-.exhibition {
-  display: grid;
-  grid-template-columns: minmax(70px, 9cqw) minmax(0, 1fr);
-  gap: clamp(14px, 2.4cqw, 44px);
-  padding: clamp(20px, 2.4cqw, 40px) 0;
-  border-top: 1px solid var(--color-line);
-}
-
-.exhibition p,
-.exhibition h3 {
-  margin: 0;
-}
-
-.exhibitionYear {
-  padding-top: 0.4em;
-  font-size: clamp(11px, 0.9cqw, 15px);
-  letter-spacing: 0.3em;
-  font-weight: 600;
-  color: var(--color-taupe);
-}
-
-.exhibitionTitle {
-  font-weight: 900;
-  font-size: clamp(17px, 1.7cqw, 28px);
-  line-height: 1.15;
-  text-transform: uppercase;
-}
-
-.exhibition .exhibitionVenue {
-  margin-top: clamp(6px, 0.6cqw, 10px);
-  font-size: clamp(11px, 0.85cqw, 14px);
-  letter-spacing: 0.15em;
-  font-weight: 500;
-  color: var(--color-muted);
-}
-
-.exhibition .exhibitionText {
-  margin-top: clamp(10px, 1cqw, 16px);
-  max-width: 720px;
-  font-size: clamp(14px, 1.05cqw, 18px);
-  line-height: 1.7;
-  color: #444;
-  text-wrap: pretty;
+  background: #f1f1f2;
 }
 
 /* Gallery modal */
@@ -348,15 +313,11 @@ button.card.zoomable {
   transform: scale(1.05);
 }
 
-@media (max-width: 700px) {
-  .grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .card img,
-  .tile img {
+  .tile img,
+  .rowTitle,
+  .cue,
+  .cueArrow {
     transition: none;
   }
 }

@@ -78,7 +78,11 @@ test("artist media and biography remain accessible", async ({ page }) => {
   await page.goto("/artist");
   await page.getByText("About the Artist", { exact: true }).first().click();
   await expect(page.getByText("Holding a Bachelor of Arts in Painting", { exact: false })).toBeVisible();
-  expect(await page.evaluate(() => document.documentElement.scrollHeight > innerHeight)).toBeTruthy();
+  const biography = page.getByRole("dialog", { name: "About the Artist", exact: true });
+  await expect(biography).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(biography).not.toBeVisible();
+  await expect(page.getByRole("button", { name: "About the Artist — read full biography", exact: true })).toBeFocused();
   await page.getByRole("button", { name: /YELLOW RED FISH.*open gallery/i }).click();
   await expect(page.getByRole("dialog", { name: "YELLOW RED FISH" })).toBeVisible();
 });

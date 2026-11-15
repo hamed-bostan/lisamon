@@ -33,8 +33,19 @@ npm run build
 npm start
 ```
 
+Run browser regression and accessibility checks against the production build:
+
+```bash
+npx playwright install chromium firefox webkit
+npm run test:e2e
+```
+
+Playwright starts a production server on port 3210. CI runs `npm ci`, lint, build, and Chromium, Firefox, and WebKit checks; failed runs retain screenshots, traces, and the HTML report.
+
 The build should report `○ /` and `○ /artist` (prerendered as static content). In `.next/prerender-manifest.json`, both entries should have `initialRevalidateSeconds: false`. Use the production build to verify rendering; development mode does not represent production caching.
 
 Deploy using a Next.js-compatible host or `npm start`. The app uses the default `next/image` optimizer, so a static homepage does not mean the deployment can serve only files. A static-only export would also require a compatible image loader or another image optimization strategy.
+
+Before release, follow [the release checklist](docs/RELEASE_CHECKLIST.md). Confirm HTTPS and canonical-domain redirects, security headers, image optimization, cache behavior, and social previews on the actual host. Roll back by redeploying the previous build. Replacing an image at the same URL may require invalidating the host's image/CDN cache; prefer a build that changes the imported asset hash and verify the new optimized response after deployment. Do not enable HSTS or a nonce-based CSP until the host and static rendering behavior have been validated.
 
 Consult the installed version's guides in `node_modules/next/dist/docs/` before changing rendering or caching APIs, as required by `AGENTS.md`.

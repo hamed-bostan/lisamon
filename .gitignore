@@ -12,6 +12,10 @@
 
 # testing
 /coverage
+/playwright-report/
+/test-results/
+/docs/perf/*-mobile-*.json
+/docs/perf/*-desktop-*.json
 
 # next.js
 /.next/

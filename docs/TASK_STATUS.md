@@ -1,0 +1,23 @@
+# T01–T13 handoff — 15 November 2026
+
+Work was applied in plan order; T14 was skipped. Existing site copy, metadata wording, contacts, image files, crops, and artwork order were preserved. Added text is limited to operational loading/error/skip/404 UI. The release gate remains open for deployed-host and owner checks.
+
+| Task | Status | Change and verification |
+| --- | --- | --- |
+| T01 | Verified locally | Patched Next/config to 16.4.6 and transitive sharp/source-map-js. `npm ci`, `npm ls next sharp source-map-js --all`, `npm audit --omit=dev --json`, lint, build, and production HTTP tests passed. Full tooling audit reviewed separately. No remotePatterns, Server Actions, `next/og`, Draft Mode or use-cache usage was found; host exploitability was not asserted. |
+| T02 | Verified locally | Dock fits 320/375/768/1280, Escape refocuses toggle; text contrast, dot hit areas, touch arrows and skip links improved. Browser tests, axe and 320/desktop screenshots passed. |
+| T03 | Verified locally | Native portal dialogs share one scroll lock and preserve nested focus/Escape. Chromium, Firefox and WebKit nested tests passed; 320px long gallery scroll and body restoration passed. |
+| T04 | Verified locally | Discriminated artist selection, stale-request token, pending/error/reload, category import recovery and broken-image fallback. Delayed/aborted chunk and broken-image browser tests passed in three engines. |
+| T05 | Verified locally | Playwright, axe and GitHub CI added. Production browser suite passes in Chromium, Firefox and WebKit; CI retains failure artifacts. |
+| T06 | Verified locally | Removed blocking intro, animated existing brand mark briefly; no-JavaScript and reduced-motion checks passed. No LCP gain claimed without a pre-change baseline. |
+| T07 | Verified locally | Framework-free content, explicit image-ID groups and catalogue/artist media adapters added. Build validates no missing, duplicate or unmapped catalogue image. Work counts 11/11/2/1 and shot counts 18/21/2/3 verified. |
+| T08 | Verified locally | Biography is in artist server HTML; four category routes are static, linked, and no-JavaScript reachable. Direct reload, unknown slug, metadata and sitemap browser checks passed. |
+| T09 | Verified locally | Route metadata, social-image dimensions, shared origin and Person/ProfilePage data map to existing information. Canonical/OG URLs and current social assets passed production HTTP checks. |
+| T10 | Verified locally | Tile and lightbox `sizes` corrected. DPR/viewport candidate matrix and 601px screenshot reviewed; one hero crop requested; local Lighthouse CLS remained 0. Original art and photo quality preserved. |
+| T11 | Verified locally | Biography stays server-rendered; artist viewer and media code split and loaded on selection. Local decoded JS bytes measured with `node scripts/measure-js.mjs`; all routes remain static. Shared Button kept because no measured reason to replace it. |
+| T12 | Partial | Security headers, branded 404 and route error fallback implemented. Local HTTP header/404/noindex and gallery checks passed. Controlled route-render error recovery and actual host framing/security-header compatibility remain unverified. CSP/HSTS deferred pending host validation. |
+| T13 | Partial | Local Lighthouse mobile/desktop triplicates, image matrix, JS measurement, browser/a11y checks and release checklist recorded. Live redirects/CDN/social previews, physical touch, screen reader, Search Console, field CWV and reporting destination require deployment or owner access. |
+
+Exact recurring commands: `npm ci`; `npm ls next sharp source-map-js --all`; `npm audit --omit=dev --json`; `npm audit --json`; `npm run lint`; `npm run build`; `npm run test:e2e`; `node scripts/measure-images.mjs`; `node scripts/measure-js.mjs`; `npx --yes lighthouse@13.6.0` with the route/device flags described in [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md). Results: production audit zero; full audit eight dev-only findings; final lint/build pass; final three-browser suite 39/39 pass. The 18 route/device Lighthouse reports and image matrix were refreshed before the final lazy artist image-ID validation; JS bytes and all browser tests were refreshed afterward.
+
+Content comparison: `git show HEAD:app/data.ts` versus `content/portfolio.ts` plus `content/site.ts` found all 65 distinct original string literals. Biography paragraphs were moved verbatim from the original artist dialog into the server page. Homepage and artist metadata title/description/alt strings were copied unchanged. `git diff -- public/images` returned no changes. Existing generated catalogue/artist image labels remain; category routes reuse the same names and image order.

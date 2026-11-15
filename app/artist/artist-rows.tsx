@@ -1,23 +1,19 @@
 "use client";
 
-import Image, { type StaticImageData } from "next/image";
-import { useCallback, useState, type ReactNode } from "react";
-import { coverSizes } from "../components/cover-sizes";
-import Lightbox from "../components/lightbox";
-import { useModal } from "../components/use-modal";
-import { projects, type GalleryKey, type Project } from "../data";
-import type { Gallery } from "../gallery-data";
+import { useCallback, useRef, useState, type ReactNode } from "react";
+import Modal from "../components/ui/modal";
+import { galleryImageIds, projects, type Project } from "../data";
 import { Button } from "../components/ui/button";
 import styles from "./artist.styles";
 
-import portrait from "../../public/images/artist/portrait.jpg";
-
-// The portrait column is usually taller than it is wide (the text beside it sets its height).
-const portraitBoxRatio = 3 / 4;
-
-type Zoomed = { images: StaticImageData[]; alt: string };
-type MediaData = typeof import("../gallery-data");
-const galleryCounts: Record<GalleryKey, number> = { fish: 11, fold: 2, dust: 1 };
+type MediaData = typeof import("../../lib/media/artist");
+type GalleryView = typeof import("./artist-gallery-modal")["default"];
+type SingleView = typeof import("../components/lightbox")["default"];
+type Selection =
+  | { status: "idle" }
+  | { status: "loading"; project: Project }
+  | { status: "ready"; project: Project; media: MediaData; galleryView: GalleryView | null; singleView: SingleView | null }
+  | { status: "error"; project: Project };
 
 // The card image no longer shows on the page, so it leads each project's images.
 const imagesOf = (project: Project, media: MediaData) => [media.projectImages[project.imageKey], ...(project.gallery ? media.galleries[project.gallery].images : [])];
@@ -25,7 +21,7 @@ const imagesOf = (project: Project, media: MediaData) => [media.projectImages[pr
 /** One clickable list row: year column, text, and a "VIEW →" style cue that lights up on hover. */
 function Row({ year, label, cue, onClick, children }: { year?: string; label: string; cue: string; onClick: () => void; children: ReactNode }) {
   return (
-    <Button canvas type="button" className={`${styles.rowGrid} ${styles.rowButton}`} onClick={onClick} aria-label={label}>
+    <Button canvas type="button" className={`${styles.rowGrid} ${styles.rowButton}`} onClick={event => { event.currentTarget.focus(); onClick(); }} aria-label={label}>
       <span className={styles.rowYear}>{year}</span>
       <span className={styles.rowBody}>
         <span className={styles.rowMain}>{children}</span>
@@ -38,96 +34,40 @@ function Row({ year, label, cue, onClick, children }: { year?: string; label: st
   );
 }
 
-function AboutModal({ onClose }: { onClose: () => void }) {
-  const closeButton = useModal(onClose);
-
-  return (
-    <div className={styles.overlay} onClick={onClose}>
-      <div role="dialog" aria-modal="true" aria-labelledby="artist-title" className={styles.aboutModal} onClick={event => event.stopPropagation()}>
-        <div className={styles.aboutCopy}>
-          <p className={styles.eyebrow}>CATALOGUE 05 — ARTIST</p>
-          <h2 id="artist-title" className={styles.aboutTitle}>About the Artist</h2>
-          <p className={styles.name}>MAEDEH AKBARI <span>FARIMANI</span></p>
-          <div className={styles.bioText}>
-            <p><b>Maedeh Akbari Farimani</b> is a Dubai-based independent visual artist with a background in painting and sculpture.</p>
-            <p>Holding a Bachelor of Arts in Painting, her artistic practice explores the human form, emotions, identity, and the relationship between material and expression.</p>
-            <p>Working across painting, sculpture, and mixed media, she experiments with texture, dimension, and unconventional forms to create thought-provoking works that move beyond traditional artistic boundaries.</p>
-            <p>Her work reflects a personal exploration of the human experience, balancing abstraction, symbolism, and contemporary expression.</p>
-          </div>
-        </div>
-        <div className={styles.portrait}>
-          <Image src={portrait} alt="Maedeh Akbari Farimani painting in the studio" fill sizes={coverSizes("(max-width: 900px) 100vw, 640px", portrait, portraitBoxRatio)} className={`${styles.cover} object-[62%_50%]`} />
-        </div>
-        <Button canvas ref={closeButton} type="button" aria-label="Close" className={styles.modalClose} onClick={onClose}>✕</Button>
-      </div>
-    </div>
-  );
-}
-
-function GalleryModal({ gallery, images, onClose }: { gallery: Gallery; images: StaticImageData[]; onClose: () => void }) {
-  const [zoomed, setZoomed] = useState<Zoomed | null>(null);
-  const closeZoom = useCallback(() => setZoomed(null), []);
-  // Esc closes the enlarged image first, then the gallery.
-  const closeButton = useModal(zoomed === null ? onClose : closeZoom);
-
-  return (
-    <>
-      <div className={styles.overlay} aria-hidden={zoomed !== null} onClick={onClose}>
-        <div role="dialog" aria-modal="true" aria-labelledby="gallery-title" className={styles.modal} onClick={event => event.stopPropagation()}>
-          <Button canvas ref={closeButton} type="button" aria-label="Close" className={styles.modalClose} onClick={onClose}>✕</Button>
-          <p className={styles.eyebrow}>{gallery.label}</p>
-          <h2 id="gallery-title" className={styles.modalTitle}>{gallery.title}</h2>
-          <div className={styles.modalGrid}>
-            {images.map((src, i) => {
-              const alt = `${gallery.title} — work ${i + 1}`;
-              return (
-                <Button canvas key={src.src} type="button" className={styles.tile} onClick={() => setZoomed({ images: [src], alt })} aria-label={`Enlarge ${alt}`}>
-                  <Image src={src} alt={alt} fill sizes={coverSizes("(max-width: 600px) 92vw, 300px", src, 1)} />
-                </Button>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-      {zoomed && <Lightbox images={zoomed.images} alt={zoomed.alt} onClose={closeZoom} />}
-    </>
-  );
-}
-
 /** The "About the Artist" row and the project rows; each opens the bio, a gallery, or a single image. */
 export default function ArtistRows() {
-  const [media, setMedia] = useState<MediaData | null>(null);
-  const [about, setAbout] = useState(false);
-  const [open, setOpen] = useState<Project | null>(null);
-  const [zoomed, setZoomed] = useState<Zoomed | null>(null);
-  const closeAbout = useCallback(() => setAbout(false), []);
-  const close = useCallback(() => setOpen(null), []);
-  const closeZoom = useCallback(() => setZoomed(null), []);
-
+  const media = useRef<MediaData | null>(null);
+  const galleryView = useRef<GalleryView | null>(null);
+  const singleView = useRef<SingleView | null>(null);
+  const request = useRef(0);
+  const [selection, setSelection] = useState<Selection>({ status: "idle" });
+  const close = useCallback(() => { request.current++; setSelection({ status: "idle" }); }, []);
+  const select = async (project: Project) => {
+    const token = ++request.current;
+    setSelection({ status: "loading", project });
+    try {
+      const [loaded, gallery, single] = await Promise.all([
+        media.current ?? import("../../lib/media/artist"),
+        project.gallery ? galleryView.current ?? import("./artist-gallery-modal").then(module => module.default) : null,
+        project.gallery ? null : singleView.current ?? import("../components/lightbox").then(module => module.default),
+      ]);
+      if (token !== request.current) return;
+      media.current = loaded;
+      if (gallery) galleryView.current = gallery;
+      if (single) singleView.current = single;
+      setSelection({ status: "ready", project, media: loaded, galleryView: gallery, singleView: single });
+    } catch {
+      if (token === request.current) setSelection({ status: "error", project });
+    }
+  };
   return (
     <>
-      <ol aria-label="About the artist" className={styles.list}>
-        <li>
-          <Row label="About the Artist — read full biography" cue="READ MORE" onClick={() => setAbout(true)}>
-            <span className={styles.rowTitle}>About the Artist</span>
-            <span className={styles.rowVenue}>Maedeh Akbari Farimani</span>
-            <span className={styles.rowText}>Dubai-based independent visual artist with a background in painting and sculpture.</span>
-          </Row>
-        </li>
-      </ol>
-
       <ol aria-label="Selected projects" className={styles.list}>
         {projects.map(project => {
-          const count = 1 + (project.gallery ? galleryCounts[project.gallery] : 0);
-          const view = async () => {
-            const loaded = media ?? await import("../gallery-data");
-            setMedia(loaded);
-            if (project.gallery) setOpen(project);
-            else setZoomed({ images: [loaded.projectImages[project.imageKey]], alt: project.alt });
-          };
+          const count = 1 + (project.gallery ? galleryImageIds[project.gallery].length : 0);
           return (
             <li key={project.title} className={styles.row}>
-              <Row year={project.year} label={`${project.title} — ${count > 1 ? `open gallery (${count} images)` : "view image"}`} cue={count > 1 ? "VIEW IMAGES" : "VIEW IMAGE"} onClick={view}>
+              <Row year={project.year} label={`${project.title} — ${count > 1 ? `open gallery (${count} images)` : "view image"}`} cue={count > 1 ? "VIEW IMAGES" : "VIEW IMAGE"} onClick={() => void select(project)}>
                 <span className={styles.rowTitle}>{project.title}</span>
                 {project.note && (
                   <>
@@ -141,9 +81,11 @@ export default function ArtistRows() {
         })}
       </ol>
 
-      {about && <AboutModal onClose={closeAbout} />}
-      {open?.gallery && media && <GalleryModal gallery={media.galleries[open.gallery]} images={imagesOf(open, media)} onClose={close} />}
-      {zoomed && <Lightbox images={zoomed.images} alt={zoomed.alt} onClose={closeZoom} />}
+      {selection.status === "loading" && <div className="fixed bottom-4 left-4 z-100 bg-white p-4 shadow-lg"><p role="status">Loading artwork…</p><Button canvas type="button" onClick={close}>Close</Button></div>}
+      {selection.status === "error" && <Modal className={styles.overlay} label="Artwork unavailable" onClose={close}><div className={styles.modal}><Button canvas data-modal-close type="button" className={styles.modalClose} aria-label="Close" onClick={close}>✕</Button><p>Artwork could not be loaded.</p><Button canvas type="button" onClick={() => window.location.reload()}>Reload page</Button></div></Modal>}
+      {selection.status === "ready" && (selection.project.gallery
+        ? selection.galleryView && <selection.galleryView gallery={selection.media.galleries[selection.project.gallery]} images={imagesOf(selection.project, selection.media)} onClose={close} />
+        : selection.singleView && <selection.singleView src={selection.media.projectImages[selection.project.imageKey]} alt={selection.project.alt} onClose={close} />)}
     </>
   );
 }

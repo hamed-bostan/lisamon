@@ -16,6 +16,7 @@ function WhatsAppGlyph({ className }: { className?: string }) {
 export default function WhatsAppButton() {
   const [open, setOpen] = useState(false);
   const dockRef = useRef<HTMLDivElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!open) return;
@@ -23,7 +24,10 @@ export default function WhatsAppButton() {
       if (!dockRef.current?.contains(event.target as Node)) setOpen(false);
     };
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") {
+        setOpen(false);
+        toggleRef.current?.focus();
+      }
     };
     document.addEventListener("pointerdown", onPointerDown);
     document.addEventListener("keydown", onKeyDown);
@@ -47,7 +51,7 @@ export default function WhatsAppButton() {
         <span className={styles.label}>DIRECT WHATSAPP</span>
         <span className={styles.badge}><WhatsAppGlyph className={styles.glyph} /></span>
       </a>
-      <Button canvas
+      <Button canvas ref={toggleRef}
         type="button"
         className={styles.toggle}
         data-open={open}

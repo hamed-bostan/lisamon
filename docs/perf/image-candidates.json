@@ -1,0 +1,136 @@
+{
+  "tiles": [
+    {
+      "width": 320,
+      "dpr": 1,
+      "tileWidth": 254,
+      "candidateWidth": 256,
+      "responseBytes": 11463
+    },
+    {
+      "width": 600,
+      "dpr": 1,
+      "tileWidth": 512,
+      "candidateWidth": 640,
+      "responseBytes": 53269
+    },
+    {
+      "width": 601,
+      "dpr": 1,
+      "tileWidth": 512,
+      "candidateWidth": 640,
+      "responseBytes": 53269
+    },
+    {
+      "width": 630,
+      "dpr": 1,
+      "tileWidth": 537,
+      "candidateWidth": 640,
+      "responseBytes": 53269
+    },
+    {
+      "width": 768,
+      "dpr": 1,
+      "tileWidth": 317,
+      "candidateWidth": 384,
+      "responseBytes": 22301
+    },
+    {
+      "width": 1024,
+      "dpr": 1,
+      "tileWidth": 274,
+      "candidateWidth": 640,
+      "responseBytes": 53269
+    },
+    {
+      "width": 1280,
+      "dpr": 1,
+      "tileWidth": 343,
+      "candidateWidth": 384,
+      "responseBytes": 22301
+    },
+    {
+      "width": 1600,
+      "dpr": 1,
+      "tileWidth": 313,
+      "candidateWidth": 384,
+      "responseBytes": 22301
+    },
+    {
+      "width": 320,
+      "dpr": 2,
+      "tileWidth": 254,
+      "candidateWidth": 640,
+      "responseBytes": 53269
+    },
+    {
+      "width": 600,
+      "dpr": 2,
+      "tileWidth": 515,
+      "candidateWidth": 1080,
+      "responseBytes": 110311
+    },
+    {
+      "width": 601,
+      "dpr": 2,
+      "tileWidth": 517,
+      "candidateWidth": 1080,
+      "responseBytes": 110311
+    },
+    {
+      "width": 630,
+      "dpr": 2,
+      "tileWidth": 540,
+      "candidateWidth": 1200,
+      "responseBytes": 110311
+    },
+    {
+      "width": 768,
+      "dpr": 2,
+      "tileWidth": 317,
+      "candidateWidth": 640,
+      "responseBytes": 53269
+    },
+    {
+      "width": 1024,
+      "dpr": 2,
+      "tileWidth": 274,
+      "candidateWidth": 1080,
+      "responseBytes": 110311
+    },
+    {
+      "width": 1280,
+      "dpr": 2,
+      "tileWidth": 343,
+      "candidateWidth": 640,
+      "responseBytes": 53269
+    },
+    {
+      "width": 1600,
+      "dpr": 2,
+      "tileWidth": 313,
+      "candidateWidth": 640,
+      "responseBytes": 53269
+    }
+  ],
+  "viewers": [
+    {
+      "width": 320,
+      "imageWidth": 288,
+      "candidateWidth": 384,
+      "responseBytes": 22301
+    },
+    {
+      "width": 768,
+      "imageWidth": 581,
+      "candidateWidth": 640,
+      "responseBytes": 53269
+    },
+    {
+      "width": 1536,
+      "imageWidth": 581,
+      "candidateWidth": 640,
+      "responseBytes": 53269
+    }
+  ]
+}

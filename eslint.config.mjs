@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Design prototype runtime, not app code.
     "design/**",
+    "playwright-report/**",
+    "test-results/**",
   ]),
 ]);
 

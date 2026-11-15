@@ -7,7 +7,7 @@
   --color-burgundy-hover: #6b6b6b;
   --color-taupe: #6b6b6b;
   --color-ink: #1a1a1a;
-  --color-muted: #8f8f8f;
+  --color-muted: #6b6b6b;
   --color-line: #e4e4e6;
 }
 
@@ -41,26 +41,20 @@
     color: var(--color-burgundy-hover);
   }
 
+  :target { scroll-margin-top: calc(var(--announce-h) + 24px); }
+
+  .skip-link { position: fixed; left: 16px; top: -100px; z-index: 300; padding: 12px 16px; background: #fff; color: #1a1a1a; }
+  .skip-link:focus { top: calc(var(--announce-h) + 8px); }
+
+  .modal-surface { margin: 0; width: 100vw; height: 100dvh; max-width: none; max-height: none; border: 0; color: inherit; }
+  .modal-surface::backdrop { background: transparent; }
+
   :is(a, button):focus-visible {
     @apply outline-2 outline-offset-4 outline-ink;
   }
 }
 
-/* Keyframes used by the Tailwind animation utilities. */
-@keyframes rise18 {
-  from { opacity: 0; transform: translateY(18px); }
+@keyframes brandAppear {
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes rise14 {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fill {
-  to { width: 100%; }
-}
-
-@keyframes slideAway {
-  to { transform: translateY(-100%); visibility: hidden; }
 }

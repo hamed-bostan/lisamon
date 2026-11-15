@@ -1,0 +1,42 @@
+{
+  "median": {
+    "home": {
+      "initial": 545054,
+      "open": 96462
+    },
+    "artist": {
+      "initial": 580127,
+      "open": 64880
+    }
+  },
+  "samples": {
+    "home": [
+      {
+        "initial": 545054,
+        "open": 122778
+      },
+      {
+        "initial": 545054,
+        "open": 87705
+      },
+      {
+        "initial": 545054,
+        "open": 96462
+      }
+    ],
+    "artist": [
+      {
+        "initial": 580127,
+        "open": 64880
+      },
+      {
+        "initial": 580127,
+        "open": 64880
+      },
+      {
+        "initial": 580127,
+        "open": 64880
+      }
+    ]
+  }
+}

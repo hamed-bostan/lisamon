@@ -4,15 +4,17 @@ import { getImageProps, type StaticImageData } from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "./ui/button";
 import styles from "./lightbox.styles";
-import { useModal } from "./use-modal";
+import Modal from "./ui/modal";
 
 function Slide({ src, alt }: { src: StaticImageData; alt: string }) {
-  const { props } = getImageProps({ src, alt, fill: true, sizes: "92vw" });
+  const [failed, setFailed] = useState(false);
+  const aspect = (src.width / src.height).toFixed(3);
+  const { props } = getImageProps({ src, alt, fill: true, sizes: `min(calc(100vw - 32px), calc((100vh - 112px) * ${aspect}))` });
   return (
     <div className={styles.slide}>
       {/* A plain <img> keeps the picture's own aspect ratio inside the viewport; getImageProps still serves optimized sizes. */}
       {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
-      <img {...props} style={undefined} className={styles.image} onClick={event => event.stopPropagation()} />
+      {failed ? <p role="alert" className="text-white" onClick={event => event.stopPropagation()}>Image unavailable.</p> : <img {...props} style={undefined} className={styles.image} onError={() => setFailed(true)} onClick={event => event.stopPropagation()} />}
     </div>
   );
 }
@@ -31,7 +33,6 @@ function Chevron({ flip }: { flip?: boolean }) {
  */
 export default function Lightbox({ alt, onClose, ...props }: { alt: string; onClose: () => void } & ({ images: StaticImageData[] } | { src: StaticImageData })) {
   const images = "images" in props ? props.images : [props.src];
-  const closeButton = useModal(onClose);
   const track = useRef<HTMLDivElement>(null);
   const [current, setCurrent] = useState(0);
   const multiple = images.length > 1;
@@ -66,8 +67,8 @@ export default function Lightbox({ alt, onClose, ...props }: { alt: string; onCl
   };
 
   return (
-    <div role="dialog" aria-modal="true" aria-label={alt} className={styles.lightbox} onClick={onClose}>
-      <div ref={track} className={styles.track} onScroll={multiple ? onScroll : undefined}>
+    <Modal label={alt} className={styles.lightbox} onClose={onClose}>
+      <div ref={track} className={styles.track} onScroll={multiple ? onScroll : undefined} onClick={onClose}>
         {images.map((src, i) => (
           <Slide key={src.src} src={src} alt={multiple ? `${alt} — view ${i + 1} of ${images.length}` : alt} />
         ))}
@@ -85,11 +86,12 @@ export default function Lightbox({ alt, onClose, ...props }: { alt: string; onCl
               <Button canvas key={src.src} type="button" aria-label={`Show image ${i + 1}`} aria-current={i === current} className={styles.dot} onClick={() => goTo(i)} />
             ))}
           </div>
+          <span className="sr-only" role="status" aria-live="polite">Image {current + 1} of {images.length}</span>
         </>
       )}
-      <Button canvas ref={closeButton} type="button" aria-label="Close image" className={styles.close} onClick={onClose}>
+      <Button canvas data-modal-close type="button" aria-label="Close image" className={styles.close} onClick={onClose}>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
       </Button>
-    </div>
+    </Modal>
   );
 }

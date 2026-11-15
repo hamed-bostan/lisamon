@@ -1,9 +1,9 @@
 import Image, { getImageProps } from "next/image";
 import Catalogue from "./components/catalogue";
-import Intro from "./components/intro";
 import NavbarBackdrop from "./components/navbar-backdrop";
 import WhatsAppButton from "./components/whatsapp-button";
 import { contact } from "./data";
+import { pageMetadata } from "../lib/site";
 import styles from "./home.styles";
 
 import hero from "../public/images/home/hero.webp";
@@ -11,6 +11,16 @@ import heroMobile from "../public/images/home/hero-mobile.jpg";
 import logoMark from "../public/images/home/logo-mark.png";
 import team from "../public/images/home/about-team.jpg";
 import founder from "../public/images/home/founder.jpg";
+
+export const metadata = pageMetadata({
+  title: "LISAMON — Art Beyond the Canvas",
+  description: "LISAMON is a Dubai-based creative studio bringing art beyond the canvas through sculptural walls, installations, murals and bespoke pieces.",
+  path: "/",
+  image: "/images/home/hero.webp",
+  imageAlt: "LISAMON creative studio",
+  imageWidth: hero.width,
+  imageHeight: hero.height,
+});
 
 function ArrowIcon() {
   return (
@@ -36,7 +46,6 @@ function HeroImage() {
 export default function Home() {
   return (
     <div className={styles.page} id="top">
-      <Intro />
       <header className={styles.hero}>
         <h1 className="sr-only">LISAMON</h1>
         <HeroImage />
@@ -53,7 +62,7 @@ export default function Home() {
         </a>
       </header>
 
-      <main>
+      <main id="main-content" tabIndex={-1}>
         <section className={styles.welcome} aria-labelledby="welcome-title">
           <h2 id="welcome-title" className={styles.eyebrow}>WELCOME</h2>
           <span className={styles.welcomeRule} aria-hidden="true" />

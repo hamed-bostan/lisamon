@@ -1,5 +1,6 @@
 import localFont from "next/font/local";
-import { pageMetadata } from "../lib/site";
+import type { Metadata } from "next";
+import { siteUrl } from "../lib/site";
 import AnnouncementBar from "./components/announcement-bar";
 import { contact } from "./data";
 import "./globals.css";
@@ -11,20 +12,14 @@ const inter = localFont({
   variable: "--font-inter",
 });
 
-export const metadata = pageMetadata({
-  title: "LISAMON — Art Beyond the Canvas",
-  description: "LISAMON is a Dubai-based creative studio bringing art beyond the canvas through sculptural walls, installations, murals and bespoke pieces.",
-  path: "/",
-  image: "/images/home/hero.webp",
-  imageAlt: "LISAMON creative studio",
-});
+export const metadata: Metadata = { metadataBase: siteUrl };
 
 const organization = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "LISAMON",
-  url: "https://www.lisamon.ae/",
-  logo: "https://www.lisamon.ae/icon.png",
+  url: new URL("/", siteUrl).toString(),
+  logo: new URL("/icon.png", siteUrl).toString(),
   email: contact.email,
   sameAs: [contact.instagram],
 };
@@ -33,6 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={inter.variable}>
       <body>
+        <a className="skip-link" href="#main-content">Skip to main content</a>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organization).replace(/</g, "\\u003c") }} />
         <AnnouncementBar />
         {children}

@@ -14,7 +14,7 @@ const styles = {
   "overlay": "m-catalogue-overlay fixed [inset:0] [z-index:100] [background:rgba(17,_17,_17,_0.55)] [backdrop-filter:blur(6px)] [overflow-y:auto] [padding:4vh_4vw]",
   "modal": "m-catalogue-modal [max-width:1600px] [margin:0_auto] bg-white [box-shadow:0_30px_80px_rgba(0,_0,_0,_0.25)]",
   "modalHeader": "m-catalogue-modalHeader sticky [top:-4vh] [z-index:2] bg-white flex items-center [gap:clamp(16px,_2.4vw,_36px)] [padding:clamp(20px,_3vw,_48px)_clamp(20px,_3.6vw,_60px)] [border-bottom:1px_solid_#eee] max-[700px]:[flex-wrap:wrap]",
-  "modalEyebrow": "m-catalogue-modalEyebrow [font-size:clamp(10px,_0.8vw,_13px)] [letter-spacing:0.4em] font-semibold [color:#8a8a8a] whitespace-nowrap max-[700px]:[flex-basis:100%] max-[700px]:[order:-1]",
+  "modalEyebrow": "m-catalogue-modalEyebrow [font-size:clamp(10px,_0.8vw,_13px)] [letter-spacing:0.4em] font-semibold [color:#6b6b6b] whitespace-nowrap max-[700px]:[flex-basis:100%] max-[700px]:[order:-1]",
   "modalTitle": "m-catalogue-modalTitle m-0 [flex:1] min-w-0 font-black [font-size:clamp(22px,_3.2vw,_52px)] [line-height:1] [letter-spacing:-0.02em]",
   "modalClose": "m-catalogue-modalClose flex-none [width:clamp(40px,_3.4vw,_56px)] [height:clamp(40px,_3.4vw,_56px)] [border-radius:50%] border-0 [background:#f2f2f2] [font-size:clamp(18px,_1.4vw,_24px)] [color:var(--color-ink)] cursor-pointer",
   "modalGrid": "m-catalogue-modalGrid grid [grid-template-columns:repeat(auto-fill,_minmax(min(100%,_260px),_1fr))] [gap:clamp(16px,_2.2vw,_40px)] [padding:clamp(20px,_3.6vw,_60px)]",

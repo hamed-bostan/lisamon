@@ -1,5 +1,6 @@
 import Image, { getImageProps } from "next/image";
 import Catalogue from "./components/catalogue";
+import Intro from "./components/intro";
 import NavbarBackdrop from "./components/navbar-backdrop";
 import WhatsAppButton from "./components/whatsapp-button";
 import { contact } from "./data";
@@ -46,6 +47,7 @@ function HeroImage() {
 export default function Home() {
   return (
     <div className={styles.page} id="top">
+      <Intro />
       <header className={styles.hero}>
         <h1 className="sr-only">LISAMON</h1>
         <HeroImage />

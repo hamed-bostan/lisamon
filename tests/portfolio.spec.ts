@@ -143,11 +143,17 @@ test("mobile contact and skip link fit the viewport", async ({ page, browserName
   await expect(page.locator("main#main-content")).toBeFocused();
 });
 
-test("intro never blocks the page and reduced motion disables its animation", async ({ page }) => {
+test("intro plays on load and reduced motion hides it", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/", { waitUntil: "domcontentloaded" });
+  const intro = page.locator(".m-intro-intro");
+  await expect(intro).toBeVisible();
+  expect(await intro.evaluate(el => getComputedStyle(el).animationName)).toBe("slideAway");
+  await expect(intro).toHaveCount(0, { timeout: 6000 });
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/");
+  await page.reload({ waitUntil: "domcontentloaded" });
   await expect(page.getByRole("main")).toBeVisible();
-  await expect(page.locator(".m-intro-intro")).toHaveCount(0);
+  await expect(intro).not.toBeVisible();
   expect(await page.locator(".m-home-logoMark").evaluate(el => getComputedStyle(el).animationName)).toBe("none");
   await page.reload();
   await expect(page.getByRole("main")).toBeVisible();

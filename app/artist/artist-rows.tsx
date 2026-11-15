@@ -5,7 +5,8 @@ import { useCallback, useState, type ReactNode } from "react";
 import { coverSizes } from "../components/cover-sizes";
 import Lightbox from "../components/lightbox";
 import { useModal } from "../components/use-modal";
-import { galleries, projects, type Gallery, type Project } from "../data";
+import { projects, type GalleryKey, type Project } from "../data";
+import type { Gallery } from "../gallery-data";
 import { Button } from "../components/ui/button";
 import styles from "./artist.styles";
 
@@ -15,9 +16,11 @@ import portrait from "../../public/images/artist/portrait.jpg";
 const portraitBoxRatio = 3 / 4;
 
 type Zoomed = { images: StaticImageData[]; alt: string };
+type MediaData = typeof import("../gallery-data");
+const galleryCounts: Record<GalleryKey, number> = { fish: 11, fold: 2, dust: 1 };
 
 // The card image no longer shows on the page, so it leads each project's images.
-const imagesOf = (project: Project) => [project.image, ...(project.gallery ? galleries[project.gallery].images : [])];
+const imagesOf = (project: Project, media: MediaData) => [media.projectImages[project.imageKey], ...(project.gallery ? media.galleries[project.gallery].images : [])];
 
 /** One clickable list row: year column, text, and a "VIEW →" style cue that lights up on hover. */
 function Row({ year, label, cue, onClick, children }: { year?: string; label: string; cue: string; onClick: () => void; children: ReactNode }) {
@@ -93,6 +96,7 @@ function GalleryModal({ gallery, images, onClose }: { gallery: Gallery; images: 
 
 /** The "About the Artist" row and the project rows; each opens the bio, a gallery, or a single image. */
 export default function ArtistRows() {
+  const [media, setMedia] = useState<MediaData | null>(null);
   const [about, setAbout] = useState(false);
   const [open, setOpen] = useState<Project | null>(null);
   const [zoomed, setZoomed] = useState<Zoomed | null>(null);
@@ -114,8 +118,13 @@ export default function ArtistRows() {
 
       <ol aria-label="Selected projects" className={styles.list}>
         {projects.map(project => {
-          const count = imagesOf(project).length;
-          const view = () => (project.gallery ? setOpen(project) : setZoomed({ images: [project.image], alt: project.alt }));
+          const count = 1 + (project.gallery ? galleryCounts[project.gallery] : 0);
+          const view = async () => {
+            const loaded = media ?? await import("../gallery-data");
+            setMedia(loaded);
+            if (project.gallery) setOpen(project);
+            else setZoomed({ images: [loaded.projectImages[project.imageKey]], alt: project.alt });
+          };
           return (
             <li key={project.title} className={styles.row}>
               <Row year={project.year} label={`${project.title} — ${count > 1 ? `open gallery (${count} images)` : "view image"}`} cue={count > 1 ? "VIEW IMAGES" : "VIEW IMAGE"} onClick={view}>
@@ -133,7 +142,7 @@ export default function ArtistRows() {
       </ol>
 
       {about && <AboutModal onClose={closeAbout} />}
-      {open?.gallery && <GalleryModal gallery={galleries[open.gallery]} images={imagesOf(open)} onClose={close} />}
+      {open?.gallery && media && <GalleryModal gallery={media.galleries[open.gallery]} images={imagesOf(open, media)} onClose={close} />}
       {zoomed && <Lightbox images={zoomed.images} alt={zoomed.alt} onClose={closeZoom} />}
     </>
   );

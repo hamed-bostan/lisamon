@@ -24,7 +24,7 @@ export default function Intro() {
   return (
     <div className={styles.intro} aria-hidden="true">
       <div className={styles.logo}>
-        <Image src={logoMark} alt="" unoptimized />
+        <Image src={logoMark} alt="" loading="eager" unoptimized />
       </div>
       <div className={styles.wordmark}>LISAMON</div>
       <div className={styles.track}><div className={styles.progress} /></div>

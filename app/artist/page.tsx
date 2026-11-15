@@ -1,13 +1,16 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMetadata } from "../../lib/site";
 import { exhibitions } from "../data";
 import ArtistRows from "./artist-rows";
 import styles from "./artist.styles";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "About the Artist — Maedeh Akbari Farimani | LISAMON",
   description: "Maedeh Akbari Farimani is a Dubai-based independent visual artist working across painting, sculpture and mixed media.",
-};
+  path: "/artist",
+  image: "/images/artist/portrait.jpg",
+  imageAlt: "Maedeh Akbari Farimani painting in the studio",
+});
 
 export default function ArtistPage() {
   return (

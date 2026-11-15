@@ -18,8 +18,11 @@ export default function ArtistPage() {
       </header>
 
       <main className={styles.main}>
+        <h1 className="sr-only">Maedeh Akbari Farimani — About the Artist</h1>
         <section className={styles.works} aria-label="Selected projects and exhibitions">
+          <h2 className="sr-only">About the artist and selected projects</h2>
           <ArtistRows />
+          <h2 className="sr-only">Exhibitions</h2>
           <ol aria-label="Exhibitions" className={styles.list}>
             {exhibitions.map(item => (
               <li key={item.title} className={`${styles.row} ${styles.rowGrid}`}>

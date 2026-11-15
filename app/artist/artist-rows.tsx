@@ -68,7 +68,7 @@ function GalleryModal({ gallery, images, onClose }: { gallery: Gallery; images: 
 
   return (
     <>
-      <div className={styles.overlay} onClick={onClose}>
+      <div className={styles.overlay} aria-hidden={zoomed !== null} onClick={onClose}>
         <div role="dialog" aria-modal="true" aria-labelledby="gallery-title" className={styles.modal} onClick={event => event.stopPropagation()}>
           <button ref={closeButton} type="button" aria-label="Close" className={styles.modalClose} onClick={onClose}>✕</button>
           <p className={styles.eyebrow}>{gallery.label}</p>

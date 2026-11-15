@@ -50,7 +50,7 @@ function CategoryModal({ category, onClose }: { category: Category; onClose: () 
 
   return (
     <>
-      <div className={styles.overlay} onClick={onClose}>
+      <div className={styles.overlay} aria-hidden={zoomed !== null} onClick={onClose}>
         <div
           role="dialog"
           aria-modal="true"

@@ -9,11 +9,11 @@ npm ci
 npm run dev
 ```
 
-Open http://localhost:3000. The homepage is in `app/page.tsx`, shared artwork components are in `app/components/art.tsx`, and images are in `public/`.
+Open http://localhost:3000. The homepage is in `app/page.tsx`, the artist page is in `app/artist/page.tsx`, and gallery components are in `app/components/` and `app/artist/artist-rows.tsx`. Images are in `public/images/`.
 
 ## Rendering strategy
 
-The homepage uses **static site generation (SSG)** through Next.js automatic prerendering. Its artwork listings, copy, metadata, and imported images are available at build time and shared by every visitor. The page and layout remain Server Components; the portfolio content is included in the generated HTML.
+The homepage and artist page use **static site generation (SSG)** through Next.js automatic prerendering. Their copy, metadata, and imported images are available at build time and shared by every visitor. Both pages and the layout remain Server Components; portfolio content is included in the generated HTML.
 
 | Strategy | Current decision | When to reconsider |
 | --- | --- | --- |
@@ -33,7 +33,7 @@ npm run build
 npm start
 ```
 
-The build should report `○ /` (prerendered as static content). In `.next/prerender-manifest.json`, the `/` entry should have `compute: "static"` and `initialRevalidateSeconds: false`. Use the production build to verify rendering; development mode does not represent production caching.
+The build should report `○ /` and `○ /artist` (prerendered as static content). In `.next/prerender-manifest.json`, both entries should have `initialRevalidateSeconds: false`. Use the production build to verify rendering; development mode does not represent production caching.
 
 Deploy using a Next.js-compatible host or `npm start`. The app uses the default `next/image` optimizer, so a static homepage does not mean the deployment can serve only files. A static-only export would also require a compatible image loader or another image optimization strategy.
 

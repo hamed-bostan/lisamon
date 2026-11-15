@@ -10,7 +10,7 @@ const styles = {
   "prev": "m-lightbox-prev [left:clamp(14px,_2.4vw,_28px)]",
   "next": "m-lightbox-next [right:clamp(14px,_2.4vw,_28px)]",
   "dots": "m-lightbox-dots absolute [left:50%] [bottom:clamp(18px,_3vh,_34px)] [transform:translateX(-50%)] flex [gap:10px]",
-  "dot": "m-lightbox-dot [width:44px] [height:44px] p-0 border-0 [border-radius:50%] bg-transparent cursor-pointer flex items-center justify-center after:content-[''] after:[width:9px] after:[height:9px] after:[border-radius:50%] after:[background:rgba(255,_255,_255,_0.65)] aria-[current=true]:after:bg-white focus-visible:[outline-color:#fff]",
+  "dot": "m-lightbox-dot [width:9px] [height:9px] p-0 border-0 [border-radius:50%] [background:rgba(255,_255,_255,_0.4)] cursor-pointer [transition:background_0.2s_ease,_transform_0.2s_ease] aria-[current=true]:bg-white aria-[current=true]:[transform:scale(1.2)]",
 } as const;
 
 export default styles;

@@ -6,7 +6,8 @@ import { useCallback, useState, type ReactNode } from "react";
 import { categories, type Category } from "../data";
 import { coverSizes } from "./cover-sizes";
 import Lightbox from "./lightbox";
-import styles from "./catalogue.module.css";
+import { Button } from "./ui/button";
+import styles from "./catalogue.styles";
 import { useModal } from "./use-modal";
 
 function Bar({ category, children }: { category: Category; children: ReactNode }) {
@@ -61,15 +62,15 @@ function CategoryModal({ category, onClose }: { category: Category; onClose: () 
           <div className={styles.modalHeader}>
             <span className={styles.modalEyebrow}>CATALOGUE {category.index}</span>
             <h2 id="catalogue-title" className={styles.modalTitle}>{category.name}</h2>
-            <button ref={closeButton} type="button" aria-label="Close" className={styles.modalClose} onClick={onClose}>✕</button>
+            <Button canvas ref={closeButton} type="button" aria-label="Close" className={styles.modalClose} onClick={onClose}>✕</Button>
           </div>
           {category.images.length > 0 ? (
             <div className={styles.modalGrid}>
               {category.images.map(([src, ...more], i) => (
-                <button key={src.src} type="button" className={styles.tile} onClick={() => setZoomed(i)} aria-label={`Enlarge ${imageAlt(i)}${more.length ? ` (${more.length + 1} images)` : ""}`}>
+                <Button canvas key={src.src} type="button" className={styles.tile} onClick={() => setZoomed(i)} aria-label={`Enlarge ${imageAlt(i)}${more.length ? ` (${more.length + 1} images)` : ""}`}>
                   <Image src={src} alt={imageAlt(i)} fill sizes={coverSizes(tileSizes, src, 4 / 5)} />
                   {more.length > 0 && <CarouselIcon />}
-                </button>
+                </Button>
               ))}
             </div>
           ) : (
@@ -95,9 +96,9 @@ export default function Catalogue() {
             <Bar category={category}><span className="sr-only">— about the artist</span></Bar>
           </Link>
         ) : (
-          <button key={category.index} type="button" className={styles.bar} onClick={() => setOpen(i)}>
+          <Button canvas key={category.index} type="button" className={styles.bar} onClick={() => setOpen(i)}>
             <Bar category={category}><span className="sr-only">— open catalogue</span></Bar>
-          </button>
+          </Button>
         ),
       )}
       {openCategory && <CategoryModal category={openCategory} onClose={close} />}

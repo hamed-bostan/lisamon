@@ -1,0 +1,38 @@
+// Generated from the original CSS measurements; edit class utilities here.
+// Marker classes scope ancestor and hover variants without global selectors.
+const styles = {
+  "page": "m-artist-page [container-type:inline-size] w-full [min-height:100vh] flex flex-col [background:#f6f6f7]",
+  "cover": "m-artist-cover object-cover",
+  "eyebrow": "m-artist-eyebrow m-0 [font-size:clamp(10px,_0.8cqw,_13px)] [letter-spacing:0.5em] font-medium [color:var(--color-taupe)] [.m-artist-aboutModal_&]:[font-size:clamp(10px,_0.8vw,_13px)] [.m-artist-modal_&]:[font-size:clamp(10px,_0.8vw,_13px)] [.m-artist-modal_&]:[padding-right:56px]",
+  "topBar": "m-artist-topBar flex justify-between items-center [padding:clamp(18px,_2cqw,_32px)_clamp(20px,_5.5cqw,_90px)] [border-bottom:1px_solid_var(--color-line)] bg-white",
+  "back": "m-artist-back flex items-center [gap:12px] [font-size:clamp(11px,_0.8cqw,_13px)] [letter-spacing:0.35em] font-semibold",
+  "brand": "m-artist-brand [font-size:clamp(11px,_0.8cqw,_13px)] [letter-spacing:0.5em] font-medium [color:var(--color-taupe)]",
+  "main": "m-artist-main [flex:1] flex flex-col",
+  "works": "m-artist-works [padding:0_clamp(20px,_5.5cqw,_90px)_clamp(40px,_4.6cqw,_76px)] bg-white",
+  "list": "m-artist-list m-0 p-0 [list-style:none]",
+  "row": "m-artist-row [border-top:1px_solid_var(--color-line)]",
+  "rowGrid": "m-artist-rowGrid grid [grid-template-columns:clamp(96px,_13cqw,_210px)_minmax(0,_1fr)] [gap:clamp(14px,_2.4cqw,_44px)] [padding:clamp(40px,_4.6cqw,_76px)_0]",
+  "rowButton": "m-artist-rowButton w-full border-0 [background:transparent] [font:inherit] [color:inherit] text-left cursor-pointer",
+  "rowYear": "m-artist-rowYear [padding-top:0.4em] [font-size:clamp(11px,_0.9cqw,_15px)] [letter-spacing:0.3em] font-semibold [color:var(--color-taupe)]",
+  "rowBody": "m-artist-rowBody flex [flex-wrap:wrap] items-start justify-between [column-gap:clamp(14px,_2.4cqw,_44px)] [row-gap:14px] min-w-0",
+  "rowMain": "m-artist-rowMain block [flex:1_1_320px] min-w-0 [&_>_*]:block [&_>_*]:m-0",
+  "rowTitle": "m-artist-rowTitle font-black [font-size:clamp(17px,_1.7cqw,_28px)] [line-height:1.15] [text-transform:uppercase] [transition:color_0.25s_ease] [.m-artist-rowButton:hover_&]:[color:var(--color-burgundy-hover)] motion-reduce:[transition:none]",
+  "rowVenue": "m-artist-rowVenue [.m-artist-rowMain_&]:[margin-top:clamp(6px,_0.6cqw,_10px)] [.m-artist-rowMain_&]:[font-size:clamp(11px,_0.85cqw,_14px)] [.m-artist-rowMain_&]:[letter-spacing:0.15em] [.m-artist-rowMain_&]:font-medium [.m-artist-rowMain_&]:[color:var(--color-muted)]",
+  "rowText": "m-artist-rowText [.m-artist-rowMain_&]:[margin-top:clamp(10px,_1cqw,_16px)] [.m-artist-rowMain_&]:[max-width:720px] [.m-artist-rowMain_&]:[font-size:clamp(14px,_1.05cqw,_18px)] [.m-artist-rowMain_&]:[line-height:1.7] [.m-artist-rowMain_&]:[color:#444] [.m-artist-rowMain_&]:[text-wrap:pretty]",
+  "cue": "m-artist-cue flex-none [padding-top:0.45em] flex items-center [gap:12px] whitespace-nowrap [font-size:clamp(10px,_0.8cqw,_13px)] [letter-spacing:0.3em] font-semibold [transition:color_0.25s_ease] [.m-artist-rowButton:hover_&]:[color:var(--color-burgundy-hover)] motion-reduce:[transition:none]",
+  "cueArrow": "m-artist-cueArrow [letter-spacing:0] [transition:transform_0.3s_ease] [.m-artist-rowButton:hover_&]:[transform:translateX(6px)] motion-reduce:[transition:none]",
+  "aboutModal": "m-artist-aboutModal relative w-full [max-width:1280px] grid [grid-template-columns:repeat(auto-fit,_minmax(min(100%,_420px),_1fr))] bg-white",
+  "aboutCopy": "m-artist-aboutCopy [padding:clamp(28px,_4.5vw,_80px)_clamp(22px,_4vw,_72px)] flex flex-col justify-center",
+  "aboutTitle": "m-artist-aboutTitle [margin:clamp(14px,_1.4vw,_24px)_0_0] font-normal [font-size:clamp(34px,_3.6vw,_60px)] [line-height:1.05] [color:var(--color-ink)]",
+  "name": "m-artist-name [margin:clamp(18px,_1.8vw,_30px)_0_0] font-black [font-size:clamp(20px,_1.9vw,_32px)] [line-height:1.1] [letter-spacing:-0.01em] [&_span]:[color:var(--color-muted)]",
+  "bioText": "m-artist-bioText [margin-top:clamp(24px,_2.6vw,_44px)] [border-left:1px_solid_#bdbdbd] [padding-left:clamp(14px,_1.4vw,_24px)] flex flex-col [gap:clamp(12px,_1.2vw,_20px)] [max-width:640px] [font-size:clamp(15px,_1.1vw,_18px)] [line-height:1.75] [color:#444] [text-wrap:pretty] [&_p]:m-0 [&_b]:[color:#222]",
+  "portrait": "m-artist-portrait relative [min-height:clamp(340px,_42vw,_760px)] overflow-hidden [background:#f1f1f2]",
+  "overlay": "m-artist-overlay fixed [inset:0] [z-index:100] box-border flex items-start justify-center [padding:clamp(16px,_4vw,_60px)] [overflow-y:auto] [background:rgba(17,_17,_17,_0.6)] [backdrop-filter:blur(6px)]",
+  "modal": "m-artist-modal relative box-border w-full [max-width:1280px] [padding:clamp(22px,_3.5vw,_56px)] bg-white",
+  "modalClose": "m-artist-modalClose absolute [top:clamp(14px,_2vw,_28px)] [right:clamp(14px,_2vw,_28px)] [width:44px] [height:44px] [border-radius:50%] [border:1px_solid_#ddd] bg-white [font-size:18px] [color:var(--color-ink)] cursor-pointer",
+  "modalTitle": "m-artist-modalTitle [margin:12px_0_clamp(20px,_2.4vw,_36px)] font-black [font-size:clamp(24px,_3vw,_48px)] [line-height:1.05]",
+  "modalGrid": "m-artist-modalGrid grid [grid-template-columns:repeat(auto-fill,_minmax(min(100%,_220px),_1fr))] [gap:clamp(10px,_1.2vw,_20px)]",
+  "tile": "m-artist-tile relative block w-full [aspect-ratio:1_/_1] overflow-hidden p-0 border-0 [background:#f1f1f2] cursor-zoom-in [&_img]:object-cover [&_img]:[transition:transform_0.6s_ease] [&:hover_img]:[transform:scale(1.05)] [&:focus-visible_img]:[transform:scale(1.05)] motion-reduce:[&_img]:[transition:none]",
+} as const;
+
+export default styles;

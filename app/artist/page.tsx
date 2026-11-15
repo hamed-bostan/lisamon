@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { exhibitions } from "../data";
 import ArtistRows from "./artist-rows";
-import styles from "./artist.module.css";
+import styles from "./artist.styles";
 
 export const metadata: Metadata = {
   title: "About the Artist — Maedeh Akbari Farimani | LISAMON",

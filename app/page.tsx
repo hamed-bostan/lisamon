@@ -4,7 +4,7 @@ import Intro from "./components/intro";
 import NavbarBackdrop from "./components/navbar-backdrop";
 import WhatsAppButton from "./components/whatsapp-button";
 import { contact } from "./data";
-import styles from "./home.module.css";
+import styles from "./home.styles";
 
 import hero from "../public/images/home/hero.webp";
 import heroMobile from "../public/images/home/hero-mobile.jpg";
@@ -20,7 +20,7 @@ function ArrowIcon() {
   );
 }
 
-// Art direction: portrait crop on phones (matches the 700px breakpoint in home.module.css), landscape elsewhere.
+// Art direction: portrait crop on phones (matches the 700px Tailwind breakpoint), landscape elsewhere.
 function HeroImage() {
   const common = { alt: "", fill: true, sizes: "100vw" } as const;
   const { props: { srcSet: mobileSrcSet } } = getImageProps({ ...common, src: heroMobile });
@@ -74,7 +74,7 @@ export default function Home() {
             </div>
           </div>
           <div className={styles.aboutImage}>
-            <Image src={team} alt="The LISAMON team" fill sizes="(max-width: 700px) 100vw, 50vw" className={styles.cover} style={{ objectPosition: "center 60%" }} />
+            <Image src={team} alt="The LISAMON team" fill sizes="(max-width: 700px) 100vw, 50vw" className={`${styles.cover} object-[center_60%]`} />
           </div>
         </section>
       </main>

@@ -2,7 +2,8 @@
 
 import { getImageProps, type StaticImageData } from "next/image";
 import { useEffect, useRef, useState } from "react";
-import styles from "./lightbox.module.css";
+import { Button } from "./ui/button";
+import styles from "./lightbox.styles";
 import { useModal } from "./use-modal";
 
 function Slide({ src, alt }: { src: StaticImageData; alt: string }) {
@@ -73,22 +74,22 @@ export default function Lightbox({ alt, onClose, ...props }: { alt: string; onCl
       </div>
       {multiple && (
         <>
-          <button type="button" aria-label="Previous image" className={`${styles.nav} ${styles.prev}`} disabled={current === 0} onClick={event => { event.stopPropagation(); goTo(current - 1); }}>
+          <Button canvas type="button" aria-label="Previous image" className={`${styles.nav} ${styles.prev}`} disabled={current === 0} onClick={event => { event.stopPropagation(); goTo(current - 1); }}>
             <Chevron />
-          </button>
-          <button type="button" aria-label="Next image" className={`${styles.nav} ${styles.next}`} disabled={current === images.length - 1} onClick={event => { event.stopPropagation(); goTo(current + 1); }}>
+          </Button>
+          <Button canvas type="button" aria-label="Next image" className={`${styles.nav} ${styles.next}`} disabled={current === images.length - 1} onClick={event => { event.stopPropagation(); goTo(current + 1); }}>
             <Chevron flip />
-          </button>
+          </Button>
           <div className={styles.dots} onClick={event => event.stopPropagation()}>
             {images.map((src, i) => (
-              <button key={src.src} type="button" aria-label={`Show image ${i + 1}`} aria-current={i === current} className={styles.dot} onClick={() => goTo(i)} />
+              <Button canvas key={src.src} type="button" aria-label={`Show image ${i + 1}`} aria-current={i === current} className={styles.dot} onClick={() => goTo(i)} />
             ))}
           </div>
         </>
       )}
-      <button ref={closeButton} type="button" aria-label="Close image" className={styles.close} onClick={onClose}>
+      <Button canvas ref={closeButton} type="button" aria-label="Close image" className={styles.close} onClick={onClose}>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
-      </button>
+      </Button>
     </div>
   );
 }

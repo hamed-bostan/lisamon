@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { contact } from "../data";
-import styles from "./whatsapp-button.module.css";
+import { Button } from "./ui/button";
+import styles from "./whatsapp-button.styles";
 
 function WhatsAppGlyph({ className }: { className?: string }) {
   return (
@@ -46,7 +47,7 @@ export default function WhatsAppButton() {
         <span className={styles.label}>DIRECT WHATSAPP</span>
         <span className={styles.badge}><WhatsAppGlyph className={styles.glyph} /></span>
       </a>
-      <button
+      <Button canvas
         type="button"
         className={styles.toggle}
         data-open={open}
@@ -59,7 +60,7 @@ export default function WhatsAppButton() {
         ) : (
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" /></svg>
         )}
-      </button>
+      </Button>
     </div>
   );
 }

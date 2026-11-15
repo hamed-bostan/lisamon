@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import styles from "./intro.module.css";
+import styles from "./intro.styles";
 
 import logoMark from "../../public/images/home/logo-mark.png";
 

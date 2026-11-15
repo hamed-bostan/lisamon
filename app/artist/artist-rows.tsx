@@ -6,7 +6,8 @@ import { coverSizes } from "../components/cover-sizes";
 import Lightbox from "../components/lightbox";
 import { useModal } from "../components/use-modal";
 import { galleries, projects, type Gallery, type Project } from "../data";
-import styles from "./artist.module.css";
+import { Button } from "../components/ui/button";
+import styles from "./artist.styles";
 
 import portrait from "../../public/images/artist/portrait.jpg";
 
@@ -21,7 +22,7 @@ const imagesOf = (project: Project) => [project.image, ...(project.gallery ? gal
 /** One clickable list row: year column, text, and a "VIEW →" style cue that lights up on hover. */
 function Row({ year, label, cue, onClick, children }: { year?: string; label: string; cue: string; onClick: () => void; children: ReactNode }) {
   return (
-    <button type="button" className={`${styles.rowGrid} ${styles.rowButton}`} onClick={onClick} aria-label={label}>
+    <Button canvas type="button" className={`${styles.rowGrid} ${styles.rowButton}`} onClick={onClick} aria-label={label}>
       <span className={styles.rowYear}>{year}</span>
       <span className={styles.rowBody}>
         <span className={styles.rowMain}>{children}</span>
@@ -30,7 +31,7 @@ function Row({ year, label, cue, onClick, children }: { year?: string; label: st
           <span aria-hidden="true" className={styles.cueArrow}>→</span>
         </span>
       </span>
-    </button>
+    </Button>
   );
 }
 
@@ -52,9 +53,9 @@ function AboutModal({ onClose }: { onClose: () => void }) {
           </div>
         </div>
         <div className={styles.portrait}>
-          <Image src={portrait} alt="Maedeh Akbari Farimani painting in the studio" fill sizes={coverSizes("(max-width: 900px) 100vw, 640px", portrait, portraitBoxRatio)} className={styles.cover} style={{ objectPosition: "62% 50%" }} />
+          <Image src={portrait} alt="Maedeh Akbari Farimani painting in the studio" fill sizes={coverSizes("(max-width: 900px) 100vw, 640px", portrait, portraitBoxRatio)} className={`${styles.cover} object-[62%_50%]`} />
         </div>
-        <button ref={closeButton} type="button" aria-label="Close" className={styles.modalClose} onClick={onClose}>✕</button>
+        <Button canvas ref={closeButton} type="button" aria-label="Close" className={styles.modalClose} onClick={onClose}>✕</Button>
       </div>
     </div>
   );
@@ -70,16 +71,16 @@ function GalleryModal({ gallery, images, onClose }: { gallery: Gallery; images: 
     <>
       <div className={styles.overlay} aria-hidden={zoomed !== null} onClick={onClose}>
         <div role="dialog" aria-modal="true" aria-labelledby="gallery-title" className={styles.modal} onClick={event => event.stopPropagation()}>
-          <button ref={closeButton} type="button" aria-label="Close" className={styles.modalClose} onClick={onClose}>✕</button>
+          <Button canvas ref={closeButton} type="button" aria-label="Close" className={styles.modalClose} onClick={onClose}>✕</Button>
           <p className={styles.eyebrow}>{gallery.label}</p>
           <h2 id="gallery-title" className={styles.modalTitle}>{gallery.title}</h2>
           <div className={styles.modalGrid}>
             {images.map((src, i) => {
               const alt = `${gallery.title} — work ${i + 1}`;
               return (
-                <button key={src.src} type="button" className={styles.tile} onClick={() => setZoomed({ images: [src], alt })} aria-label={`Enlarge ${alt}`}>
+                <Button canvas key={src.src} type="button" className={styles.tile} onClick={() => setZoomed({ images: [src], alt })} aria-label={`Enlarge ${alt}`}>
                   <Image src={src} alt={alt} fill sizes={coverSizes("(max-width: 600px) 92vw, 300px", src, 1)} />
-                </button>
+                </Button>
               );
             })}
           </div>

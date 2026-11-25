@@ -9,6 +9,7 @@ test("static routes, metadata, and accessibility", async ({ page, request }) => 
     expect(html).toContain('<link rel="canonical"');
     await page.goto(path);
     await expect(page.locator("main#main-content")).toBeVisible();
+    await expect(page.locator(".m-intro-intro")).toHaveCount(0, { timeout: 6000 });
     const scan = await new AxeBuilder({ page }).analyze();
     expect(scan.violations).toEqual([]);
   }
@@ -45,6 +46,7 @@ test("nested catalogue dialog closes one layer at a time", async ({ page }) => {
   page.on("console", message => { if (message.type() === "error") errors.push(message.text()); });
   await page.goto("/");
   const trigger = page.getByRole("link", { name: /BAS-RELIEF.*open catalogue/i });
+  await expect(page.locator(".m-intro-intro")).toHaveCount(0, { timeout: 6000 });
   await trigger.click();
   const gallery = page.getByRole("dialog", { name: /BAS-RELIEF/i });
   await expect(gallery).toBeVisible();
@@ -64,6 +66,7 @@ test("nested catalogue dialog closes one layer at a time", async ({ page }) => {
 test("long gallery scrolls at 320px and restores body scrolling", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 640 });
   await page.goto("/");
+  await expect(page.locator(".m-intro-intro")).toHaveCount(0, { timeout: 6000 });
   await page.getByRole("link", { name: /BAS-RELIEF.*open catalogue/i }).click();
   const gallery = page.getByRole("dialog", { name: /BAS-RELIEF/i });
   expect(await gallery.evaluate(element => element.scrollHeight > element.clientHeight)).toBeTruthy();
@@ -162,6 +165,7 @@ test("intro plays on load and reduced motion hides it", async ({ page }) => {
 test("601px catalogue tile requests enough image detail", async ({ page }) => {
   await page.setViewportSize({ width: 601, height: 800 });
   await page.goto("/");
+  await expect(page.locator(".m-intro-intro")).toHaveCount(0, { timeout: 6000 });
   await page.getByRole("link", { name: /BAS-RELIEF.*open catalogue/i }).click();
   const image = page.getByRole("dialog", { name: /BAS-RELIEF/i }).getByRole("img", { name: /work 1/i }).first();
   await expect(image).toBeVisible();
